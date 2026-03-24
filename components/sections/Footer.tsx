@@ -5,9 +5,9 @@ import Link from "next/link";
 export function Footer() {
   return (
     <footer className="border-t border-border bg-bg py-16">
-      <div className="mx-auto max-w-[1100px]">
-        <div className="grid gap-12 md:grid-cols-3">
-          <div>
+      <div className="mx-auto max-w-[1100px] px-6">
+        <div className="flex flex-col gap-10 sm:flex-row sm:gap-12">
+          <div className="sm:w-1/2">
             <Link href="/" className="inline-block">
               <img
                 src="/lucid-logo.svg"
@@ -16,11 +16,11 @@ export function Footer() {
               />
             </Link>
             <p className="mt-4 text-sm text-text-muted">
-              3D Architectural Rendering & Visualization
+              3D Architectural Rendering &amp; Visualization
             </p>
             <p className="mt-1 text-sm text-text-muted">Vadodara, Gujarat</p>
           </div>
-          <div>
+          <div className="sm:w-1/2">
             <h4 className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
               Contact
             </h4>
@@ -37,7 +37,7 @@ export function Footer() {
               +91 99250 04245
             </a>
           </div>
-          <div>
+          <div className="sm:w-auto">
             <h4 className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
               Explore
             </h4>

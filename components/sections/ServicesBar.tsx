@@ -6,11 +6,11 @@ import { cn } from "@/lib/utils";
 
 export function ServicesBar() {
   const labels = [
-    "01 Commercial",
-    "02 Residential",
-    "03 Duplex",
-    "04 Walkthrough",
-    "05 360° Tours",
+    "Commercial",
+    "Residential",
+    "Duplex",
+    "Walkthrough",
+    "360° Tours",
   ];
 
   return (

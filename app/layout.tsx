@@ -1,6 +1,20 @@
 import type { Metadata } from "next";
+import { Cormorant_Garamond, Josefin_Sans } from "next/font/google";
 import { LayoutProvider } from "@/components/providers/LayoutProvider";
 import "./globals.css";
+
+const cormorant = Cormorant_Garamond({
+  variable: "--font-heading",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
+});
+
+const josefin = Josefin_Sans({
+  variable: "--font-body",
+  subsets: ["latin"],
+  weight: ["300", "400", "600"],
+});
 
 export const metadata: Metadata = {
   title: {
@@ -23,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased font-sans">
+    <html lang="en" className={`${cormorant.variable} ${josefin.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-body text-text-primary bg-bg">
         <LayoutProvider>{children}</LayoutProvider>
       </body>

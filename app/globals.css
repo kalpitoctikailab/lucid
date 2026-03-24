@@ -1,12 +1,46 @@
 @import "tailwindcss";
 
+/* Aspergit custom font family */
 @font-face {
   font-family: 'Aspergit';
-  src: url('/fonts/Aspergit.otf') format('opentype'),
-       url('/fonts/Aspergit.ttf') format('truetype'),
-       url('/fonts/Aspergit.woff') format('woff');
-  font-weight: normal;
+  src: url('/aspergit/Aspergit Light.otf') format('opentype');
+  font-weight: 300;
   font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Aspergit';
+  src: url('/aspergit/Aspergit Light Italic.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Aspergit';
+  src: url('/aspergit/Aspergit.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Aspergit';
+  src: url('/aspergit/Aspergit Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Aspergit';
+  src: url('/aspergit/Aspergit Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Aspergit';
+  src: url('/aspergit/Aspergit Bold Italic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
   font-display: swap;
 }
 
@@ -66,9 +100,9 @@ html.lenis body {
   --color-border: var(--border);
   --color-white: var(--white);
 
-  /* Font families — Aspergit */
-  --font-heading: "Aspergit", sans-serif;
-  --font-body: "Aspergit", sans-serif;
+  /* Font families — Cormorant Garamond (headings) + Josefin Sans (body) */
+  --font-heading: var(--font-heading, "Cormorant Garamond", Georgia, serif);
+  --font-body: var(--font-body, "Josefin Sans", system-ui, sans-serif);
 }
 
 /* Base styles */

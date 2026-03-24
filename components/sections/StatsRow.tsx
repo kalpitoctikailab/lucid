@@ -37,7 +37,7 @@ export function StatsRow() {
       ref={sectionRef}
       className="border-y border-border bg-bg py-16"
     >
-      <div className="mx-auto grid max-w-[1200px] grid-cols-2 gap-8 px-4 md:grid-cols-4">
+      <div className="mx-auto grid max-w-[1100px] grid-cols-2 gap-8 px-4 md:grid-cols-4">
         {stats.map((stat, i) => (
           <div key={stat.label} className="text-center">
             <div className="font-heading text-4xl font-light text-accent md:text-5xl">

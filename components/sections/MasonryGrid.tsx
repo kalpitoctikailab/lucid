@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { motion, useSpring, useMotionValue } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import type { Project } from "@/data/projects";
@@ -25,44 +26,64 @@ function MasonryCard({ project, index }: { project: Project; index: number }) {
   return (
     <Link
       href={`/projects/${project.slug}`}
-      className="group relative block w-full overflow-hidden"
+      className={`group relative block w-full ${aspectClass} perspective-distant`}
+      style={{ cursor: "pointer" }}
       data-cursor="view"
     >
-      <div className={`relative w-full overflow-hidden ${aspectClass}`}>
-        <Image
-          src={project.coverImage}
-          alt={project.title}
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.07]"
-        />
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-70 transition-opacity duration-500 group-hover:opacity-90" />
-
-        {/* Number badge */}
-        <div className="absolute right-4 top-4">
-          <span className="text-[10px] font-medium tabular-nums text-accent/80">
+      {/* Inner flipper */}
+      <div
+        className="relative h-full w-full transform-3d transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:transform-[rotateX(180deg)]"
+      >
+        {/* ── FRONT ── */}
+        <div className="absolute inset-0 overflow-hidden backface-hidden">
+          <Image
+            src={project.coverImage}
+            alt={project.title}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover"
+          />
+          {/* Gradient */}
+          <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent" />
+          {/* Title on front */}
+          <div className="absolute bottom-0 left-0 right-0 p-5">
+            <h3 className="font-heading text-xl font-light leading-snug text-white drop-shadow-md">
+              {project.title}
+            </h3>
+          </div>
+          {/* Number badge */}
+          <span className="absolute right-4 top-4 font-heading text-lg italic text-white/50">
             {number}
           </span>
         </div>
 
-        {/* Category chip */}
-        <div className="absolute left-4 top-4">
-          <span className="rounded-full border border-accent/40 bg-black/40 px-2.5 py-0.5 text-[9px] font-medium uppercase tracking-widest text-accent backdrop-blur-sm">
-            {project.category}
-          </span>
-        </div>
+        {/* ── BACK ── */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center overflow-hidden backface-hidden transform-[rotateX(180deg)]">
+          {/* Second project image as full background */}
+          <Image
+            src={project.images[1] ?? project.coverImage}
+            alt={project.title}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover"
+          />
+          {/* Dark overlay for readability */}
+          <div className="absolute inset-0 bg-black/55" />
 
-        {/* Bottom info */}
-        <div className="absolute bottom-0 left-0 right-0 translate-y-1 p-5 transition-transform duration-500 group-hover:translate-y-0">
-          <h3 className="font-heading text-lg font-medium leading-snug text-white md:text-xl">
-            {project.title}
-          </h3>
-          <div className="mt-2 flex items-center gap-3 opacity-0 transition-opacity duration-400 group-hover:opacity-100">
-            <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-accent">
-              {project.year} · {project.type}
+          {/* Content */}
+          <div className="relative z-10 flex flex-col items-center gap-4">
+            <span className="rounded-full border border-white/30 px-4 py-1.5 text-[9px] font-medium uppercase tracking-[0.25em] text-white/80">
+              {project.category}
             </span>
-            <span className="ml-auto text-xs text-accent">View →</span>
+            <h3 className="font-heading text-2xl font-light text-white leading-snug">
+              {project.title}
+            </h3>
+            <p className="text-[10px] uppercase tracking-[0.2em] text-white/50">
+              {project.type} · {project.year}
+            </p>
+            <div className="mt-4 flex h-10 w-10 items-center justify-center rounded-full border border-white/30 text-white text-sm">
+              →
+            </div>
           </div>
         </div>
       </div>
@@ -79,7 +100,7 @@ export function MasonryGrid({
   const displayProjects = projects.slice(0, initialCount);
 
   return (
-    <div className="mx-auto w-full max-w-[1200px] px-3 py-12 sm:px-0 md:py-16 lg:px-0">
+    <div className="mx-auto w-full max-w-[1100px] px-3 py-12 sm:px-0 md:py-16 lg:px-0">
       {/* Mobile: 1 Column */}
       <div className="flex flex-col gap-4 sm:hidden">
         {displayProjects.map((p) => (

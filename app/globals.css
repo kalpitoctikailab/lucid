@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Aspergit';
+  src: url('/fonts/Aspergit.otf') format('opentype'),
+       url('/fonts/Aspergit.ttf') format('truetype'),
+       url('/fonts/Aspergit.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Lenis smooth scroll */
 html.lenis,
 html.lenis body {
@@ -30,8 +40,8 @@ html.lenis body {
   --surface-soft: #1c1c1c;
 
   /* Accent */
-  --accent: #c9a96e;
-  --accent-dim: #8a7048;
+  --accent: #ffffff;
+  --accent-dim: #b3b3b3;
 
   /* Text */
   --text-primary: #f2ede6;
@@ -56,9 +66,9 @@ html.lenis body {
   --color-border: var(--border);
   --color-white: var(--white);
 
-  /* Font families — Playfair Display + Inter */
-  --font-heading: var(--font-heading, "Playfair Display", Georgia, serif);
-  --font-body: var(--font-body, "Inter", system-ui, sans-serif);
+  /* Font families — Aspergit */
+  --font-heading: "Aspergit", sans-serif;
+  --font-body: "Aspergit", sans-serif;
 }
 
 /* Base styles */
@@ -75,7 +85,7 @@ html {
 body {
   background-color: var(--bg);
   color: var(--text-primary);
-  font-family: var(--font-body, "Inter", system-ui, sans-serif);
+  font-family: var(--font-body);
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

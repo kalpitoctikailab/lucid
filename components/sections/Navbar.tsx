@@ -31,7 +31,7 @@ export function Navbar() {
           scrolled ? "bg-bg/95 backdrop-blur-md" : "bg-transparent",
         )}
       >
-        <div className="mx-auto flex w-full max-w-[1200px] items-center justify-between">
+        <div className="mx-auto flex w-full max-w-[1100px] items-center justify-between">
           <Link href="/" className="flex items-center">
             <img
               src="/lucid-logo.svg"

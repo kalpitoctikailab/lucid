@@ -15,7 +15,7 @@ export function ServicesBar() {
 
   return (
     <section className="border-y border-border bg-bg-alt py-4">
-      <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-center gap-4 px-4">
+      <div className="mx-auto flex max-w-[1100px] flex-wrap items-center justify-center gap-4 px-4">
         {services.map((service, i) => (
           <Link
             key={service.slug}

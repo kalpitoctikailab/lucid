@@ -122,20 +122,15 @@ export function MasonryGrid({
         </div>
       </div>
 
-      {/* Desktop: 3 Columns */}
+      {/* Desktop: 2 Columns */}
       <div className="hidden lg:flex gap-6 w-full">
         <div className="flex flex-1 flex-col gap-6">
-          {displayProjects.filter((_, i) => i % 3 === 0).map((p) => (
+          {displayProjects.filter((_, i) => i % 2 === 0).map((p) => (
             <MasonryCard key={p.id} project={p} index={displayProjects.indexOf(p)} />
           ))}
         </div>
         <div className="flex flex-1 flex-col gap-6">
-          {displayProjects.filter((_, i) => i % 3 === 1).map((p) => (
-            <MasonryCard key={p.id} project={p} index={displayProjects.indexOf(p)} />
-          ))}
-        </div>
-        <div className="flex flex-1 flex-col gap-6">
-          {displayProjects.filter((_, i) => i % 3 === 2).map((p) => (
+          {displayProjects.filter((_, i) => i % 2 === 1).map((p) => (
             <MasonryCard key={p.id} project={p} index={displayProjects.indexOf(p)} />
           ))}
         </div>

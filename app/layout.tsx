@@ -1,19 +1,12 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Josefin_Sans } from "next/font/google";
+import { Outfit } from "next/font/google";
 import { LayoutProvider } from "@/components/providers/LayoutProvider";
 import "./globals.css";
 
-const cormorant = Cormorant_Garamond({
-  variable: "--font-heading",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
-  style: ["normal", "italic"],
-});
-
-const josefin = Josefin_Sans({
-  variable: "--font-body",
-  subsets: ["latin"],
-  weight: ["300", "400", "600"],
 });
 
 export const metadata: Metadata = {
@@ -37,8 +30,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${josefin.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col font-body text-text-primary bg-bg">
+    <html lang="en" className={`${outfit.variable} h-full antialiased`}>
+      <body className="min-h-full flex flex-col font-outfit text-text-primary bg-bg">
         <LayoutProvider>{children}</LayoutProvider>
       </body>
     </html>

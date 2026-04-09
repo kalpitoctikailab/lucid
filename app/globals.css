@@ -100,9 +100,10 @@ html.lenis body {
   --color-border: var(--border);
   --color-white: var(--white);
 
-  /* Font families — Cormorant Garamond (headings) + Josefin Sans (body) */
-  --font-heading: var(--font-heading, "Cormorant Garamond", Georgia, serif);
-  --font-body: var(--font-body, "Josefin Sans", system-ui, sans-serif);
+  /* Font family — Outfit (all text) */
+  --font-outfit: var(--font-outfit, "Outfit", system-ui, sans-serif);
+  --font-heading: var(--font-outfit, "Outfit", system-ui, sans-serif);
+  --font-body: var(--font-outfit, "Outfit", system-ui, sans-serif);
 }
 
 /* Base styles */
@@ -119,7 +120,7 @@ html {
 body {
   background-color: var(--bg);
   color: var(--text-primary);
-  font-family: var(--font-body);
+  font-family: var(--font-outfit);
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

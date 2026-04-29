@@ -2,6 +2,7 @@
 
 import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
+import Image from "next/image";
 
 export default function ContactPage() {
   return (
@@ -11,9 +12,11 @@ export default function ContactPage() {
       <section className="min-h-screen flex flex-col lg:flex-row">
         {/* Left Side: Massive Image dominating the layout */}
         <div className="lg:w-3/5 relative h-[50vh] lg:h-screen w-full">
-            <img
+            <Image
               src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2400&q=80"
               alt="Studio aesthetics"
+              fill
+              sizes="(max-width: 1024px) 100vw, 60vw"
               className="absolute inset-0 h-full w-full object-cover"
             />
             {/* Embedded huge text over the image */}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -9,45 +9,46 @@ import {
   useTransform,
   useMotionValueEvent,
 } from "framer-motion";
-import { useLenis } from "lenis/react";
 import type { Project } from "@/data/projects";
+import {
+  HOME_PORTFOLIO_INLINE_VIDEO_LABEL,
+  type HomeCategoryCard,
+  homePortfolioCategories,
+  homePortfolioInlineVideos,
+} from "@/data/homePortfolio";
 
-// ─── Portfolio Image Card ─────────────────────────────────────────────────────
-function PortfolioImageCard({
-  project,
-  label,
-}: {
-  project: Project;
-  label: string;
-}) {
+// ─── Category image card (home portfolio) ────────────────────────────────────
+function CategoryImageCard({ card }: { card: HomeCategoryCard }) {
   return (
     <Link
-      href={`/projects/${project.slug}`}
+      href={card.href}
       className="group block w-full"
       data-cursor="view"
     >
-      <div className="relative w-full overflow-hidden" style={{ aspectRatio: "4/3" }}>
+      <div className="relative h-[770px] w-full min-w-0 overflow-hidden">
         <Image
-          src={project.coverImage}
-          alt={project.title}
+          src={card.image}
+          alt={card.title}
           fill
-          sizes="(max-width: 768px) 100vw, 50vw"
+          sizes="(max-width: 768px) 100vw, 580px"
           className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
         />
       </div>
       <p className="mt-3 text-right text-[11px] font-medium uppercase tracking-[0.25em] text-white/70">
-        {label}
+        {card.title}
       </p>
     </Link>
   );
 }
 
-// ─── Inline Video Card (click to play) ───────────────────────────────────────
+// ─── Inline Video Card (click to play) — static src/poster from homePortfolio ──
 function InlineVideoCard({
-  project,
+  src,
+  poster,
   label,
 }: {
-  project: Project;
+  src: string;
+  poster: string;
   label: string;
 }) {
   const [playing, setPlaying] = useState(false);
@@ -66,12 +67,12 @@ function InlineVideoCard({
 
   return (
     <div className="w-full cursor-pointer" onClick={toggle}>
-      <div className="relative w-full overflow-hidden" style={{ aspectRatio: "16/9" }}>
-        {project.video ? (
+      <div className="relative h-[770px] w-full overflow-hidden">
+        {src ? (
           <video
             ref={videoRef}
-            src={project.video}
-            poster={project.videoThumbnail ?? project.coverImage}
+            src={src}
+            poster={poster}
             muted
             loop
             playsInline
@@ -79,10 +80,10 @@ function InlineVideoCard({
           />
         ) : (
           <Image
-            src={project.videoThumbnail ?? project.coverImage}
-            alt={project.title}
+            src={poster}
+            alt={label}
             fill
-            sizes="100vw"
+            sizes="(max-width: 1200px) 100vw, 1200px"
             className="object-cover"
           />
         )}
@@ -111,45 +112,47 @@ function InlineVideoCard({
   );
 }
 
-// ─── 2 Images + 1 Video Group ─────────────────────────────────────────────────
+// ─── 2 category cards + 1 inline video ───────────────────────────────────────
 function PortfolioGroup({
-  imgA,
-  labelA,
-  imgB,
-  labelB,
+  left,
+  right,
   video,
-  videoLabel,
 }: {
-  imgA: Project;
-  labelA: string;
-  imgB: Project;
-  labelB: string;
-  video: Project;
-  videoLabel: string;
+  left: HomeCategoryCard;
+  right: HomeCategoryCard;
+  video: { src: string; poster: string };
 }) {
   return (
     <div className="flex flex-col gap-6 sm:gap-8">
       <div className="grid grid-cols-2 gap-4 sm:gap-6">
-        <PortfolioImageCard project={imgA} label={labelA} />
-        <PortfolioImageCard project={imgB} label={labelB} />
+        <CategoryImageCard card={left} />
+        <CategoryImageCard card={right} />
       </div>
-      <InlineVideoCard project={video} label={videoLabel} />
+      <InlineVideoCard
+        src={video.src}
+        poster={video.poster}
+        label={HOME_PORTFOLIO_INLINE_VIDEO_LABEL}
+      />
     </div>
   );
 }
 
-// ─── Cinematic Scroll-Lock Section ───────────────────────────────────────────
+// ─── Cinematic Section ───────────────────────────────────────────────────────
 // Phases:
-//  IDLE     → section not yet reached
-//  LOCKED   → scroll stopped, video plays at small fixed size
-//  GROWING  → scroll resumes, video scales 0.42→1 within the 1100px container
+//  IDLE    → section not yet reached (video at small scale, still playing)
+//  GROWING → entered section; scale / radius follow scroll (video already playing)
 function CinematicSection({ project }: { project: Project }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const lenis = useLenis();
 
-  const [phase, setPhase] = useState<"idle" | "locked" | "growing">("idle");
-  const phaseRef = useRef<"idle" | "locked" | "growing">("idle");
+  const [phase, setPhase] = useState<"idle" | "growing">("idle");
+  const phaseRef = useRef<"idle" | "growing">("idle");
+
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el || !project.video) return;
+    el.play().catch(() => {});
+  }, [project.video]);
 
   // Drives scale animation — measured against the full 300vh wrapper
   const { scrollYProgress } = useScroll({
@@ -163,25 +166,38 @@ function CinematicSection({ project }: { project: Project }) {
     offset: ["start 0.99", "start 0.5"],
   });
 
-  useMotionValueEvent(entryProgress, "change", (v) => {
+  const beginGrowingPhase = useCallback(() => {
     if (phaseRef.current !== "idle") return;
-    if (v >= 1) {
-      phaseRef.current = "locked";
-      setPhase("locked");
-      lenis?.stop();
-      videoRef.current?.play().catch(() => {});
-      setTimeout(() => {
-        lenis?.start();
-        phaseRef.current = "growing";
-        setPhase("growing");
-      }, 3500);
-    }
+    phaseRef.current = "growing";
+    setPhase("growing");
+  }, []);
+
+  useMotionValueEvent(entryProgress, "change", (v) => {
+    if (v >= 1) beginGrowingPhase();
   });
+
+  // Refresh / scroll-restore / Strict Mode: entryProgress may already be >= 1 before any "change" event
+  useEffect(() => {
+    let cancelled = false;
+    let rafOuter = 0;
+    let rafInner = 0;
+    rafOuter = requestAnimationFrame(() => {
+      rafInner = requestAnimationFrame(() => {
+        if (cancelled) return;
+        if (phaseRef.current === "idle" && entryProgress.get() >= 1) {
+          beginGrowingPhase();
+        }
+      });
+    });
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(rafOuter);
+      cancelAnimationFrame(rafInner);
+    };
+  }, [entryProgress, beginGrowingPhase]);
 
   const scale = useTransform(scrollYProgress, [0.0, 0.65], [0.42, 1]);
   const borderRadius = useTransform(scrollYProgress, [0.0, 0.65], [14, 0]);
-  const textY = useTransform(scrollYProgress, [0.0, 0.55], [140, 0]);
-  const textOpacity = useTransform(scrollYProgress, [0.0, 0.45], [0, 1]);
 
   const isGrowing = phase === "growing";
 
@@ -189,8 +205,8 @@ function CinematicSection({ project }: { project: Project }) {
     // Full-width wrapper — NOT inside any max-w container so sticky works vs viewport
     <div ref={wrapperRef} style={{ height: "300vh" }}>
       <div className="sticky top-0 h-screen bg-bg flex items-center justify-center overflow-hidden">
-        {/* Inner box constrains video to 1100px */}
-        <div className="relative w-full max-w-[1100px] px-4 sm:px-8 md:px-12 lg:px-16">
+        {/* Inner box constrains video to 1200px */}
+        <div className="relative w-full max-w-[1200px] px-4 sm:px-8 md:px-12 lg:px-0">
 
           {/* Video */}
           <motion.div
@@ -206,6 +222,7 @@ function CinematicSection({ project }: { project: Project }) {
                   ref={videoRef}
                   src={project.video}
                   poster={project.videoThumbnail ?? project.coverImage}
+                  autoPlay
                   muted
                   loop
                   playsInline
@@ -216,7 +233,7 @@ function CinematicSection({ project }: { project: Project }) {
                   src={project.videoThumbnail ?? project.coverImage}
                   alt={project.title}
                   fill
-                  sizes="(max-width: 1100px) 100vw, 1100px"
+                  sizes="(max-width: 1200px) 100vw, 1200px"
                   className="object-cover"
                 />
               )}
@@ -244,51 +261,30 @@ function CinematicSection({ project }: { project: Project }) {
 
 // ─── Main Export ──────────────────────────────────────────────────────────────
 type Props = {
-  projects: Project[];
   cinematicProject: Project;
 };
 
-export function HomePortfolioFeed({ projects, cinematicProject }: Props) {
-  const get = (i: number) => projects[i % projects.length];
+const [c0, c1, c2, c3, c4, c5, c6, c7] = homePortfolioCategories;
+
+export function HomePortfolioFeed({ cinematicProject }: Props) {
+  const [v0, v1, v2, v3] = homePortfolioInlineVideos;
 
   return (
     <section className="bg-bg pt-10 pb-20">
-      <div className="mx-auto max-w-[1100px] px-4 sm:px-8 md:px-12 lg:px-16 flex flex-col gap-16 sm:gap-20">
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-8 md:px-12 lg:px-0 flex flex-col gap-16 sm:gap-20">
 
-        {/* ── Group 1 ── */}
-        <PortfolioGroup
-          imgA={get(0)} labelA={get(0).category}
-          imgB={get(1)} labelB={get(1).category}
-          video={get(2)} videoLabel="Walkthrough"
-        />
-
-        {/* ── Group 2 ── */}
-        <PortfolioGroup
-          imgA={get(3)} labelA={get(3).category}
-          imgB={get(4)} labelB={get(4).category}
-          video={get(5)} videoLabel="Walkthrough"
-        />
+        <PortfolioGroup left={c0} right={c1} video={v0} />
+        <PortfolioGroup left={c2} right={c3} video={v1} />
 
       </div>
 
       {/* ── Cinematic Section — full-width so sticky works, video constrained inside ── */}
       <CinematicSection project={cinematicProject} />
 
-      <div className="mx-auto max-w-[1100px] px-4 sm:px-8 md:px-12 lg:px-16 flex flex-col gap-16 sm:gap-20">
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-8 md:px-12 lg:px-0 flex flex-col gap-16 sm:gap-20">
 
-        {/* ── Group 3 ── */}
-        <PortfolioGroup
-          imgA={get(6)} labelA={get(6).category}
-          imgB={get(7)} labelB={get(7).category}
-          video={get(8)} videoLabel="Walkthrough"
-        />
-
-        {/* ── Group 4 ── */}
-        <PortfolioGroup
-          imgA={get(9)} labelA={get(9).category}
-          imgB={get(10)} labelB={get(10).category}
-          video={get(11)} videoLabel="Walkthrough"
-        />
+        <PortfolioGroup left={c4} right={c5} video={v2} />
+        <PortfolioGroup left={c6} right={c7} video={v3} />
 
       </div>
     </section>

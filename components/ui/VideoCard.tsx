@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useRef, useState } from "react";
 import type { Project } from "@/data/projects";
 import { cn } from "@/lib/utils";
@@ -47,7 +48,7 @@ export function VideoCard({
         className={cn(
           "relative w-full overflow-hidden",
           variant === "strip"
-            ? "aspect-[4/5] min-h-[240px] sm:min-h-[280px]"
+            ? "aspect-4/5 min-h-[240px] sm:min-h-[280px]"
             : "aspect-video min-h-[280px] lg:min-h-[320px]"
         )}
       >
@@ -65,17 +66,17 @@ export function VideoCard({
             )}
           />
         ) : null}
-        <img
+        <Image
           src={project.videoThumbnail ?? project.coverImage}
           alt={project.title}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className={cn(
             "absolute inset-0 h-full w-full object-cover transition duration-500",
             hovered && project.video ? "scale-105 opacity-0" : "opacity-100"
           )}
-          loading="lazy"
-          decoding="async"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/30 to-transparent opacity-90" />
+        <div className="absolute inset-0 bg-linear-to-t from-bg via-bg/30 to-transparent opacity-90" />
         <div className="absolute right-4 top-4">
           <span className="rounded-full border border-accent/80 bg-bg/80 px-3 py-1 text-[9px] font-medium uppercase tracking-widest text-accent backdrop-blur-sm">
             Walkthrough

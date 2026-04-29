@@ -10,6 +10,10 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
+  icons: {
+    icon: [{ url: "/Lucid-Icon-White.svg", type: "image/svg+xml" }],
+    shortcut: "/Lucid-Icon-White.svg",
+  },
   title: {
     default: "Lucid The Artistry | 3D Architectural Rendering — Vadodara",
     template: "%s | Lucid The Artistry",

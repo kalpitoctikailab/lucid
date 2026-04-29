@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -21,12 +22,14 @@ export function Navbar() {
         scrolled ? "bg-bg/95 backdrop-blur-md" : "bg-transparent",
       )}
     >
-      <div className="mx-auto flex w-full max-w-[1100px] items-center justify-between px-4 sm:px-8 md:px-12 lg:px-16">
+      <div className="mx-auto flex w-full max-w-[1200px] items-center justify-between px-4 sm:px-0">
         {/* Logo */}
         <Link href="/" className="flex items-center">
-          <img
-            src="/lucid-logo.svg"
+          <Image
+            src="/Lucid-logo-White.svg"
             alt="Lucid The Artistry"
+            width={180}
+            height={48}
             className="h-12 w-auto brightness-0 invert"
           />
         </Link>

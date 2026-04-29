@@ -27,7 +27,7 @@ const IMG = {
 export const services: Service[] = [
   {
     slug: "commercial",
-    title: "3D Commercial",
+    title: "3D Commercial Rendering",
     shortDesc: "Photorealistic commercial spaces — offices, retail, hospitality.",
     fullDescription: [
       "Our commercial rendering service is designed to convey the scale, luxury, and functionality of large-scale developments. We focus heavily on ambient lighting, material reflections, and urban context to ensure your commercial project feels alive.",
@@ -43,7 +43,7 @@ export const services: Service[] = [
   },
   {
     slug: "residential",
-    title: "Residential",
+    title: "3D Residential Rendering",
     shortDesc: "Interior and exterior renders for homes and apartments.",
     fullDescription: [
       "Residential rendering requires a delicate balance of architectural accuracy and emotional warmth. We curate furniture, styling, and lighting to create spaces that potential buyers aspire to live in.",
@@ -60,7 +60,7 @@ export const services: Service[] = [
   },
   {
     slug: "duplex",
-    title: "Duplex & Villas",
+    title: "3D Duplex Rendering",
     shortDesc: "Multi-floor luxury residences with detailed visualization.",
     fullDescription: [
       "Luxury duplexes and standalone villas require specialized attention to spatial flow and premium materials. Our visualizations highlight double-height ceilings, bespoke staircases, and seamless indoor-outdoor transitions.",

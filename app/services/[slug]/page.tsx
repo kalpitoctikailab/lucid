@@ -1,13 +1,437 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import { getServiceBySlug } from "@/data/services";
+import { getProjects } from "@/data/projects";
 import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 
+/* ─── Process steps (per-service content) ────────────────────── */
+type ProcessStep = {
+  step: string;
+  heading: string;
+  text: string;
+  /** Large image shown in the asset slide between steps */
+  assetImage: string;
+  /** Two portrait images shown side-by-side (overlapping) in the step slide */
+  img1: string;
+  img2: string;
+};
+
+const processSteps: Record<string, ProcessStep[]> = {
+  commercial: [
+    {
+      step: "1. Brief & Vision",
+      heading: "You share the vision,\nwe map the story.",
+      text: "We begin by studying your architectural drawings, brand guidelines, and project goals. Every commercial render starts with a deep understanding of the space and the audience it needs to impress.",
+      assetImage: "/COMMERCIAL/1. Happy Mall/Exterior/S Happy Mall Front_Cam03_v002.jpg",
+      img1: "/COMMERCIAL/5. VS MONOLITH VADODARA/EXTERIOR/Vihav Commercial Front Cam5-a.jpg",
+      img2: "/COMMERCIAL/1. Happy Mall/Exterior/Theater Lobby-b.jpg",
+    },
+    {
+      step: "2. Modelling",
+      heading: "Precision built\nfrom every line.",
+      text: "Our 3D artists construct a detailed model of your commercial space — capturing structural geometry, material specifications, and surrounding context with exacting accuracy.",
+      assetImage: "/COMMERCIAL/2. CENTRAL SQUARE BHARUCH/EXTERIOR/Pacnhbatti 505 Front_Cam01-a.jpg",
+      img1: "/COMMERCIAL/1. Happy Mall/Exterior/6K Entry cam 02-c.jpg",
+      img2: "/COMMERCIAL/2. CENTRAL SQUARE BHARUCH/EXTERIOR/Pacnhbatti 505 Gate_Cam01-a.jpg",
+    },
+    {
+      step: "3. Lighting & Materials",
+      heading: "Light defines\nthe atmosphere.",
+      text: "We apply photorealistic materials and calibrate lighting — natural, artificial, and ambient — to bring your commercial project to life at any time of day.",
+      assetImage: "/COMMERCIAL/5. VS MONOLITH VADODARA/EXTERIOR/Vihav Commercial Garden Long Cam16-a.jpg",
+      img1: "/COMMERCIAL/1. Happy Mall/Exterior/Passage Cam 15-b.jpg",
+      img2: "/COMMERCIAL/5. VS MONOLITH VADODARA/EXTERIOR/Vihav Commercial Garden Cam9-a.jpg",
+    },
+    {
+      step: "4. Final Delivery",
+      heading: "Print-ready.\nPresentation-ready.",
+      text: "High-resolution renders are delivered in your required formats — ready for investor decks, planning submissions, hoardings, and digital marketing.",
+      assetImage: "/COMMERCIAL/5. VS MONOLITH VADODARA/EXTERIOR/Vihav Commercial Top Cam8-a.jpg",
+      img1: "/COMMERCIAL/2. CENTRAL SQUARE BHARUCH/EXTERIOR/Pacnhbatti 505 High 2nd_Cam01-a.jpg",
+      img2: "/COMMERCIAL/2. CENTRAL SQUARE BHARUCH/EXTERIOR/Pacnhbatti 505 Shops Closeup_Cam01-a.jpg",
+    },
+  ],
+  residential: [
+    {
+      step: "1. Brief & Vision",
+      heading: "You imagine,\nwe make it real.",
+      text: "We listen to your vision and study your drawings to understand the story you want to tell. Every residential render begins with understanding who will live there and what feeling they should experience.",
+      assetImage: "/RESIDENCIALV HIGH RISE APPARTMENTS/1. SATYAM SURYA MANATHAN/EXTERIOR/2. Satyam Surya Front_Cam01-a.jpg",
+      img1: "/RESIDENCIALV HIGH RISE APPARTMENTS/1. SATYAM SURYA MANATHAN/EXTERIOR/Satyam Surya Garden_Cam-a.jpg",
+      img2: "/RESIDENCIALV HIGH RISE APPARTMENTS/1. SATYAM SURYA MANATHAN/INTERIOR/Satyam Surya Foyer-a.jpg",
+    },
+    {
+      step: "2. Modelling",
+      heading: "Every detail\nbuilt to scale.",
+      text: "We construct a precise 3D model of your residential project — from structural forms to interior furniture layouts — ensuring spatial accuracy throughout.",
+      assetImage: "/RESIDENCIALV HIGH RISE APPARTMENTS/10. ARCADIA 111 AHMEDABAD/EXTERIOR/1. Arcadia111 Corner Cam-a.jpg",
+      img1: "/RESIDENCIALV HIGH RISE APPARTMENTS/10. ARCADIA 111 AHMEDABAD/EXTERIOR/Arcadia111 Pool Night_Cam-b.jpg",
+      img2: "/RESIDENCIALV HIGH RISE APPARTMENTS/10. ARCADIA 111 AHMEDABAD/INTERIOR/Foyer_v002.jpg",
+    },
+    {
+      step: "3. Styling & Lighting",
+      heading: "Warmth crafted\nin every frame.",
+      text: "We curate furniture, materials, and lighting to create spaces that feel aspirational yet liveable — balancing architectural accuracy with emotional warmth.",
+      assetImage: "/RESIDENCIALV HIGH RISE APPARTMENTS/10. ARCADIA 111 AHMEDABAD/INTERIOR/Living room cam_v003.jpg",
+      img1: "/RESIDENCIALV HIGH RISE APPARTMENTS/10. ARCADIA 111 AHMEDABAD/INTERIOR/Gym cam_v03.jpg",
+      img2: "/RESIDENCIALV HIGH RISE APPARTMENTS/10. ARCADIA 111 AHMEDABAD/INTERIOR/Theatre_01_v002.jpg",
+    },
+    {
+      step: "4. Final Delivery",
+      heading: "Perfectly finished,\nready to present.",
+      text: "Final renders are delivered in high resolution — optimised for brochures, hoardings, digital campaigns, and sales presentations.",
+      assetImage: "/RESIDENCIALV HIGH RISE APPARTMENTS/11. SCULPTURE AHAMEDABAD/EXTERIOR/1. Sculpture Varad Left_Cam02-v01.jpg",
+      img1: "/RESIDENCIALV HIGH RISE APPARTMENTS/11. SCULPTURE AHAMEDABAD/EXTERIOR/Sculpture Varad Front_Cam02-a.jpg",
+      img2: "/RESIDENCIALV HIGH RISE APPARTMENTS/11. SCULPTURE AHAMEDABAD/EXTERIOR/Sculpture Varad Garden_Cam02-a.jpg",
+    },
+  ],
+  duplex: [
+    {
+      step: "1. Brief & Vision",
+      heading: "Luxury starts\nwith listening.",
+      text: "We study your duplex or villa drawings and understand the premium lifestyle your project represents — before a single polygon is placed.",
+      assetImage: "/RESIDENCIAL VILLAS/6. SELENITE VILLA VADODARA/EXTERIOR/1. Selenite Villa Front View_c.jpg",
+      img1: "/RESIDENCIAL VILLAS/6. SELENITE VILLA VADODARA/EXTERIOR/Selenite Villa Pool_c.jpg",
+      img2: "/RESIDENCIAL VILLAS/6. SELENITE VILLA VADODARA/EXTERIOR/Selenite Villa Garden_c.jpg",
+    },
+    {
+      step: "2. Modelling",
+      heading: "Double-height volumes,\nperfectly captured.",
+      text: "Our artists model every floor, staircase, and outdoor space with precision — giving full justice to the spatial grandeur of luxury duplex living.",
+      assetImage: "/RESIDENCIAL VILLAS/6. SELENITE VILLA VADODARA/EXTERIOR/Selenite Villa Night_c.jpg",
+      img1: "/RESIDENCIALV HIGH RISE APPARTMENTS/1. SATYAM SURYA MANATHAN/EXTERIOR/Satyam Surya Pool Night_Cam-a.jpg",
+      img2: "/RESIDENCIALV HIGH RISE APPARTMENTS/1. SATYAM SURYA MANATHAN/EXTERIOR/Satyam Surya Garden 2nd_Cam-a.jpg",
+    },
+    {
+      step: "3. Materials & Lighting",
+      heading: "Premium finishes,\nphotorealistic light.",
+      text: "We apply high-end material libraries and craft lighting scenarios that highlight marble, timber, glass, and water features at their finest.",
+      assetImage: "/RESIDENCIALV HIGH RISE APPARTMENTS/12. ADITYA ANTILIA AHMEDABAD/EXTERIOR/Aditya Front Day-c.jpg",
+      img1: "/RESIDENCIALV HIGH RISE APPARTMENTS/12. ADITYA ANTILIA AHMEDABAD/INTERIOR/Aditya Living room cam_c.jpg",
+      img2: "/RESIDENCIALV HIGH RISE APPARTMENTS/12. ADITYA ANTILIA AHMEDABAD/INTERIOR/foyer-c.jpg",
+    },
+    {
+      step: "4. Final Delivery",
+      heading: "Prestige delivered\nin every pixel.",
+      text: "Ultra-high-resolution renders delivered for luxury brochures, digital campaigns, and international property marketing.",
+      assetImage: "/RESIDENCIALV HIGH RISE APPARTMENTS/12. ADITYA ANTILIA AHMEDABAD/EXTERIOR/Aditya Antilia Top 1st_Cam_c.jpg",
+      img1: "/RESIDENCIALV HIGH RISE APPARTMENTS/12. ADITYA ANTILIA AHMEDABAD/EXTERIOR/Aditya Gate 1st Cam-c.jpg",
+      img2: "/RESIDENCIALV HIGH RISE APPARTMENTS/12. ADITYA ANTILIA AHMEDABAD/EXTERIOR/Aditya Antilia Back Front_Cam-c.jpg",
+    },
+  ],
+  walkthrough: [
+    {
+      step: "1. Storyboard",
+      heading: "Every frame\nplanned with purpose.",
+      text: "We begin with a detailed storyboard — mapping camera paths, key moments, and the emotional arc of your walkthrough before production starts.",
+      assetImage: "/RESIDENCIALV HIGH RISE APPARTMENTS/1. SATYAM SURYA MANATHAN/EXTERIOR/Satyam Surya Pool Night_Cam-a.jpg",
+      img1: "/RESIDENCIALV HIGH RISE APPARTMENTS/5. FESTIVAL VIBES AHEMDABAD/EXTERIOR/Festival Vibes Pool Cam01-a.jpg",
+      img2: "/RESIDENCIALV HIGH RISE APPARTMENTS/5. FESTIVAL VIBES AHEMDABAD/EXTERIOR/Festival Vibes Garden_Cam01-a.jpg",
+    },
+    {
+      step: "2. 3D Build",
+      heading: "The world\nbuilt in full.",
+      text: "We construct a complete 3D environment — architecture, landscaping, interiors, and context — ready for cinematic camera movement.",
+      assetImage: "/RESIDENCIALV HIGH RISE APPARTMENTS/12. ADITYA ANTILIA AHMEDABAD/EXTERIOR/Aditya Front Day-c.jpg",
+      img1: "/RESIDENCIALV HIGH RISE APPARTMENTS/12. ADITYA ANTILIA AHMEDABAD/EXTERIOR/Aditya Antilia Back Corner_Cam-c.jpg",
+      img2: "/RESIDENCIALV HIGH RISE APPARTMENTS/12. ADITYA ANTILIA AHMEDABAD/INTERIOR/Game Room.jpg",
+    },
+    {
+      step: "3. Animation & Lighting",
+      heading: "Motion that\ntells the story.",
+      text: "Fluid camera choreography, day-to-night transitions, and atmospheric lighting are layered in to create a cinematic experience that captivates viewers.",
+      assetImage: "/RESIDENCIALV HIGH RISE APPARTMENTS/5. FESTIVAL VIBES AHEMDABAD/EXTERIOR/Festival Vibes Evening Cam-a.jpg",
+      img1: "/RESIDENCIALV HIGH RISE APPARTMENTS/5. FESTIVAL VIBES AHEMDABAD/EXTERIOR/Festival Vibes Gate Cam-a.jpg",
+      img2: "/RESIDENCIALV HIGH RISE APPARTMENTS/5. FESTIVAL VIBES AHEMDABAD/INTERIOR/Theatre Room.jpg",
+    },
+    {
+      step: "4. Final Delivery",
+      heading: "4K cinematic.\nReady to launch.",
+      text: "Your walkthrough is delivered in 4K resolution with a custom soundtrack — ready for YouTube, social media, and sales presentations.",
+      assetImage: "/RESIDENCIALV HIGH RISE APPARTMENTS/1. SATYAM SURYA MANATHAN/EXTERIOR/Satyam Surya Garden_Cam-a.jpg",
+      img1: "/RESIDENCIALV HIGH RISE APPARTMENTS/1. SATYAM SURYA MANATHAN/EXTERIOR/Satyam Surya High_Cam01-b2.jpg",
+      img2: "/RESIDENCIALV HIGH RISE APPARTMENTS/1. SATYAM SURYA MANATHAN/INTERIOR/Banquet Hall Cam 01-a.jpg",
+    },
+  ],
+  "360-tours": [
+    {
+      step: "1. Site Planning",
+      heading: "Every viewpoint\ncarefully chosen.",
+      text: "We plan the panoramic hotspots across your property — selecting positions that give the most immersive and informative experience for remote viewers.",
+      assetImage: "/360 virtual/360 output/Satyam Surya Homes Kharghar 360_0001.jpg",
+      img1: "/RESIDENCIALV HIGH RISE APPARTMENTS/1. SATYAM SURYA MANATHAN/EXTERIOR/2. Satyam Surya Front_Cam01-a.jpg",
+      img2: "/RESIDENCIALV HIGH RISE APPARTMENTS/1. SATYAM SURYA MANATHAN/EXTERIOR/Satyam Surya Garden_Cam-a.jpg",
+    },
+    {
+      step: "2. 3D Panorama Render",
+      heading: "360° of\nphotorealistic detail.",
+      text: "Each panoramic node is rendered at ultra-high resolution — capturing every material, light source, and spatial relationship in full spherical detail.",
+      assetImage: "/RESIDENCIALV HIGH RISE APPARTMENTS/10. ARCADIA 111 AHMEDABAD/EXTERIOR/Arcadia111 Pool Night_Cam-b.jpg",
+      img1: "/RESIDENCIALV HIGH RISE APPARTMENTS/10. ARCADIA 111 AHMEDABAD/EXTERIOR/1. Arcadia111 Corner Cam-a.jpg",
+      img2: "/RESIDENCIALV HIGH RISE APPARTMENTS/10. ARCADIA 111 AHMEDABAD/INTERIOR/Living room cam_v003.jpg",
+    },
+    {
+      step: "3. Interactive Build",
+      heading: "Navigate freely,\nexplore deeply.",
+      text: "We assemble the panoramas into an interactive tour with hotspot navigation, information overlays, and smooth transitions between spaces.",
+      assetImage: "/RESIDENCIALV HIGH RISE APPARTMENTS/5. FESTIVAL VIBES AHEMDABAD/EXTERIOR/Festival Vibes Garden_Cam01-a.jpg",
+      img1: "/RESIDENCIALV HIGH RISE APPARTMENTS/5. FESTIVAL VIBES AHEMDABAD/EXTERIOR/Festival Vibes Pool Top Cam01.jpg",
+      img2: "/RESIDENCIALV HIGH RISE APPARTMENTS/5. FESTIVAL VIBES AHEMDABAD/INTERIOR/Foyer cam.jpg",
+    },
+    {
+      step: "4. Final Delivery",
+      heading: "Cross-device.\nVR-ready.",
+      text: "Your virtual tour is delivered as a web-hosted experience — compatible with desktop, mobile, and VR headsets, ready to embed on your website.",
+      assetImage: "/RESIDENCIALV HIGH RISE APPARTMENTS/11. SCULPTURE AHAMEDABAD/EXTERIOR/1. Sculpture Varad Left_Cam02-v01.jpg",
+      img1: "/RESIDENCIALV HIGH RISE APPARTMENTS/11. SCULPTURE AHAMEDABAD/EXTERIOR/Sculpture Varad Front_Cam02-a.jpg",
+      img2: "/RESIDENCIALV HIGH RISE APPARTMENTS/11. SCULPTURE AHAMEDABAD/EXTERIOR/Sculpture Varad Garden_Cam02-a.jpg",
+    },
+  ],
+};
+
+/* ─── Default fallback steps ──────────────────────────────────── */
+const defaultSteps = processSteps.residential;
+
+/* ─── Process Section ─────────────────────────────────────────── */
+function ProcessSection({ slug }: { slug: string }) {
+  const steps = processSteps[slug] ?? defaultSteps;
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  // Total slides: 1 intro + (1 asset + 1 step) × steps.length
+  const totalSlides = 1 + steps.length * 2;
+
+  // Horizontal scroll driven by vertical scroll
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
+
+  // Progress bar width
+  const progressWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+
+  // Translate the inner strip horizontally
+  const x = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["0vw", `-${(totalSlides - 1) * 100}vw`]
+  );
+
+  return (
+    // Outer wrapper: tall enough to drive the scroll
+    <div
+      ref={sectionRef}
+      style={{ height: `${totalSlides * 100}svh` }}
+      className="relative"
+    >
+      {/* Sticky container */}
+      <div className="sticky top-0 h-svh overflow-hidden bg-bg">
+
+        {/* Progress bar */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-white/10 z-10">
+          <motion.div
+            className="absolute inset-y-0 left-0 bg-white/60"
+            style={{ width: progressWidth }}
+          />
+        </div>
+
+        {/* Section label — top-left */}
+        <div className="absolute top-10 left-6 sm:left-10 z-10">
+          <p className="text-[10px] font-medium uppercase tracking-[0.35em] text-white/40">
+            Our Process
+          </p>
+        </div>
+
+        {/* Horizontal strip */}
+        <motion.div
+          className="flex h-full"
+          style={{ x, width: `${totalSlides * 100}vw` }}
+        >
+          {/* Intro slide */}
+          <div className="relative flex h-full w-screen shrink-0">
+            {/* Left half: dark with text */}
+            <div className="relative z-10 flex h-full w-1/2 flex-col justify-center px-6 sm:px-10 lg:px-16 bg-bg">
+              <h2 className="font-heading text-5xl font-light leading-[1.05] tracking-tight text-white md:text-6xl lg:text-7xl whitespace-pre-line mb-6">
+                Built with vision{"\n"}Finished with care
+              </h2>
+              <p className="text-base font-light leading-relaxed text-white/60 max-w-md">
+                At Lucid The Artistry, every project follows a clear and refined process. Ensuring precision, transparency, and peace of mind from start to finish.
+              </p>
+            </div>
+
+            {/* Right half: full-bleed image */}
+            <div className="absolute inset-y-0 right-0 w-1/2 overflow-hidden">
+              <Image
+                src={steps[0]?.assetImage || "/RESIDENCIALV HIGH RISE APPARTMENTS/1. SATYAM SURYA MANATHAN/EXTERIOR/2. Satyam Surya Front_Cam01-a.jpg"}
+                alt="Our process"
+                fill
+                sizes="50vw"
+                className="object-cover"
+              />
+            </div>
+          </div>
+
+          {/* For each step: asset slide + step slide */}
+          {steps.map((step, i) => (
+            <div key={i} className="contents">
+              {/* Asset slide (full-width image) */}
+              <div className="relative flex h-full w-screen shrink-0 items-center justify-center overflow-hidden">
+                <Image
+                  src={step.assetImage}
+                  alt={`Process step ${i + 1} asset`}
+                  fill
+                  sizes="100vw"
+                  className="object-cover"
+                />
+                {/* Dark overlay for readability */}
+                <div className="absolute inset-0 bg-black/20" />
+              </div>
+
+              {/* Step slide */}
+              <div className="relative flex h-full w-screen shrink-0 items-center">
+                {/* Left: two overlapping portrait images */}
+                <div className="relative w-1/2 h-full flex items-center justify-center px-6 sm:px-10 lg:px-16">
+                  <div className="relative w-full max-w-md">
+                    {/* Large image (top-left) */}
+                    <div className="relative w-[280px] h-[350px] overflow-hidden">
+                      <Image
+                        src={step.img1}
+                        alt={`${step.step} image 1`}
+                        fill
+                        sizes="280px"
+                        className="object-cover"
+                      />
+                    </div>
+                    
+                    {/* Small image (overlapping bottom-right) */}
+                    <div className="absolute bottom-0 right-0 w-[200px] h-[250px] overflow-hidden translate-x-8 translate-y-4">
+                      <Image
+                        src={step.img2}
+                        alt={`${step.step} image 2`}
+                        fill
+                        sizes="200px"
+                        className="object-cover"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right: step text */}
+                <div className="relative z-10 flex h-full w-1/2 flex-col justify-center px-6 sm:px-10 lg:px-16">
+                  <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.35em] text-white/40">
+                    {step.step}
+                  </p>
+                  <h3 className="font-heading text-4xl font-light leading-[1.05] tracking-tight text-white md:text-5xl lg:text-6xl whitespace-pre-line mb-6">
+                    {step.heading}
+                  </h3>
+                  <p className="text-base font-light leading-relaxed text-white/60 max-w-md">
+                    {step.text}
+                  </p>
+                </div>
+
+                {/* Step counter — bottom right */}
+                <div className="absolute bottom-10 right-10 text-[11px] font-medium tabular-nums tracking-[0.2em] text-white/25">
+                  {String(i + 1).padStart(2, "0")} / {String(steps.length).padStart(2, "0")}
+                </div>
+              </div>
+            </div>
+          ))}
+        </motion.div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Project Grid (home-page style) ─────────────────────────── */
+function ProjectGrid({ slug }: { slug: string }) {
+  // Map service slug → project category filter
+  const categoryMap: Record<string, string[]> = {
+    commercial: ["Commercial"],
+    residential: ["Residential High Rise", "Residential"],
+    duplex: ["Duplex", "Residential"],
+    walkthrough: ["Walkthrough"],
+    "360-tours": ["Virtual Tour"],
+  };
+
+  const categories = categoryMap[slug] ?? [];
+  const allProjects = getProjects();
+  const filtered = allProjects
+    .filter((p) => categories.includes(p.category))
+    .slice(0, 8);
+
+  if (filtered.length === 0) return null;
+
+  return (
+    <section className="bg-bg pt-10 pb-24">
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-8 md:px-12 lg:px-0">
+
+        {/* Section label */}
+        <div className="mb-10 flex items-end justify-between">
+          <div>
+            <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.35em] text-white/40">
+              Related Work
+            </p>
+            <h2 className="font-heading text-3xl font-light text-white md:text-4xl">
+              Projects
+            </h2>
+          </div>
+          <Link
+            href="/projects"
+            className="text-[11px] font-medium uppercase tracking-[0.25em] text-white/40 hover:text-white transition-colors duration-300"
+          >
+            View all →
+          </Link>
+        </div>
+
+        {/* 2-column grid — same as home CategoryImageCard */}
+        <div className="flex flex-col gap-6 sm:gap-8">
+          {/* Pair rows */}
+          {Array.from({ length: Math.ceil(filtered.length / 2) }).map((_, rowIdx) => {
+            const left = filtered[rowIdx * 2];
+            const right = filtered[rowIdx * 2 + 1];
+            return (
+              <div key={rowIdx} className="grid grid-cols-2 gap-4 sm:gap-6">
+                {[left, right].map((project, colIdx) =>
+                  project ? (
+                    <Link
+                      key={project.slug}
+                      href={`/projects/${project.slug}`}
+                      className="group block w-full"
+                    >
+                      <div className="relative h-[320px] sm:h-[420px] md:h-[520px] w-full overflow-hidden">
+                        <Image
+                          src={project.coverImage}
+                          alt={project.title}
+                          fill
+                          sizes="(max-width: 768px) 50vw, 580px"
+                          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                        />
+                      </div>
+                      <p className="mt-3 text-right text-[11px] font-medium uppercase tracking-[0.25em] text-white/60">
+                        {project.title}
+                      </p>
+                    </Link>
+                  ) : (
+                    // Empty cell to keep grid balanced
+                    <div key={`empty-${colIdx}`} />
+                  )
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+      </div>
+    </section>
+  );
+}
+
+/* ─── Page ────────────────────────────────────────────────────── */
 export default function ServicePage() {
   const params = useParams();
   const slug = params?.slug as string;
@@ -15,150 +439,57 @@ export default function ServicePage() {
 
   const [mounted, setMounted] = useState(false);
   const { scrollY } = useScroll();
-  const heroY = useTransform(scrollY, [0, 1000], [0, 300]);
-  const opacity = useTransform(scrollY, [0, 600], [1, 0]);
+  const heroY = useTransform(scrollY, [0, 800], [0, 200]);
+  const heroOpacity = useTransform(scrollY, [0, 500], [1, 0]);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  if (!service) return null;
-  if (!mounted) return null;
+  if (!service || !mounted) return null;
 
   return (
     <main className="min-h-screen bg-bg">
       <Navbar />
 
-      {/* Cinematic Parallax Hero */}
+      {/* ── Hero ─────────────────────────────────────────────────── */}
       <section className="relative h-[90vh] min-h-[600px] w-full mt-16 overflow-hidden">
-        <div className="mx-auto max-w-[1920px] px-4 h-full sm:px-6 lg:px-12">
-          <motion.div 
-            style={{ y: heroY }}
-            className="relative h-[120%] w-full -top-[10%] overflow-hidden"
-          >
-            <img
-              src={service.coverImage}
-              alt={service.title}
-              className="absolute inset-0 h-full w-full object-cover"
-            />
-            <div className="absolute inset-0 bg-black/30" />
-            
-            <motion.div 
-              style={{ opacity }}
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-              className="absolute inset-0 flex flex-col justify-end p-8 pb-16 md:p-16 lg:p-24"
-            >
-              <p className="mb-4 text-xs font-medium uppercase tracking-[0.3em] text-accent">
-                Expertise
-              </p>
-              <h1 className="font-heading text-5xl font-light leading-[1.05] tracking-tight text-white md:text-7xl lg:text-[7rem] max-w-5xl">
-                {service.title}
-              </h1>
-            </motion.div>
-          </motion.div>
-        </div>
+        <motion.div
+          style={{ y: heroY }}
+          className="absolute inset-0 -top-[10%] h-[120%] w-full"
+        >
+          <Image
+            src={service.coverImage}
+            alt={service.title}
+            fill
+            sizes="100vw"
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-black/40" />
+        </motion.div>
+
+        <motion.div
+          style={{ opacity: heroOpacity }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+          className="absolute inset-0 flex flex-col justify-end p-8 pb-16 md:p-16 lg:p-24"
+        >
+          <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.35em] text-white/60">
+            Our Services
+          </p>
+          <h1 className="font-heading text-5xl font-light leading-[1.05] tracking-tight text-white md:text-7xl lg:text-[7rem] max-w-5xl">
+            {service.title}
+          </h1>
+        </motion.div>
       </section>
 
-      {/* Features / Gallery Split */}
-      <section className="py-24 md:py-40">
-        <div className="mx-auto max-w-[1920px] px-4 sm:px-6 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
-            
-            {/* Left Sticky Features Text */}
-            <div className="lg:col-span-4 lg:col-start-1 xl:col-span-3 flex flex-col justify-start lg:sticky lg:top-40 h-fit">
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-              >
-                <p className="mb-6 text-xs font-medium uppercase tracking-[0.3em] text-text-muted">
-                   The Process
-                </p>
-                <h2 className="font-heading text-3xl font-light leading-tight text-text-primary md:text-4xl mb-8">
-                   {service.shortDesc}
-                </h2>
-              </motion.div>
-              
-              <motion.div 
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, delay: 0.2 }}
-                className="space-y-6 text-base font-light leading-relaxed text-text-muted mb-16"
-              >
-                 {service.fullDescription.map((p, idx) => (
-                   <p key={idx}>{p}</p>
-                 ))}
-              </motion.div>
+      {/* ── Process (vertical scroll → horizontal) ───────────────── */}
+      <ProcessSection slug={slug} />
 
-              <motion.div 
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 1, delay: 0.4 }}
-                className="border-t border-border/20 pt-12"
-              >
-                 <p className="mb-8 text-[10px] font-medium uppercase tracking-[0.3em] text-accent">
-                    Offerings
-                 </p>
-                 <ul className="space-y-6">
-                   {service.features.map((feature, idx) => (
-                     <li key={idx} className="flex items-center gap-4 text-sm font-light uppercase tracking-widest text-text-primary">
-                       <div className="h-1 w-1 bg-accent rounded-full" />
-                       {feature}
-                     </li>
-                   ))}
-                 </ul>
-              </motion.div>
-            </div>
-
-            {/* Massive Assymetric Gallery Right Side */}
-            {service.gallery && service.gallery.length > 0 && (
-              <div className="lg:col-span-7 lg:col-start-6 flex flex-col space-y-12 md:space-y-32 mt-16 lg:mt-0">
-                 {service.gallery.map((img, idx) => {
-                   const isFull = idx % 2 === 0;
-                   return (
-                      <motion.div
-                        key={idx}
-                        initial={{ opacity: 0, scale: 0.95, y: 50 }}
-                        whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-10%" }}
-                        transition={{ duration: 1.2, delay: idx * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-                        className={`
-                          relative overflow-hidden group
-                          ${isFull ? 'w-full aspect-[4/3] md:aspect-[16/10]' : 'w-[85%] ml-auto aspect-square md:aspect-[4/3]'}
-                        `}
-                      >
-                        <img
-                          src={img}
-                          alt={`${service.title} rendering ${idx + 1}`}
-                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-[1.05]"
-                          loading="lazy"
-                        />
-                      </motion.div>
-                   );
-                 })}
-              </div>
-            )}
-
-          </div>
-        </div>
-      </section>
-
-      {/* Modern CTA */}
-      <section className="py-32 flex justify-center">
-         <Link
-           href="/projects"
-           className="inline-flex items-center gap-6 text-[11px] font-medium uppercase tracking-[0.3em] text-text-primary transition-all duration-500 hover:text-accent group"
-         >
-           <div className="h-px w-12 bg-accent group-hover:w-24 transition-all duration-500" />
-           View Related Archive
-           <div className="h-px w-12 bg-accent group-hover:w-24 transition-all duration-500" />
-         </Link>
-      </section>
+      {/* ── Project Grid ─────────────────────────────────────────── */}
+      <ProjectGrid slug={slug} />
 
       <Footer />
     </main>

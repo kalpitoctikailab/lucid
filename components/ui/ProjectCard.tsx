@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import type { Project } from "@/data/projects";
 import { cn } from "@/lib/utils";
 
@@ -47,16 +48,16 @@ export function ProjectCard({
           isBento && "min-h-[320px] lg:min-h-0"
         )}
       >
-        <img
+        <Image
           src={project.coverImage}
           alt={project.title}
-          className="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.06]"
-          loading="lazy"
-          decoding="async"
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-900 ease-out group-hover:scale-[1.06]"
         />
         {/* Always-on bottom gradient for readability */}
         <div
-          className="absolute inset-0 bg-gradient-to-t from-bg via-bg/35 to-transparent opacity-85 transition-opacity duration-500 group-hover:opacity-100"
+          className="absolute inset-0 bg-linear-to-t from-bg via-bg/35 to-transparent opacity-85 transition-opacity duration-500 group-hover:opacity-100"
           aria-hidden
         />
         <div className="absolute inset-0 bg-black/20 transition group-hover:bg-black/45" />

@@ -1,91 +1,197 @@
 "use client";
 
-import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
+import { Navbar } from "@/components/sections/Navbar";
+import { Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+
+function ProfilePlaceholder() {
+  return (
+    <div className="relative h-[350px] w-full overflow-hidden bg-zinc-900">
+      <div className="absolute left-1/2 top-[138px] h-[92px] w-[92px] -translate-x-1/2 rounded-full bg-zinc-600" />
+      <div className="absolute bottom-[-85px] left-1/2 h-[210px] w-[260px] -translate-x-1/2 rounded-t-[140px] bg-zinc-600" />
+    </div>
+  );
+}
 
 export default function AboutPage() {
+  const teamMembers = [
+    { name: "NAME", role: "Designation" },
+    { name: "NAME", role: "Designation" },
+    { name: "NAME", role: "Designation" },
+    { name: "NAME", role: "Designation" },
+    { name: "NAME", role: "Designation" },
+  ];
+
   return (
-    <main className="min-h-screen bg-bg">
+    <main className="min-h-screen bg-black text-white">
       <Navbar />
 
-      {/* Cinematic Overlaid Hero */}
-      <section className="relative h-[85vh] min-h-[600px] w-full mt-20">
-        <div className="mx-auto max-w-[1920px] px-4 h-full sm:px-6 lg:px-12">
-          <div className="relative h-full w-full overflow-hidden">
-            <img
-              src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2400&q=80"
-              alt="Studio aesthetics"
-              className="absolute inset-0 h-full w-full object-cover grayscale transition-transform duration-[30s] hover:scale-[1.03] hover:grayscale-0"
-              style={{ objectPosition: "center 40%" }}
-            />
-            <div className="absolute inset-0 bg-black/40 lg:bg-black/30" />
-            
-            {/* Overlay Text */}
-            <div className="absolute inset-0 flex flex-col justify-end p-8 pb-16 md:p-16 lg:p-24">
-              <p className="mb-4 text-xs font-medium uppercase tracking-[0.3em] text-accent">
-                Our Story
-              </p>
-              <h1 className="font-heading text-5xl font-light leading-[1.05] tracking-tight text-white md:text-7xl lg:text-[7rem] max-w-5xl">
-                The visual language of <span className="italic">architecture.</span>
-              </h1>
+      <section className="px-4 pb-14 pt-28 sm:px-8 md:pt-32 lg:px-16">
+        <div className="mx-auto max-w-[1100px]">
+          <p className="text-center text-xs font-semibold uppercase tracking-[0.18em] text-white/85">
+            About Our Studio
+          </p>
+          <h1 className="mt-2 text-center text-5xl font-light leading-tight tracking-tight md:text-6xl">
+            Who We Are
+          </h1>
+          <h2 className="mx-auto mt-3 max-w-[980px] text-center text-3xl font-semibold leading-tight">
+            Creating Graphical Content by
+            <br />
+            Using 3D Technology has Become the Trend in the Last Few Years...
+          </h2>
+          <p className="mx-auto mt-5 max-w-[860px] text-center text-base leading-relaxed text-white/90 md:text-lg">
+            <span className="font-semibold">Lucid - The Artistry</span> has a
+            team of dedicated 3D professionals with expertise in 3D rendering,
+            3D visualizing, 3D animation, and many more aspects. Having worked
+            with 300+ projects, our team has developed a very sharp-witted
+            judgment in 3D project visualization, 3D walkthrough, and a 360
+            virtual tour which brings a project to life without even moving a
+            single speck of dust!
+          </p>
+
+          <div className="mt-12 h-[340px] w-full bg-zinc-200 text-black md:h-[420px]">
+            <div className="flex h-full items-center justify-center text-center text-4xl font-normal md:text-6xl">
+              Team Work Video
+            </div>
+          </div>
+
+          <p className="ml-auto mt-8 max-w-[560px] text-lg leading-relaxed text-white/90">
+            <span className="font-semibold">Lucid - The Artistry</span> has a
+            team of dedicated 3D professionals with expertise in 3D rendering,
+            3D visualizing, 3D animation, and many more aspects. Having worked
+            with 300+ projects, our team has developed a very sharp-witted
+            judgment in 3D project visualization, 3D walkthrough, and a 360
+            virtual tour which brings a project to life without even moving a
+            single speck of dust!
+          </p>
+        </div>
+      </section>
+
+      <section className="px-4 py-20 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-[1100px]">
+          <h3 className="text-4xl font-semibold md:text-4xl">The beliefs that define us.</h3>
+
+          <div className="mt-10 space-y-4 md:space-y-6">
+            <div className="flex flex-wrap items-baseline justify-end gap-x-3">
+              <span className="text-7xl font-semibold uppercase leading-none md:text-8xl">
+                Layer
+              </span>
+              <span className="text-3xl font-semibold md:text-4xl">- the detail we define</span>
+            </div>
+
+            <div className="flex flex-wrap items-baseline justify-start gap-x-3">
+              <span className="text-7xl font-semibold uppercase leading-none md:text-8xl">
+                Lightform
+              </span>
+              <span className="text-3xl font-semibold md:text-4xl">- the depth we build</span>
+            </div>
+
+            <div className="flex flex-wrap items-baseline justify-end gap-x-3">
+              <span className="text-7xl font-semibold uppercase leading-none md:text-8xl">
+                Liveliness
+              </span>
+              <span className="text-3xl font-semibold md:text-4xl">- the emotion we bring</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Image Gallery / Philosophy Split */}
-      <section className="py-24 md:py-40">
-        <div className="mx-auto max-w-[1920px] px-4 sm:px-6 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
-            
-            <div className="lg:col-span-5 flex flex-col justify-start lg:sticky lg:top-40 h-fit">
-              <p className="mb-6 text-xs font-medium uppercase tracking-[0.3em] text-text-muted">
-                Philosophy
-              </p>
-              <h2 className="font-heading text-4xl font-light leading-tight text-text-primary md:text-5xl lg:text-6xl mb-8">
-                Precision meets emotion.
-              </h2>
-              <p className="text-xl font-light leading-relaxed text-text-muted">
-                Every render we produce is an atmosphere curated to resonate with its intended audience, balancing meticulous technical accuracy with cinematic composition.
-              </p>
-            </div>
+      <section className="px-4 py-20 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-[1100px]">
+          <h3 className="text-6xl font-light md:text-7xl">Team</h3>
 
-            {/* Massive Gallery Right Side */}
-            <div className="lg:col-span-7 flex flex-col space-y-8 md:space-y-16">
-               <img
-                  src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80"
-                  alt="Process 1"
-                  className="w-full h-[60vh] object-cover grayscale hover:grayscale-0 transition-all duration-700"
-               />
-               <img
-                  src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1600&q=80"
-                  alt="Process 2"
-                  className="w-4/5 ml-auto h-[50vh] object-cover grayscale hover:grayscale-0 transition-all duration-700"
-               />
-               <img
-                  src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80"
-                  alt="Process 3"
-                  className="w-full h-[75vh] object-cover grayscale hover:grayscale-0 transition-all duration-700"
-               />
-            </div>
+          <div className="mt-8 grid grid-cols-[auto_1fr_auto] items-center gap-4 md:gap-7">
+            <button
+              type="button"
+              aria-label="Previous"
+              className="team-swiper-prev h-10 w-10 rounded-full bg-zinc-900 text-xl text-white/70"
+            >
+              <span aria-hidden>&larr;</span>
+            </button>
 
+            <Swiper
+              modules={[Navigation]}
+              navigation={{
+                prevEl: ".team-swiper-prev",
+                nextEl: ".team-swiper-next",
+              }}
+              loop={teamMembers.length > 3}
+              spaceBetween={24}
+              slidesPerView={1}
+              breakpoints={{
+                768: { slidesPerView: 3 },
+              }}
+              className="w-full"
+            >
+              {teamMembers.map((member, idx) => (
+                <SwiperSlide key={`${member.name}-${idx}`}>
+                  <article>
+                    <ProfilePlaceholder />
+                    <h4 className="mt-3 text-2xl font-semibold leading-none">{member.name}</h4>
+                    <p className="mt-1 text-lg font-light text-white/95">{member.role}</p>
+                  </article>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+
+            <button
+              type="button"
+              aria-label="Next"
+              className="team-swiper-next h-10 w-10 rounded-full bg-zinc-900 text-xl text-white/70"
+            >
+              <span aria-hidden>&rarr;</span>
+            </button>
           </div>
         </div>
       </section>
 
-      {/* Full-width Image Break */}
-      <div className="relative h-[60vh] w-full overflow-hidden">
-        <img
-          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2400&q=80"
-          alt="Architectural details"
-          className="absolute inset-0 h-full w-full object-cover opacity-80"
-        />
-        <div className="absolute inset-0 flex items-center justify-center p-4 text-center">
-            <h2 className="font-heading text-4xl font-light text-white md:text-6xl lg:text-7xl">
-              "Imagination rendered real."
-            </h2>
+      <section className="px-4 py-20 sm:px-8 lg:px-16">
+        <div className="mx-auto grid max-w-[1100px] gap-9 lg:grid-cols-[1fr_260px_260px]">
+          <div>
+            <h3 className="text-3xl font-semibold">Founders Journey</h3>
+            <p className="mt-12 max-w-[470px] text-lg leading-[1.35] text-white/90">
+              <span className="font-semibold">Lucid - The Artistry</span> has a
+              team of dedicated 3D professionals with expertise in 3D rendering,
+              3D visualizing, 3D animation, and many more aspects. Having worked
+              with 300+ projects, our team has developed a very sharp-witted
+              judgment in 3D project visualization, 3D walkthrough, and a 360
+              virtual tour which brings a project to life without even moving a
+              single speck of dust!
+            </p>
+          </div>
+
+          {[1, 2].map((item) => (
+            <article key={item}>
+              <ProfilePlaceholder />
+              <h4 className="mt-3 text-2xl font-semibold leading-none">NAME</h4>
+              <p className="mt-1 text-lg font-light text-white/95">Designation</p>
+            </article>
+          ))}
         </div>
-      </div>
+      </section>
+
+      <section className="px-4 pb-24 pt-20 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-[1100px]">
+          <h3 className="text-3xl font-semibold">Client Stories</h3>
+
+          <div className="mt-8 grid gap-10 md:grid-cols-[300px_1fr] md:items-end">
+            <ProfilePlaceholder />
+
+            <p className="max-w-[760px] text-xl leading-[1.36] text-white/95">
+              <span className="font-semibold">Lucid - The Artistry</span> has a
+              team of dedicated 3D professionals with expertise in 3D rendering,
+              3D visualizing, 3D animation, and many more aspects. Having worked
+              with 300+ projects, our team has developed a very sharp-witted
+              judgment in 3D project visualization, 3D walkthrough, and a 360
+              virtual tour which brings a project to life without even moving a
+              single speck of dust!
+            </p>
+          </div>
+        </div>
+      </section>
 
       <Footer />
     </main>

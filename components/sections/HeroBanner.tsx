@@ -54,7 +54,7 @@ export function HeroBanner() {
       ref={sectionRef}
       className="relative z-0 h-screen flex items-center justify-center overflow-hidden bg-bg px-4 pt-28 pb-8 sm:px-8 md:px-12 lg:px-16"
     >
-      <div className="relative aspect-16/7 w-full max-w-[1100px] overflow-hidden">
+      <div className="relative aspect-16/7 w-full max-w-[1200px] overflow-hidden">
         <motion.div
           className="absolute inset-0 -top-[8%] h-[118%] w-full will-change-transform"
           style={{ y: mediaY, scale: mediaScale }}

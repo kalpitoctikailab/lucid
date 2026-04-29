@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -18,14 +19,29 @@ export function BottomNav() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const hasAutoOpenedRef = useRef(false);
+  const openRef = useRef(open);
+  const lastScrollYRef = useRef(0);
 
   const current = navLinks.find((l) => l.href === pathname)?.label ?? "Menu";
 
+  useEffect(() => {
+    openRef.current = open;
+  }, [open]);
+
   // Auto-open at bottom of page
   useEffect(() => {
+    lastScrollYRef.current = window.scrollY;
+
     const onScroll = () => {
+      const currentScrollY = window.scrollY;
+      const isScrollingUp = currentScrollY < lastScrollYRef.current;
+
+      if (isScrollingUp && openRef.current) {
+        setOpen(false);
+      }
+
       const atBottom =
-        window.innerHeight + window.scrollY >=
+        window.innerHeight + currentScrollY >=
         document.documentElement.scrollHeight - 80;
 
       if (atBottom && !hasAutoOpenedRef.current) {
@@ -35,6 +51,8 @@ export function BottomNav() {
       if (!atBottom) {
         hasAutoOpenedRef.current = false;
       }
+
+      lastScrollYRef.current = currentScrollY;
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -101,25 +119,27 @@ export function BottomNav() {
       </AnimatePresence>
 
       {/* Pill */}
-      <div className="flex h-14 items-center rounded-full bg-[#1a1a1a]/95 px-4 shadow-xl backdrop-blur-md">
+      <div className="flex h-12 items-center rounded-lg bg-[#1a1a1a]/95 px-5 py-3 gap-3 shadow-xl backdrop-blur-md">
 
         {/* Logo + page name — hidden when open */}
         <AnimatePresence initial={false}>
           {!open && (
             <motion.div
               key="pill-left"
-              className="flex items-center gap-3 overflow-hidden"
+              className="flex items-center gap-7 overflow-hidden"
               initial={{ opacity: 0, width: 0 }}
               animate={{ opacity: 1, width: "auto" }}
               exit={{ opacity: 0, width: 0 }}
               transition={{ duration: 0.22 }}
             >
               {/* Logo icon */}
-              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10">
-                <img
-                  src="/lucid-logo.svg"
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full">
+                <Image
+                  src="/lucid-Icon-White.svg"
                   alt="Lucid"
-                  className="h-5 w-5 brightness-0 invert"
+                  width={36}
+                  height={36}
+                  className="h-9 w-9"
                 />
               </div>
               {/* Page name */}

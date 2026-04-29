@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
+import Image from "next/image";
 
 const brochures = [
   {
@@ -62,9 +63,11 @@ export default function BrochuresPage() {
 
                 {/* Imagery */}
                 <div className="w-full lg:w-1/2 relative aspect-video overflow-hidden">
-                  <img
+                  <Image
                     src={item.image}
                     alt={item.title}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                     className="absolute inset-0 h-full w-full object-cover grayscale transition-transform duration-[20s] group-hover:scale-105 group-hover:grayscale-0"
                   />
                   <div className="absolute inset-0 bg-black/40 transition-colors duration-1000 group-hover:bg-transparent" />

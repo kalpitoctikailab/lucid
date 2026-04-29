@@ -25,10 +25,7 @@ export default function HomePage() {
       <Navbar />
       <HeroBanner />
 
-      <HomePortfolioFeed
-        projects={allProjects}
-        cinematicProject={cinematicProject}
-      />
+      <HomePortfolioFeed cinematicProject={cinematicProject} />
 
       {/* <ServicesBar />
       <StatsRow />

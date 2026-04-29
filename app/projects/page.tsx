@@ -1,22 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { Navbar } from "@/components/sections/Navbar";
 import { MasonryGrid } from "@/components/sections/MasonryGrid";
 import { FilterBar } from "@/components/ui/FilterBar";
 import { Footer } from "@/components/sections/Footer";
 import { getProjects } from "@/data/projects";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
-export default function ProjectsPage() {
-  const [filter, setFilter] = useState("All");
+function ProjectsContent() {
+  const searchParams = useSearchParams();
+  const categoryParam = searchParams.get("category");
+
+  const [filter, setFilter] = useState(categoryParam ?? "All");
+
+  // Sync filter when URL param changes (e.g. back/forward navigation)
+  useEffect(() => {
+    setFilter(categoryParam ?? "All");
+  }, [categoryParam]);
+
   const projects = getProjects(filter);
 
   return (
     <main className="min-h-screen bg-bg">
       <Navbar />
 
-      {/* Highly Attractive Cinematic Hero Banner */}
+      {/* Cinematic Hero Banner */}
       <section className="relative h-[65vh] min-h-[500px] w-full pt-20 overflow-hidden">
         <div className="mx-auto max-w-[1920px] px-4 h-full sm:px-6 lg:px-12">
           <motion.div
@@ -25,12 +36,14 @@ export default function ProjectsPage() {
             transition={{ duration: 1.5, ease: "easeOut" }}
             className="relative h-full w-full overflow-hidden"
           >
-            <img
+            <Image
               src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2400&q=80"
               alt="Projects archive hero"
+              fill
+              sizes="100vw"
               className="absolute inset-0 h-full w-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-bg via-black/40 to-black/20" />
+            <div className="absolute inset-0 bg-linear-to-t from-bg via-black/40 to-black/20" />
 
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -46,33 +59,14 @@ export default function ProjectsPage() {
                 <div className="h-px w-8 md:w-16 bg-accent" />
               </div>
               <h1 className="font-heading text-6xl font-light text-white md:text-8xl lg:text-[8rem] tracking-tight">
-                Selected Works
+                {filter !== "All" ? filter : "Selected Works"}
               </h1>
             </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* Restoring the Exact Original Layout from the Screenshot */}
       <div className="mx-auto max-w-[1920px] px-4 sm:px-6 lg:px-12 pb-32">
-        {/* <div className="mb-24 flex flex-col gap-12 lg:flex-row lg:items-center lg:justify-between lg:gap-24">
-          <div className="lg:w-1/2">
-            <h1 className="font-heading text-6xl font-light leading-[1.05] tracking-tight text-text-primary md:text-8xl xl:text-[9rem]">
-              Archive
-            </h1>
-          </div>
-          <div className="hidden lg:flex items-center justify-center">
-             <div className="h-4 w-4 rounded-full border border-accent flex items-center justify-center">
-                <div className="h-2 w-2 bg-accent rounded-full" />
-             </div>
-          </div>
-          <div className="max-w-md lg:w-1/3 text-right">
-            <p className="text-xl font-light leading-relaxed text-text-muted">
-              Explore our curated collection of architectural visualizations, expressing form and light.
-            </p>
-          </div>
-        </div> */}
-
         <div className="mb-4 flex justify-center">
           <FilterBar active={filter} onFilter={setFilter} />
         </div>
@@ -82,5 +76,13 @@ export default function ProjectsPage() {
 
       <Footer />
     </main>
+  );
+}
+
+export default function ProjectsPage() {
+  return (
+    <Suspense>
+      <ProjectsContent />
+    </Suspense>
   );
 }

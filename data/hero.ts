@@ -10,4 +10,4 @@ export const HERO_VIDEO_FALLBACK =
   "https://videos.pexels.com/video-files/5349086/5349086-hd_1920_1080_30fps.mp4";
 
 export const HERO_POSTER =
-  "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=90";
+  "/videos/Lucid-Website-HeroBanner-poster.jpg";

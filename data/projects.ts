@@ -7,7 +7,7 @@ export type Project = {
   id: string;
   slug: string;
   title: string;
-  category: "Commercial" | "Residential" | "Residential High Rise" | "Duplex" | "Walkthrough" | "Virtual Tour" | "Farmhouse" | "Cutsection";
+  category: "Commercial" | "Residential Villas" | "Residential High Rise" | "Residential Low Rise" | "Walkthrough" | "Virtual Tour" | "Farmhouse";
   type: "Interior" | "Exterior" | "Both" | "Animation";
   year: string;
   client?: string;
@@ -22,48 +22,6 @@ export type Project = {
 };
 
 export const projects: Project[] = [
-  {
-    "id": "13",
-    "slug": "cutsections-portfolio",
-    "title": "Cutsections Portfolio",
-    "category": "Cutsection",
-    "type": "Interior",
-    "year": "2024",
-    "coverImage": "/lucid-project-data/CUTSECTIONS/3K_Ganshyambhai Akota Cutsection_Cam-b.webp",
-    "images": [
-      "/lucid-project-data/CUTSECTIONS/3K_Ganshyambhai Akota Cutsection_Cam-b.webp",
-      "/lucid-project-data/CUTSECTIONS/4K_FF Floor Cutsection_C.webp",
-      "/lucid-project-data/CUTSECTIONS/4K_GF Floor Cutsection_C.webp",
-      "/lucid-project-data/CUTSECTIONS/4K_Hiren Bhai Type C 4 BHK_Cutsection_C.webp",
-      "/lucid-project-data/CUTSECTIONS/4K_Hiren Bhai Type D 4 BHK_Cutsection-b.webp",
-      "/lucid-project-data/CUTSECTIONS/4K_Hiren Bhai Type E 4 BHK_Cutsection.webp",
-      "/lucid-project-data/CUTSECTIONS/4K_Hiren Bhai_Section B-d.webp",
-      "/lucid-project-data/CUTSECTIONS/4K_Hiren Bhai_Section_A.origRGB.0000-d.webp",
-      "/lucid-project-data/CUTSECTIONS/4K_Seven Nine Imperia 2BHK Cutsection-c.webp",
-      "/lucid-project-data/CUTSECTIONS/4K_Seven Nine Imperia 3BHK Cutsection-c.webp",
-      "/lucid-project-data/CUTSECTIONS/4K_Shaunak Bhai Cutsection Penthouse DE One_Cam-d.webp",
-      "/lucid-project-data/CUTSECTIONS/4K_Shaunak Bhai Cutsection Penthouse DE Tow_Cam-d.webp",
-      "/lucid-project-data/CUTSECTIONS/4K_Shaunak Bhai Cutsection Penthouse F Typical-d.webp",
-      "/lucid-project-data/CUTSECTIONS/4K_Shaunak Bhai Cutsection Penthouse F_Cam-d.webp",
-      "/lucid-project-data/CUTSECTIONS/4K_Shaunak Bhai Cutsection Type_DE-d.webp",
-      "/lucid-project-data/CUTSECTIONS/4K_Shaunak Bhai Cutsection Type_d.webp",
-      "/lucid-project-data/CUTSECTIONS/4K_Shaunak Bhai Cutsection Type_f-d.webp",
-      "/lucid-project-data/CUTSECTIONS/Havelock 3BHK Cutsection Cam_01_b.webp",
-      "/lucid-project-data/CUTSECTIONS/Havelock 4BHK Cutsection02 Cam_01-a.webp",
-      "/lucid-project-data/CUTSECTIONS/Havelock 4BHK Cutsection02 Cam_01_b.webp",
-      "/lucid-project-data/CUTSECTIONS/Madhuban Cutsection AB-c.webp",
-      "/lucid-project-data/CUTSECTIONS/Madhuban Status Cutsection CD-c.webp",
-      "/lucid-project-data/CUTSECTIONS/Saunak Bhai Cutsection_Cam01-c.webp",
-      "/lucid-project-data/CUTSECTIONS/cutsection_3bhk CCC-c.webp"
-    ],
-    "featured": false,
-    "aspectRatio": "landscape",
-    "tags": [
-      "cutsection",
-      "interior",
-      "architecture"
-    ]
-  },
   {
     "id": "1",
     "slug": "satyam-surya-manathan",
@@ -944,7 +902,7 @@ export const projects: Project[] = [
     "id": "1",
     "slug": "greenleaf-heritage-2",
     "title": "Greenleaf Heritage 2",
-    "category": "Residential",
+    "category": "Residential Villas",
     "type": "Both",
     "year": "2024",
     "coverImage": "/RESIDENCIAL VILLAS/1. GREENLEAF HERITAGE 2/EXTERIOR/1. Vishalbhai TP 24 Unit Front_Cam-v01.jpg",
@@ -963,10 +921,33 @@ export const projects: Project[] = [
     ]
   },
   {
+    "id": "10",
+    "slug": "city-gold-bharuch-villas",
+    "title": "City Gold Bharuch Villas",
+    "category": "Residential Villas",
+    "type": "Exterior",
+    "year": "2024",
+    "coverImage": "/RESIDENCIAL VILLAS/10.CITY GOLD BHARUCH/EXTERIOR/1. Dungari Units Front_Cam01-v01.jpg",
+    "images": [
+      "/RESIDENCIAL VILLAS/10.CITY GOLD BHARUCH/EXTERIOR/1. Dungari Units Front_Cam01-v01.jpg",
+      "/RESIDENCIAL VILLAS/10.CITY GOLD BHARUCH/EXTERIOR/Dungari Gallary_Cam-a.jpg",
+      "/RESIDENCIAL VILLAS/10.CITY GOLD BHARUCH/EXTERIOR/Dungari Garden_Cam-v01.jpg",
+      "/RESIDENCIAL VILLAS/10.CITY GOLD BHARUCH/EXTERIOR/Dungari Gate_Cam01-v01.jpg",
+      "/RESIDENCIAL VILLAS/10.CITY GOLD BHARUCH/EXTERIOR/Dungari Units Corner_Cam-v01.jpg"
+    ],
+    "featured": false,
+    "aspectRatio": "landscape",
+    "tags": [
+      "residential",
+      "villa",
+      "architecture"
+    ]
+  },
+  {
     "id": "11",
     "slug": "akshar-vihar-2-vadodara",
     "title": "Akshar Vihar 2 Vadodara",
-    "category": "Residential",
+    "category": "Residential Villas",
     "type": "Both",
     "year": "2024",
     "coverImage": "/RESIDENCIAL VILLAS/11. AKSHAR VIHAR 2 VADODARA/EXTERIOR/1. Vipulbhai Tarsali Front_Cam-c.jpg",
@@ -987,7 +968,7 @@ export const projects: Project[] = [
     "id": "12",
     "slug": "pushpak-vadodara",
     "title": "Pushpak Vadodara",
-    "category": "Residential",
+    "category": "Residential Villas",
     "type": "Both",
     "year": "2024",
     "coverImage": "/RESIDENCIAL VILLAS/12. PUSHPAK VADODARA/EXTERIOR/2. Jentibhai Front Cam_21_c.jpg",
@@ -1012,7 +993,7 @@ export const projects: Project[] = [
     "id": "2",
     "slug": "g-solitair-vadodara",
     "title": "G Solitair Vadodara",
-    "category": "Residential",
+    "category": "Residential Villas",
     "type": "Both",
     "year": "2024",
     "coverImage": "/RESIDENCIAL VILLAS/2. G SOLITAIR VADODARA/EXTERIOR/Kiranbhai Bhayali Unit Corner Cam-a.jpg",
@@ -1032,7 +1013,7 @@ export const projects: Project[] = [
     "id": "3",
     "slug": "darshnam-kingsville-vadodara",
     "title": "Darshnam Kingsville Vadodara",
-    "category": "Residential",
+    "category": "Residential Villas",
     "type": "Both",
     "year": "2024",
     "coverImage": "/RESIDENCIAL VILLAS/3. DARSHNAM KINGSVILLE VADODARA/exterior/Darshanam Unit Front View-b.jpg",
@@ -1051,7 +1032,7 @@ export const projects: Project[] = [
     "id": "4",
     "slug": "keystone-mention-vadodara",
     "title": "Keystone Mention Vadodara",
-    "category": "Residential",
+    "category": "Residential Villas",
     "type": "Both",
     "year": "2024",
     "coverImage": "/RESIDENCIAL VILLAS/4. KEYSTONE MENTION VADODARA/EXTERIOR/Keystone Mension Cam 13-b.jpg",
@@ -1082,7 +1063,7 @@ export const projects: Project[] = [
     "id": "6",
     "slug": "selenite-villa-vadodara",
     "title": "Selenite Villa Vadodara",
-    "category": "Residential",
+    "category": "Residential Villas",
     "type": "Both",
     "year": "2024",
     "coverImage": "/RESIDENCIAL VILLAS/6. SELENITE VILLA VADODARA/EXTERIOR/1. Selenite Villa Front View_c.jpg",
@@ -1102,7 +1083,7 @@ export const projects: Project[] = [
     "id": "7",
     "slug": "akshat-luxuria-bharuch",
     "title": "Akshat Luxuria Bharuch",
-    "category": "Residential",
+    "category": "Residential Villas",
     "type": "Both",
     "year": "2024",
     "coverImage": "/RESIDENCIAL VILLAS/7. AKSHAT LUXURIA BHARUCH/EXTERIOR/Nandlav Bharuch Gate_Cam-a.jpg",
@@ -1121,7 +1102,7 @@ export const projects: Project[] = [
     "id": "8",
     "slug": "atlantis-bharuch",
     "title": "Atlantis Bharuch",
-    "category": "Residential",
+    "category": "Residential Villas",
     "type": "Both",
     "year": "2024",
     "coverImage": "/RESIDENCIAL VILLAS/8. ATLANTIS BHARUCH/EXTERIOR/Atlantis Type-B Gallary_Cam01-v01.jpg",
@@ -1141,7 +1122,7 @@ export const projects: Project[] = [
     "id": "9",
     "slug": "al-safa-bharuch",
     "title": "Al-Safa Bharuch",
-    "category": "Residential",
+    "category": "Residential Villas",
     "type": "Both",
     "year": "2024",
     "coverImage": "/RESIDENCIAL VILLAS/9. AL-SAFA BHARUCH/EXTERIOR/Duplex Furkanbhai Gate_Cam-v01.jpg",
@@ -1212,50 +1193,164 @@ export const projects: Project[] = [
     ]
   },
   {
-    "id": "360",
-    "slug": "output",
-    "title": "Output",
+    "id": "361",
+    "slug": "satyam-surya",
+    "title": "Satyam Surya",
     "category": "Virtual Tour",
     "type": "Animation",
     "year": "2024",
-    "coverImage": "/360 virtual/360 output/Satyam Surya Homes Kharghar 360_0001.jpg",
+    "coverImage": "/360 output/Satyam Surya Homes Kharghar 360_0001.jpg",
     "images": [
-      "/360 virtual/360 output/Satyam Surya Homes Kharghar 360_0001.jpg",
-      "/360 virtual/360 output/Satyam Surya Homes Kharghar 360_00011.jpg",
-      "/360 virtual/360 output/Satyam Surya Homes Kharghar 360_0002.jpg",
-      "/360 virtual/360 output/Satyam Surya Homes Kharghar 360_0003.jpg",
-      "/360 virtual/360 output/Satyam Surya Homes Kharghar 360_0004.jpg",
-      "/360 virtual/360 output/Satyam Surya Homes Kharghar 360_0005.jpg",
-      "/360 virtual/360 output/Satyam Surya Homes Kharghar 360_0006.jpg",
-      "/360 virtual/360 output/Satyam Surya Homes Kharghar 360_0007.jpg",
-      "/360 virtual/360 output/Satyam Surya Homes Kharghar 360_0008.jpg",
-      "/360 virtual/360 output/Satyam Surya Homes Kharghar 360_0009.jpg",
-      "/360 virtual/360 output/Satyam Surya Homes Kharghar 360_0010.jpg",
-      "/360 virtual/360 output/Satyam Surya Homes Kharghar 360_0012.jpg",
-      "/360 virtual/360 output/Satyam Surya Homes Kharghar 360_0013.jpg",
-      "/360 virtual/360 output/Satyam Surya Homes Kharghar 360_0014.jpg",
-      "/360 virtual/360 output/Satyam Surya Homes Kharghar 360_0015.jpg",
-      "/360 virtual/360 output/Satyam Surya Homes Kharghar 360_0016.jpg",
-      "/360 virtual/360 output/Satyam Surya Homes Kharghar 360_0018.jpg",
-      "/360 virtual/360 output/Satyam Surya Homes Kharghar 360_0019.jpg",
-      "/360 virtual/360 output/Satyam Surya Homes Kharghar 360_0020.jpg",
-      "/360 virtual/360 output/Satyam Surya Homes Kharghar 360_0021.jpg",
-      "/360 virtual/360 output/Satyam Surya Homes Kharghar 360_0022.jpg"
+      "/360 output/Satyam Surya Homes Kharghar 360_0001.jpg",
+      "/360 output/Satyam Surya Homes Kharghar 360_00011.jpg",
+      "/360 output/Satyam Surya Homes Kharghar 360_0002.jpg",
+      "/360 output/Satyam Surya Homes Kharghar 360_0003.jpg",
+      "/360 output/Satyam Surya Homes Kharghar 360_0004.jpg",
+      "/360 output/Satyam Surya Homes Kharghar 360_0005.jpg",
+      "/360 output/Satyam Surya Homes Kharghar 360_0006.jpg",
+      "/360 output/Satyam Surya Homes Kharghar 360_0007.jpg",
+      "/360 output/Satyam Surya Homes Kharghar 360_0008.jpg",
+      "/360 output/Satyam Surya Homes Kharghar 360_0009.jpg",
+      "/360 output/Satyam Surya Homes Kharghar 360_0010.jpg",
+      "/360 output/Satyam Surya Homes Kharghar 360_0012.jpg",
+      "/360 output/Satyam Surya Homes Kharghar 360_0013.jpg",
+      "/360 output/Satyam Surya Homes Kharghar 360_0014.jpg",
+      "/360 output/Satyam Surya Homes Kharghar 360_0015.jpg",
+      "/360 output/Satyam Surya Homes Kharghar 360_0016.jpg",
+      "/360 output/Satyam Surya Homes Kharghar 360_0018.jpg",
+      "/360 output/Satyam Surya Homes Kharghar 360_0019.jpg",
+      "/360 output/Satyam Surya Homes Kharghar 360_0020.jpg",
+      "/360 output/Satyam Surya Homes Kharghar 360_0021.jpg",
+      "/360 output/Satyam Surya Homes Kharghar 360_0022.jpg"
     ],
     "featured": false,
     "aspectRatio": "landscape",
     "tags": [
       "virtual-tour",
       "360",
+      "architecture",
+      "hq"
+    ]
+  },
+  {
+    "id": "22",
+    "slug": "royal-luxuria-bharuch",
+    "title": "ROYAL LUXURIA BHARUCH",
+    "category": "Residential Low Rise",
+    "type": "Exterior",
+    "year": "2024",
+    "location": "BHARUCH",
+    "coverImage": "/RESIDENCE LOW RISE APPARTMENT/Royal Luxuria BHARUCH/EXTERIOR/Bholav Front Cam-a.jpg",
+    "images": [
+      "/RESIDENCE LOW RISE APPARTMENT/Royal Luxuria BHARUCH/EXTERIOR/Bholav Front Cam-a.jpg",
+      "/RESIDENCE LOW RISE APPARTMENT/Royal Luxuria BHARUCH/EXTERIOR/Bholav Entry Budhha Cam-a.jpg",
+      "/RESIDENCE LOW RISE APPARTMENT/Royal Luxuria BHARUCH/EXTERIOR/Bholav Garden 1st Cam-a.jpg",
+      "/RESIDENCE LOW RISE APPARTMENT/Royal Luxuria BHARUCH/EXTERIOR/Bholav Garden 3rd Cam-a.jpg",
+      "/RESIDENCE LOW RISE APPARTMENT/Royal Luxuria BHARUCH/EXTERIOR/Bholav Garden Long Cam-a.jpg",
+      "/RESIDENCE LOW RISE APPARTMENT/Royal Luxuria BHARUCH/EXTERIOR/Bholav Gate 1st Cam-b.jpg",
+      "/RESIDENCE LOW RISE APPARTMENT/Royal Luxuria BHARUCH/EXTERIOR/Bholav Inner Path Cam-a.jpg",
+      "/RESIDENCE LOW RISE APPARTMENT/Royal Luxuria BHARUCH/EXTERIOR/Bholav Play Area-a.jpg"
+    ],
+    "featured": false,
+    "aspectRatio": "landscape",
+    "tags": [
+      "residential",
+      "low-rise",
+      "architecture"
+    ]
+  },
+  {
+    "id": "23",
+    "slug": "shyama-icon-vadodara",
+    "title": "SHYAMA ICON VADODARA",
+    "category": "Residential Low Rise",
+    "type": "Exterior",
+    "year": "2024",
+    "location": "VADODARA",
+    "coverImage": "/RESIDENCE LOW RISE APPARTMENT/SHYAMA ICON VADODARA/EXTERIOR/Kamleshbhai Sevasi Front Cam-c.jpg",
+    "images": [
+      "/RESIDENCE LOW RISE APPARTMENT/SHYAMA ICON VADODARA/EXTERIOR/Kamleshbhai Sevasi Front Cam-c.jpg",
+      "/RESIDENCE LOW RISE APPARTMENT/SHYAMA ICON VADODARA/EXTERIOR/6K Kamleshbhai Sevas Club Night-c.jpg",
+      "/RESIDENCE LOW RISE APPARTMENT/SHYAMA ICON VADODARA/EXTERIOR/6K Kamleshbhai Sevas Gate-c.jpg",
+      "/RESIDENCE LOW RISE APPARTMENT/SHYAMA ICON VADODARA/EXTERIOR/Kamleshbhai Sevasi Back Side Cam-c.jpg",
+      "/RESIDENCE LOW RISE APPARTMENT/SHYAMA ICON VADODARA/EXTERIOR/Kamleshbhai Sevasi Club 1st Cam-c.jpg",
+      "/RESIDENCE LOW RISE APPARTMENT/SHYAMA ICON VADODARA/EXTERIOR/Kamleshbhai Sevasi Club Front-b.jpg",
+      "/RESIDENCE LOW RISE APPARTMENT/SHYAMA ICON VADODARA/EXTERIOR/Kamleshbhai Sevasi Top View_c.jpg"
+    ],
+    "featured": false,
+    "aspectRatio": "landscape",
+    "tags": [
+      "residential",
+      "low-rise",
+      "architecture"
+    ]
+  },
+  {
+    "id": "24",
+    "slug": "the-vista-vadodara",
+    "title": "THE VISTA VADODARA",
+    "category": "Residential Low Rise",
+    "type": "Exterior",
+    "year": "2024",
+    "location": "VADODARA",
+    "coverImage": "/RESIDENCE LOW RISE APPARTMENT/THE VISTA VADODARA/EXTERIOR/6K_Majidbhai Front_Cam02-b.jpg",
+    "images": [
+      "/RESIDENCE LOW RISE APPARTMENT/THE VISTA VADODARA/EXTERIOR/6K_Majidbhai Front_Cam02-b.jpg",
+      "/RESIDENCE LOW RISE APPARTMENT/THE VISTA VADODARA/EXTERIOR/6K_Majidbhai BBQ_Cam02-c.jpg",
+      "/RESIDENCE LOW RISE APPARTMENT/THE VISTA VADODARA/EXTERIOR/6K_Majidbhai Gazibo_Cam02-c.jpg",
+      "/RESIDENCE LOW RISE APPARTMENT/THE VISTA VADODARA/EXTERIOR/6K_Majidbhai Path_Cam02_c.jpg",
+      "/RESIDENCE LOW RISE APPARTMENT/THE VISTA VADODARA/EXTERIOR/6K_Majidbhai Play Area 2nd_Cam02_c.jpg",
+      "/RESIDENCE LOW RISE APPARTMENT/THE VISTA VADODARA/EXTERIOR/6K_Majidbhai Play Area_Cam02_c.jpg",
+      "/RESIDENCE LOW RISE APPARTMENT/THE VISTA VADODARA/EXTERIOR/6K_Majidbhai Terece 2nd_Cam_c.jpg",
+      "/RESIDENCE LOW RISE APPARTMENT/THE VISTA VADODARA/EXTERIOR/6K_Majidbhai Terece_Cam_c.jpg",
+      "/RESIDENCE LOW RISE APPARTMENT/THE VISTA VADODARA/EXTERIOR/6K_Majidbhai Top_Cam02_b.jpg"
+    ],
+    "featured": false,
+    "aspectRatio": "landscape",
+    "tags": [
+      "residential",
+      "low-rise",
+      "architecture"
+    ]
+  },
+  {
+    "id": "25",
+    "slug": "vrundavan-bliss-vadodara",
+    "title": "VRUNDAVAN BLISS VADODARA",
+    "category": "Residential Low Rise",
+    "type": "Exterior",
+    "year": "2024",
+    "location": "VADODARA",
+    "coverImage": "/RESIDENCE LOW RISE APPARTMENT/VRUNDAVAN BLISS VADODARA/EXTERIOR/Bhavik Sheth Bapod Front_Cam-v01.jpg",
+    "images": [
+      "/RESIDENCE LOW RISE APPARTMENT/VRUNDAVAN BLISS VADODARA/EXTERIOR/Bhavik Sheth Bapod Front_Cam-v01.jpg",
+      "/RESIDENCE LOW RISE APPARTMENT/VRUNDAVAN BLISS VADODARA/EXTERIOR/Bhavik Sheth Bapod Club_Cam-v01.jpg",
+      "/RESIDENCE LOW RISE APPARTMENT/VRUNDAVAN BLISS VADODARA/EXTERIOR/Bhavik Sheth Bapod Gate_Cam-v01.jpg",
+      "/RESIDENCE LOW RISE APPARTMENT/VRUNDAVAN BLISS VADODARA/EXTERIOR/Bhavik Sheth Bapod High Corner_Cam-v01.jpg",
+      "/RESIDENCE LOW RISE APPARTMENT/VRUNDAVAN BLISS VADODARA/EXTERIOR/Bhavik Sheth Bapod High_Cam-v01.jpg",
+      "/RESIDENCE LOW RISE APPARTMENT/VRUNDAVAN BLISS VADODARA/EXTERIOR/Bhavik Sheth Bapod Left_Cam-v01.jpg",
+      "/RESIDENCE LOW RISE APPARTMENT/VRUNDAVAN BLISS VADODARA/EXTERIOR/Bhavik Sheth Bapod Right_Cam-v01.jpg",
+      "/RESIDENCE LOW RISE APPARTMENT/VRUNDAVAN BLISS VADODARA/EXTERIOR/Bhavik Sheth Bapod Terece Top_Cam-v01.jpg",
+      "/RESIDENCE LOW RISE APPARTMENT/VRUNDAVAN BLISS VADODARA/EXTERIOR/Bhavik Sheth Bapod Top_Cam-v01.jpg"
+    ],
+    "featured": false,
+    "aspectRatio": "landscape",
+    "tags": [
+      "residential",
+      "low-rise",
       "architecture"
     ]
   }
 ];
 
-/** Get first project slug for a given category (used for home page category links) */
-export function getFirstProjectSlug(category: string): string | null {
+/** Get first project slug for a given category (or first overall if omitted). */
+export function getFirstProjectSlug(category?: string): string | null {
+  if (!category || category === "All") {
+    return projects[0]?.slug ?? null;
+  }
+
   const match = projects.find((p) => p.category === category);
-  return match ? match.slug : null;
+  return match ? match.slug : projects[0]?.slug ?? null;
 }
 export const featuredProjects = projects.filter((p) => p.featured);
 
@@ -1274,13 +1369,12 @@ export function getProjectBySlug(slug: string): Project | undefined {
 export const categories = [
   "All",
   "Residential High Rise",
+  "Residential Low Rise",
   "Commercial",
-  "Residential",
-  "Duplex",
+  "Residential Villas",
   "Walkthrough",
   "Virtual Tour",
-  "Farmhouse",
-  "Cutsection"
+  "Farmhouse"
 ] as const;
 
 /**

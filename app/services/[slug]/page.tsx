@@ -164,7 +164,7 @@ const processSteps: Record<string, ProcessStep[]> = {
       step: "1. Site Planning",
       heading: "Every viewpoint\ncarefully chosen.",
       text: "We plan the panoramic hotspots across your property — selecting positions that give the most immersive and informative experience for remote viewers.",
-      assetImage: "/360 virtual/360 output/Satyam Surya Homes Kharghar 360_0001.jpg",
+      assetImage: "/360 output/Satyam Surya Homes Kharghar 360_0001.jpg",
       img1: "/RESIDENCIALV HIGH RISE APPARTMENTS/1. SATYAM SURYA MANATHAN/EXTERIOR/2. Satyam Surya Front_Cam01-a.jpg",
       img2: "/RESIDENCIALV HIGH RISE APPARTMENTS/1. SATYAM SURYA MANATHAN/EXTERIOR/Satyam Surya Garden_Cam-a.jpg",
     },

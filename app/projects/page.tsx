@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Navbar } from "@/components/sections/Navbar";
-import { MasonryGrid } from "@/components/sections/MasonryGrid";
+import { ProjectsPortfolioFeed } from "@/components/sections/ProjectsPortfolioFeed";
 import { FilterBar } from "@/components/ui/FilterBar";
 import { Footer } from "@/components/sections/Footer";
 import { getProjects } from "@/data/projects";
@@ -71,7 +71,7 @@ function ProjectsContent() {
           <FilterBar active={filter} onFilter={setFilter} />
         </div>
 
-        <MasonryGrid projects={projects} initialCount={projects.length} />
+        <ProjectsPortfolioFeed projects={projects} />
       </div>
 
       <Footer />

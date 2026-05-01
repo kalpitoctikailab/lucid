@@ -1,7 +1,5 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, useSpring, useMotionValue } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import type { Project } from "@/data/projects";
@@ -98,26 +96,29 @@ export function MasonryGrid({
   hasMore = false,
 }: MasonryGridProps) {
   const displayProjects = projects.slice(0, initialCount);
+  const indexedProjects = displayProjects.map((project, index) => ({ project, index }));
+  const evenProjects = indexedProjects.filter((_, index) => index % 2 === 0);
+  const oddProjects = indexedProjects.filter((_, index) => index % 2 === 1);
 
   return (
     <div className="mx-auto w-full max-w-[1100px] px-3 py-12 sm:px-0 md:py-16 lg:px-0">
       {/* Mobile: 1 Column */}
       <div className="flex flex-col gap-4 sm:hidden">
-        {displayProjects.map((p) => (
-          <MasonryCard key={p.id} project={p} index={displayProjects.indexOf(p)} />
+        {indexedProjects.map(({ project, index }) => (
+          <MasonryCard key={project.slug} project={project} index={index} />
         ))}
       </div>
 
       {/* Tablet: 2 Columns */}
       <div className="hidden sm:flex lg:hidden gap-4 md:gap-6 w-full">
         <div className="flex flex-1 flex-col gap-4 md:gap-6">
-          {displayProjects.filter((_, i) => i % 2 === 0).map((p) => (
-            <MasonryCard key={p.id} project={p} index={displayProjects.indexOf(p)} />
+          {evenProjects.map(({ project, index }) => (
+            <MasonryCard key={project.slug} project={project} index={index} />
           ))}
         </div>
         <div className="flex flex-1 flex-col gap-4 md:gap-6">
-          {displayProjects.filter((_, i) => i % 2 === 1).map((p) => (
-            <MasonryCard key={p.id} project={p} index={displayProjects.indexOf(p)} />
+          {oddProjects.map(({ project, index }) => (
+            <MasonryCard key={project.slug} project={project} index={index} />
           ))}
         </div>
       </div>
@@ -125,13 +126,13 @@ export function MasonryGrid({
       {/* Desktop: 2 Columns */}
       <div className="hidden lg:flex gap-6 w-full">
         <div className="flex flex-1 flex-col gap-6">
-          {displayProjects.filter((_, i) => i % 2 === 0).map((p) => (
-            <MasonryCard key={p.id} project={p} index={displayProjects.indexOf(p)} />
+          {evenProjects.map(({ project, index }) => (
+            <MasonryCard key={project.slug} project={project} index={index} />
           ))}
         </div>
         <div className="flex flex-1 flex-col gap-6">
-          {displayProjects.filter((_, i) => i % 2 === 1).map((p) => (
-            <MasonryCard key={p.id} project={p} index={displayProjects.indexOf(p)} />
+          {oddProjects.map(({ project, index }) => (
+            <MasonryCard key={project.slug} project={project} index={index} />
           ))}
         </div>
       </div>

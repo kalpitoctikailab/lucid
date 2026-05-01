@@ -30,7 +30,7 @@ export const homePortfolioInlineVideos: readonly {
 
 function projectHref(category: string): string {
   const slug = getFirstProjectSlug(category);
-  return slug ? `/projects/${slug}` : `/projects?category=${encodeURIComponent(category)}`;
+  return slug ? `/projects/${slug}` : "/projects";
 }
 
 /**
@@ -52,25 +52,25 @@ export const homePortfolioCategories: HomeCategoryCard[] = [
   {
     title: "Residential Low Rise Appartment",
     image:
-      "/lucid-project-data/COMMERCIAL/CITY GOLD BHARUCH/EXTERIOR/Dungari Comercial Front_Cam02-v01.webp",
-    href: projectHref("Residential"),
+      "/RESIDENCE LOW RISE APPARTMENT/Royal Luxuria BHARUCH/EXTERIOR/Bholav Front Cam-a.jpg",
+    href: projectHref("Residential Low Rise"),
   },
   {
     title: "Residential Villas",
     image:
       "/RESIDENCIAL VILLAS/6. SELENITE VILLA VADODARA/EXTERIOR/1. Selenite Villa Front View_c.jpg",
-    href: projectHref("Residential"),
+    href: projectHref("Residential Villas"),
   },
   {
     title: "Walkthrough",
     image:
-      "/lucid-project-data/COMMERCIAL/K10 INDEX VADODARA/EXTERIOR/6K K10 Index Center Atrea-b.webp",
+      "/COMMERCIAL/3. K10 INDEX VADODARA/EXTERIOR/6K_K10 Index Remp Entry View-c.jpg",
     href: projectHref("Walkthrough"),
   },
   {
     title: "360 degree Virtual",
     image:
-      "/360 virtual/360 output/Satyam Surya Homes Kharghar 360_0001.jpg",
+      "/360 output/Satyam Surya Homes Kharghar 360_0001.jpg",
     href: projectHref("Virtual Tour"),
   },
   {
@@ -81,7 +81,7 @@ export const homePortfolioCategories: HomeCategoryCard[] = [
   },
   {
     title: "Product Rendering",
-    image: "/lucid-project-data/CUTSECTIONS/3K_Ganshyambhai Akota Cutsection_Cam-b.webp",
+    image: "/COMMERCIAL/4. CITY GOLD BHARUCH/EXTERIOR/Dungari Comercial Left_Cam02-v01.jpg",
     href: projectHref("Cutsection"),
   },
 ];

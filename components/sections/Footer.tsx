@@ -24,7 +24,7 @@ export function Footer() {
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage:
-            "url('/lucid-project-data/FARMHOUSE/LUSH MEADOW EKTA NAGAR/Kathanpur Pool Night_Cam01-v01.webp')",
+            "url('/FARMHOUSE/1. LUSH MEADOW EKTA NAGAR/Kathanpur Pool Night_Cam01-v01.jpg')",
         }}
       />
 

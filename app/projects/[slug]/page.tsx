@@ -1,15 +1,269 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useParams } from "next/navigation";
 import { getProjectBySlug, getAdjacentProjects } from "@/data/projects";
 import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useLenis } from "lenis/react";
-import { HERO_VIDEO, HERO_VIDEO_FALLBACK, HERO_POSTER } from "@/data/hero";
+import { HERO_VIDEO, HERO_VIDEO_FALLBACK } from "@/data/hero";
 import Image from "next/image";
 import Link from "next/link";
+
+type PanoramaInstance = {
+  dispose?: () => void;
+  add?: (spot: InfospotInstance) => void;
+};
+type InfospotInstance = {
+  position: { set: (x: number, y: number, z: number) => void };
+  addEventListener: (event: string, cb: () => void) => void;
+};
+type ViewerInstance = {
+  add: (panorama: PanoramaInstance) => void;
+  setPanorama: (panorama: PanoramaInstance) => void;
+  dispose?: () => void;
+};
+type PanolensShape = {
+  ImagePanorama: new (src: string) => PanoramaInstance;
+  Infospot: new (scale: number, imageSrc?: string) => InfospotInstance;
+  DataImage?: { Arrow?: string };
+  Viewer: new (options: Record<string, unknown>) => ViewerInstance;
+};
+
+type HotspotPixelConfig = {
+  x: number;
+  y: number;
+  targetSceneIndex: number;
+};
+type SceneEntry = {
+  src: string;
+  sceneNumber: number;
+};
+
+const EQUIRECT_WIDTH = 8000;
+const EQUIRECT_HEIGHT = 4000;
+const HOTSPOTS_BY_PROJECT: Record<string, Record<number, HotspotPixelConfig[]>> = {
+  "satyam-surya": {
+    0: [{ x: 1000, y: 2575, targetSceneIndex: 1 }, { x: 500, y: 2200, targetSceneIndex: 2 }],
+    1: [{ x: 300, y: 2575, targetSceneIndex: 2 }, { x: 5000, y: 2575, targetSceneIndex: 0 }],
+    2: [{ x: 4500, y: 2250, targetSceneIndex: 0 }, { x: 3700, y: 2575, targetSceneIndex: 1 }, { x: 400, y: 2600, targetSceneIndex: 3 }],
+    3: [{ x: 4400, y: 2250, targetSceneIndex: 0 }, { x: 4000, y: 2250, targetSceneIndex: 1 }, { x: 4200, y: 2600, targetSceneIndex: 2 }, { x: 7000, y: 2200, targetSceneIndex: 4 }],
+    4: [{ x: 4100, y: 2250, targetSceneIndex: 0 }, { x: 3700, y: 2250, targetSceneIndex: 1 }, { x: 3000, y: 2600, targetSceneIndex: 3 }, { x: 7000, y: 2200, targetSceneIndex: 5 }],
+    5: [{ x: 3000, y: 2200, targetSceneIndex: 4 }, { x: 7000, y: 2200, targetSceneIndex: 6 }, { x: 4500, y: 2200, targetSceneIndex: 19}],
+    6: [{ x: 3000, y: 2200, targetSceneIndex: 5 }, { x: 1500, y: 2200, targetSceneIndex: 7 }, { x: 250, y: 2200, targetSceneIndex: 8 }, { x: 7200, y: 2200, targetSceneIndex: 9 }, { x: 5500, y: 2200, targetSceneIndex: 10 }],
+    7: [{ x: 5000, y: 2200, targetSceneIndex: 6 }, { x: 1000, y: 2200, targetSceneIndex: 18}, ],
+    8: [{ x: 4500, y: 2200, targetSceneIndex: 6 }, { x: 0, y: 2200, targetSceneIndex: 16}],
+    9: [{ x: 3200, y: 2200, targetSceneIndex: 6 }, { x: 6500, y: 2200, targetSceneIndex: 14 }],
+    10: [{ x: 1300, y: 2200, targetSceneIndex: 6 }, { x: 5000, y: 2200, targetSceneIndex: 11 }],
+    11: [{ x: 1000, y: 2200, targetSceneIndex: 10 }, { x: 5500, y: 2200, targetSceneIndex: 13 }, { x: 6800, y: 2200, targetSceneIndex: 12 }],
+    12: [{ x: 4000, y: 2200, targetSceneIndex: 13 }, { x: 2700, y: 2200, targetSceneIndex: 11 }],
+    13: [{ x: 0, y: 2200, targetSceneIndex: 12 }, { x: 1600, y: 2200, targetSceneIndex: 11 }],
+    14: [{ x: 2500, y: 2200, targetSceneIndex: 9 }, { x: 4500, y: 2200, targetSceneIndex: 15 }],
+    15: [{ x: 0, y: 2200, targetSceneIndex: 14 }],
+    16: [{ x: 4100, y: 2200, targetSceneIndex: 8 }, { x: 6000, y: 2200, targetSceneIndex: 17 }],
+    17: [{ x: 3500, y: 2200, targetSceneIndex: 8 }, { x: 2000, y: 2200, targetSceneIndex: 16}],
+    18: [{ x: 5200, y: 2200, targetSceneIndex: 7 }],
+    19: [{ x: 1000, y: 2200, targetSceneIndex: 5 }, { x: 6200, y: 2200, targetSceneIndex: 20 }],
+    20: [{ x: 1500, y: 2200, targetSceneIndex: 5 }, { x: 2200, y: 2200, targetSceneIndex: 19 }],
+  },
+};
+
+function pixelToSpherePosition(x: number, y: number, radius = 5000) {
+  const u = x / EQUIRECT_WIDTH;
+  const v = y / EQUIRECT_HEIGHT;
+  const theta = (u - 0.5) * 2 * Math.PI;
+  const phi = (0.5 - v) * Math.PI;
+  const cosPhi = Math.cos(phi);
+
+  return {
+    x: radius * Math.sin(theta) * cosPhi,
+    y: radius * Math.sin(phi),
+    z: -radius * Math.cos(theta) * cosPhi,
+  };
+}
+
+function getSceneNumberFromSrc(src: string, fallback: number) {
+  const fileName = src.split("/").pop() ?? "";
+  const match = fileName.match(/_(\d+)\.(jpg|jpeg|png|webp)$/i);
+  if (!match) return fallback;
+  return Number.parseInt(match[1], 10);
+}
+
+function Panorama360Section({
+  projectSlug,
+  images,
+}: {
+  projectSlug: string;
+  images: string[];
+}) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const viewerRef = useRef<ViewerInstance | null>(null);
+  const panoramasRef = useRef<PanoramaInstance[]>([]);
+  const [viewerError, setViewerError] = useState<string | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const imageList = useMemo<SceneEntry[]>(
+    () =>
+      images
+        .filter(Boolean)
+        .map((src, idx) => ({
+          src,
+          sceneNumber: getSceneNumberFromSrc(src, idx + 1),
+        }))
+        .sort((a, b) => a.sceneNumber - b.sceneNumber),
+    [images]
+  );
+
+  useEffect(() => {
+    setActiveIndex(0);
+  }, [projectSlug]);
+
+  useEffect(() => {
+    let disposed = false;
+
+    const mountViewer = async () => {
+      if (!containerRef.current) return;
+      containerRef.current.innerHTML = "";
+
+      try {
+        setViewerError(null);
+        const panolensModule = (await import("panolens")) as unknown as
+          | PanolensShape
+          | { default: PanolensShape };
+        const PANOLENS =
+          "default" in panolensModule ? panolensModule.default : panolensModule;
+
+        if (imageList.length === 0) {
+          throw new Error("No panorama images provided.");
+        }
+
+        const panoramas = imageList.map((scene) => new PANOLENS.ImagePanorama(scene.src));
+        panoramas.forEach((panorama, sceneIndex) => {
+          const sceneHotspots = HOTSPOTS_BY_PROJECT[projectSlug]?.[sceneIndex] ?? [];
+          sceneHotspots.forEach((spot) => {
+            if (spot.targetSceneIndex < 0 || spot.targetSceneIndex >= imageList.length) return;
+            const position = pixelToSpherePosition(spot.x, spot.y);
+            const infospot = new PANOLENS.Infospot(650, PANOLENS.DataImage?.Arrow);
+            infospot.position.set(position.x, position.y, position.z);
+            infospot.addEventListener("click", () => {
+              const nextPanorama = panoramas[spot.targetSceneIndex];
+              if (nextPanorama) {
+                viewer.setPanorama(nextPanorama);
+              }
+              setActiveIndex(spot.targetSceneIndex);
+            });
+            panorama.add?.(infospot);
+          });
+        });
+
+        let viewer: ViewerInstance;
+        try {
+          viewer = new PANOLENS.Viewer({
+            container: containerRef.current,
+            autoRotate: true,
+            autoRotateSpeed: 0.2,
+            controlBar: true,
+          });
+        } catch {
+          // Panolens can throw in some runtimes when building control bar internals.
+          // Fallback keeps the panorama tour usable instead of crashing the page.
+          viewer = new PANOLENS.Viewer({
+            container: containerRef.current,
+            autoRotate: true,
+            autoRotateSpeed: 0.2,
+            controlBar: false,
+          });
+        }
+
+        panoramas.forEach((panorama) => viewer.add(panorama));
+        panoramasRef.current = panoramas;
+        viewerRef.current = viewer;
+        viewer.setPanorama(panoramas[0]);
+      } catch {
+        if (!disposed) {
+          setViewerError("Unable to load 360 viewer right now.");
+        }
+      }
+    };
+
+    mountViewer();
+
+    return () => {
+      disposed = true;
+      try {
+        viewerRef.current?.dispose?.();
+      } catch {
+        // Ignore Panolens teardown errors.
+      } finally {
+        viewerRef.current = null;
+        panoramasRef.current = [];
+        if (containerRef.current) {
+          containerRef.current.innerHTML = "";
+        }
+      }
+    };
+  }, [imageList, projectSlug]);
+
+  useEffect(() => {
+    const viewer = viewerRef.current;
+    const panoramas = panoramasRef.current;
+    const panorama = panoramas[activeIndex];
+    if (!viewer || !panorama) return;
+    viewer.setPanorama(panorama);
+  }, [activeIndex]);
+
+  return (
+    <section className="mx-auto max-w-300 px-4 sm:px-6 lg:px-12 py-8 md:py-12">
+      <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.35em] text-white/40">
+        360 Panorama
+      </p>
+      <div className="mb-4 flex flex-wrap gap-2">
+        {imageList.map((src, idx) => {
+          const fileName = src.src.split("/").pop() ?? `Scene ${src.sceneNumber}`;
+          return (
+            <button
+              key={src.src}
+              type="button"
+              onClick={() => setActiveIndex(idx)}
+              className={`rounded border px-3 py-1.5 text-[11px] uppercase tracking-[0.2em] transition-colors ${
+                activeIndex === idx
+                  ? "border-white/60 bg-white/15 text-white"
+                  : "border-white/20 bg-black/30 text-white/70 hover:bg-white/10 hover:text-white"
+              }`}
+            >
+              {`Scene ${src.sceneNumber}`}
+              <span className="ml-2 hidden text-[9px] normal-case tracking-normal text-white/50 md:inline">
+                {fileName}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+      <div className="panorama-viewer-shell relative h-svh w-full overflow-hidden rounded-sm bg-black">
+        <div ref={containerRef} className="h-full w-full" />
+        {viewerError ? (
+          <div className="absolute inset-0 flex items-center justify-center text-sm text-white/70">
+            {viewerError}
+          </div>
+        ) : null}
+      </div>
+      <style jsx global>{`
+        .panorama-viewer-shell button,
+        .panorama-viewer-shell [role="button"],
+        .panorama-viewer-shell select,
+        .panorama-viewer-shell option,
+        .panorama-viewer-shell ul,
+        .panorama-viewer-shell li,
+        .panorama-viewer-shell div[aria-label*="control" i],
+        .panorama-viewer-shell div[aria-label*="mode" i] {
+          background: #000 !important;
+          color: #fff !important;
+          border-color: rgba(255, 255, 255, 0.35) !important;
+        }
+      `}</style>
+    </section>
+  );
+}
 
 // ─── Lightbox ────────────────────────────────────────────────────────────────
 function Lightbox({
@@ -228,8 +482,6 @@ function SmartMasonryGallery({ images, title }: { images: string[]; title: strin
       const aTall = isTall(a.aspect);
       const bWide = b ? isWide(b.aspect) : false;
       const bTall = b ? isTall(b.aspect) : false;
-      const cWide = c ? isWide(c.aspect) : false;
-      const cTall = c ? isTall(c.aspect) : false;
 
       // Strategy:
       // - Wide images prefer 2 cols (out of 3-col grid)
@@ -266,7 +518,7 @@ function SmartMasonryGallery({ images, title }: { images: string[]; title: strin
             { item: b, colSpan: 2 },
           ]);
           i += 2;
-        } else if (b && c && (bTall || isSquare(b.aspect)) && (cTall || isSquare(c.aspect))) {
+        } else if (b && c && (bTall || isSquare(b.aspect)) && (isTall(c.aspect) || isSquare(c.aspect))) {
           // three tall/square — each gets 1 col
           rows.push([
             { item: a, colSpan: 1 },
@@ -409,7 +661,7 @@ function ProjectVideoHero({ videoSrc, poster }: { videoSrc?: string; poster: str
       className="relative z-0 flex items-center justify-center overflow-hidden bg-bg px-4 pt-24 pb-0 sm:px-8 md:px-12 lg:px-16"
       style={{ height: "calc(100svh - 0px)" }}
     >
-      <div className="relative w-full max-w-[1200px] overflow-hidden" style={{ aspectRatio: "16/7" }}>
+      <div className="relative w-full max-w-300 overflow-hidden" style={{ aspectRatio: "16/7" }}>
         <motion.div
           className="absolute inset-0 -top-[8%] h-[118%] w-full will-change-transform"
           style={{ y: mediaY, scale: mediaScale }}
@@ -435,7 +687,6 @@ function ProjectVideoHero({ videoSrc, poster }: { videoSrc?: string; poster: str
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function ProjectPage() {
   const params = useParams();
-  const router = useRouter();
   const slug = params?.slug as string;
   const project = getProjectBySlug(slug);
   const { prev, next } = getAdjacentProjects(slug);
@@ -457,7 +708,7 @@ export default function ProjectPage() {
       />
 
       {/* ── 2. Main Image + Text Split ── */}
-      <section className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-12 py-16 md:py-24">
+      <section className="mx-auto max-w-300 px-4 sm:px-6 lg:px-12 py-16 md:py-24">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16 items-center">
 
           {/* Left — main cover image */}
@@ -534,14 +785,18 @@ export default function ProjectPage() {
         </div>
       </section>
 
-      {/* ── 3. Masonry Gallery ── */}
-      <section className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-12 pb-16 md:pb-24">
-      <SmartMasonryGallery images={project.images} title={project.title} />
+      {/* ── 3. Gallery ── */}
+      <section className="mx-auto max-w-300 px-4 sm:px-6 lg:px-12 pb-16 md:pb-24">
+        <SmartMasonryGallery images={project.images} title={project.title} />
       </section>
+
+      {project.category === "Virtual Tour" ? (
+        <Panorama360Section projectSlug={project.slug} images={project.images} />
+      ) : null}
 
       {/* ── 4. Previous / Next Navigation ── */}
       {(prev || next) && (
-        <section className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-12 py-16 border-t border-white/10">
+        <section className="mx-auto max-w-300 px-4 sm:px-6 lg:px-12 py-16 border-t border-white/10">
           <div className="flex items-start justify-between gap-8">
 
             {/* Previous */}

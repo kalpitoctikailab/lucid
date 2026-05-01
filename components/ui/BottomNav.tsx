@@ -135,7 +135,7 @@ export function BottomNav() {
               {/* Logo icon */}
               <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full">
                 <Image
-                  src="/lucid-Icon-White.svg"
+                  src="/Lucid-Icon-White.svg"
                   alt="Lucid"
                   width={36}
                   height={36}

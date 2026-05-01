@@ -1060,6 +1060,29 @@ export const projects: Project[] = [
     ]
   },
   {
+    "id": "5",
+    "slug": "vihav-51-vadodara",
+    "title": "Vihav 51 Vadodara",
+    "category": "Residential Villas",
+    "type": "Exterior",
+    "year": "2024",
+    "coverImage": "/RESIDENCIAL VILLAS/5. VIHAV 51 VADODARA/EXTERIOR/1. Vihav 51 Cam 01-a.jpg",
+    "images": [
+      "/RESIDENCIAL VILLAS/5. VIHAV 51 VADODARA/EXTERIOR/1. Vihav 51 Cam 01-a.jpg",
+      "/RESIDENCIAL VILLAS/5. VIHAV 51 VADODARA/EXTERIOR/Vihav 51 Cam 04-a.jpg",
+      "/RESIDENCIAL VILLAS/5. VIHAV 51 VADODARA/EXTERIOR/Vihav 51 Cam 06-a.jpg",
+      "/RESIDENCIAL VILLAS/5. VIHAV 51 VADODARA/EXTERIOR/Vihav 51 Cam012-a.jpg",
+      "/RESIDENCIAL VILLAS/5. VIHAV 51 VADODARA/EXTERIOR/Vihav 51 Cam 038-a.jpg"
+    ],
+    "featured": false,
+    "aspectRatio": "landscape",
+    "tags": [
+      "residential",
+      "villa",
+      "architecture"
+    ]
+  },
+  {
     "id": "6",
     "slug": "selenite-villa-vadodara",
     "title": "Selenite Villa Vadodara",

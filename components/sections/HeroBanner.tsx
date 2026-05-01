@@ -68,7 +68,6 @@ export function HeroBanner() {
             className="h-full w-full object-cover"
           >
             <source src={HERO_VIDEO} type="video/mp4" />
-            <source src={HERO_VIDEO_FALLBACK} type="video/mp4" />
           </video>
         </motion.div>
       </div>

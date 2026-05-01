@@ -6,8 +6,8 @@ import { getServiceBySlug } from "@/data/services";
 import { getProjects } from "@/data/projects";
 import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
+import { ProjectsPortfolioFeed } from "@/components/sections/ProjectsPortfolioFeed";
 import { motion, useScroll, useTransform } from "framer-motion";
-import Link from "next/link";
 import Image from "next/image";
 
 /* ─── Process steps (per-service content) ────────────────────── */
@@ -347,13 +347,13 @@ function ProcessSection({ slug }: { slug: string }) {
   );
 }
 
-/* ─── Project Grid (home-page style) ─────────────────────────── */
+/* ─── Project Grid (projects-page style) ─────────────────────── */
 function ProjectGrid({ slug }: { slug: string }) {
   // Map service slug → project category filter
   const categoryMap: Record<string, string[]> = {
     commercial: ["Commercial"],
-    residential: ["Residential High Rise", "Residential"],
-    duplex: ["Duplex", "Residential"],
+    residential: ["Residential High Rise", "Residential Low Rise"],
+    duplex: ["Residential Villas"],
     walkthrough: ["Walkthrough"],
     "360-tours": ["Virtual Tour"],
   };
@@ -367,67 +367,7 @@ function ProjectGrid({ slug }: { slug: string }) {
   if (filtered.length === 0) return null;
 
   return (
-    <section className="bg-bg pt-10 pb-24">
-      <div className="mx-auto max-w-[1200px] px-4 sm:px-8 md:px-12 lg:px-0">
-
-        {/* Section label */}
-        <div className="mb-10 flex items-end justify-between">
-          <div>
-            <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.35em] text-white/40">
-              Related Work
-            </p>
-            <h2 className="font-heading text-3xl font-light text-white md:text-4xl">
-              Projects
-            </h2>
-          </div>
-          <Link
-            href="/projects"
-            className="text-[11px] font-medium uppercase tracking-[0.25em] text-white/40 hover:text-white transition-colors duration-300"
-          >
-            View all →
-          </Link>
-        </div>
-
-        {/* 2-column grid — same as home CategoryImageCard */}
-        <div className="flex flex-col gap-6 sm:gap-8">
-          {/* Pair rows */}
-          {Array.from({ length: Math.ceil(filtered.length / 2) }).map((_, rowIdx) => {
-            const left = filtered[rowIdx * 2];
-            const right = filtered[rowIdx * 2 + 1];
-            return (
-              <div key={rowIdx} className="grid grid-cols-2 gap-4 sm:gap-6">
-                {[left, right].map((project, colIdx) =>
-                  project ? (
-                    <Link
-                      key={project.slug}
-                      href={`/projects/${project.slug}`}
-                      className="group block w-full"
-                    >
-                      <div className="relative h-[320px] sm:h-[420px] md:h-[520px] w-full overflow-hidden">
-                        <Image
-                          src={project.coverImage}
-                          alt={project.title}
-                          fill
-                          sizes="(max-width: 768px) 50vw, 580px"
-                          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-                        />
-                      </div>
-                      <p className="mt-3 text-right text-[11px] font-medium uppercase tracking-[0.25em] text-white/60">
-                        {project.title}
-                      </p>
-                    </Link>
-                  ) : (
-                    // Empty cell to keep grid balanced
-                    <div key={`empty-${colIdx}`} />
-                  )
-                )}
-              </div>
-            );
-          })}
-        </div>
-
-      </div>
-    </section>
+    <ProjectsPortfolioFeed projects={filtered} />
   );
 }
 

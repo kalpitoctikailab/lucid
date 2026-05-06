@@ -2,6 +2,7 @@
 
 import { Footer } from "@/components/sections/Footer";
 import { Navbar } from "@/components/sections/Navbar";
+import Image from "next/image";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -18,11 +19,16 @@ function ProfilePlaceholder() {
 
 export default function AboutPage() {
   const teamMembers = [
-    { name: "NAME", role: "Designation" },
-    { name: "NAME", role: "Designation" },
-    { name: "NAME", role: "Designation" },
-    { name: "NAME", role: "Designation" },
-    { name: "NAME", role: "Designation" },
+    { name: "Manish Patel", role: "Designation", photo: "/Lucid Employee Photos/Manish Patel.jpg" },
+    { name: "Amit Patel", role: "Designation", photo: "/Lucid Employee Photos/Amit Patel.jpg" },
+    { name: "Anwar Khan Durani", role: "Designation", photo: "/Lucid Employee Photos/Anwar khan Durani.jpg" },
+    { name: "Dhaval Prajapati", role: "Designation", photo: "/Lucid Employee Photos/Dhaval Prajapati.jpg" },
+    { name: "Kamlesh Rawat", role: "Designation", photo: "/Lucid Employee Photos/Kamlesh Rawat.jpg" },
+    { name: "Manish Tiwari", role: "Designation", photo: "/Lucid Employee Photos/Manish Tiwari.jpg" },
+    { name: "Mayur Dhapa", role: "Designation", photo: "/Lucid Employee Photos/Mayur Dhapa.jpg" },
+    { name: "Parth Sharma", role: "Designation", photo: "/Lucid Employee Photos/Parth Sharma.jpg" },
+    { name: "Ranjeet Gareja", role: "Designation", photo: "/Lucid Employee Photos/Ranjeet Gareja.jpg" },
+    { name: "Vibhuti Patel", role: "Designation", photo: "/Lucid Employee Photos/Vibhuti Patel.png" },
   ];
 
   return (
@@ -103,13 +109,16 @@ export default function AboutPage() {
         <div className="mx-auto max-w-[1100px]">
           <h3 className="text-6xl font-light md:text-7xl">Team</h3>
 
-          <div className="mt-8 grid grid-cols-[auto_1fr_auto] items-center gap-4 md:gap-7">
+          <div className="relative mt-10">
+            {/* Prev button */}
             <button
               type="button"
               aria-label="Previous"
-              className="team-swiper-prev h-10 w-10 rounded-full bg-zinc-900 text-xl text-white/70"
+              className="team-swiper-prev absolute -left-6 top-1/2 z-10 -translate-y-1/2 flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white/80 backdrop-blur-sm transition hover:border-white/50 hover:text-white"
             >
-              <span aria-hidden>&larr;</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
             </button>
 
             <Swiper
@@ -129,20 +138,31 @@ export default function AboutPage() {
               {teamMembers.map((member, idx) => (
                 <SwiperSlide key={`${member.name}-${idx}`}>
                   <article>
-                    <ProfilePlaceholder />
+                    <div className="relative h-[350px] w-full overflow-hidden bg-zinc-900">
+                      <Image
+                        src={member.photo}
+                        alt={member.name}
+                        fill
+                        className="object-cover object-top"
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                      />
+                    </div>
                     <h4 className="mt-3 text-2xl font-semibold leading-none">{member.name}</h4>
-                    <p className="mt-1 text-lg font-light text-white/95">{member.role}</p>
+                    {/* <p className="mt-1 text-lg font-light text-white/95">{member.role}</p> */}
                   </article>
                 </SwiperSlide>
               ))}
             </Swiper>
 
+            {/* Next button */}
             <button
               type="button"
               aria-label="Next"
-              className="team-swiper-next h-10 w-10 rounded-full bg-zinc-900 text-xl text-white/70"
+              className="team-swiper-next absolute -right-6 top-1/2 z-10 -translate-y-1/2 flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white/80 backdrop-blur-sm transition hover:border-white/50 hover:text-white"
             >
-              <span aria-hidden>&rarr;</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M9 18l6-6-6-6" />
+              </svg>
             </button>
           </div>
         </div>

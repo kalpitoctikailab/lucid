@@ -264,10 +264,10 @@ type Props = {
   cinematicProject: Project;
 };
 
-const [c0, c1, c2, c3, c4, c5, c6, c7] = homePortfolioCategories;
+const [c0, c1, c2, c3, c4, c5] = homePortfolioCategories;
 
 export function HomePortfolioFeed({ cinematicProject }: Props) {
-  const [v0, v1, v2, v3] = homePortfolioInlineVideos;
+  const [v0, v1, v2] = homePortfolioInlineVideos;
 
   return (
     <section className="bg-bg pt-10 pb-20">
@@ -284,7 +284,6 @@ export function HomePortfolioFeed({ cinematicProject }: Props) {
       <div className="mx-auto max-w-[1200px] px-4 sm:px-8 md:px-12 lg:px-0 flex flex-col gap-16 sm:gap-20">
 
         <PortfolioGroup left={c4} right={c5} video={v2} />
-        <PortfolioGroup left={c6} right={c7} video={v3} />
 
       </div>
     </section>

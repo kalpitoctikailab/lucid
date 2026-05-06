@@ -215,7 +215,6 @@ function ProcessSection({ slug }: { slug: string }) {
   // Progress bar width
   const progressWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
-  // Translate the inner strip horizontally
   const x = useTransform(
     scrollYProgress,
     [0, 1],
@@ -252,27 +251,15 @@ function ProcessSection({ slug }: { slug: string }) {
           className="flex h-full"
           style={{ x, width: `${totalSlides * 100}vw` }}
         >
-          {/* Intro slide */}
-          <div className="relative flex h-full w-screen shrink-0">
-            {/* Left half: dark with text */}
-            <div className="relative z-10 flex h-full w-1/2 flex-col justify-center px-6 sm:px-10 lg:px-16 bg-bg">
-              <h2 className="font-heading text-5xl font-light leading-[1.05] tracking-tight text-white md:text-6xl lg:text-7xl whitespace-pre-line mb-6">
+          {/* Intro — 6% of total strip (original); responsive padding + type scale only */}
+          <div className="relative flex h-full w-[6%] shrink-0 min-w-0 flex-col justify-center bg-bg px-2 py-10 sm:px-3 sm:py-12 md:px-4 md:py-0 lg:px-5 xl:px-6">
+            <div className="max-w-3xl">
+              <h2 className="font-heading text-2xl font-light leading-[1.05] tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl whitespace-pre-line mb-4 sm:mb-6">
                 Built with vision{"\n"}Finished with care
               </h2>
-              <p className="text-base font-light leading-relaxed text-white/60 max-w-md">
+              <p className="text-xs font-light leading-relaxed text-white/60 sm:text-sm md:text-base max-w-md">
                 At Lucid The Artistry, every project follows a clear and refined process. Ensuring precision, transparency, and peace of mind from start to finish.
               </p>
-            </div>
-
-            {/* Right half: full-bleed image */}
-            <div className="absolute inset-y-0 right-0 w-1/2 overflow-hidden">
-              <Image
-                src={steps[0]?.assetImage || "/RESIDENCIALV HIGH RISE APPARTMENTS/1. SATYAM SURYA MANATHAN/EXTERIOR/2. Satyam Surya Front_Cam01-a.jpg"}
-                alt="Our process"
-                fill
-                sizes="50vw"
-                className="object-cover"
-              />
             </div>
           </div>
 
@@ -349,20 +336,20 @@ function ProcessSection({ slug }: { slug: string }) {
 
 /* ─── Project Grid (projects-page style) ─────────────────────── */
 function ProjectGrid({ slug }: { slug: string }) {
-  // Map service slug → project category filter
+  /** Service slug → portfolio categories (same grid layout as main projects page). */
   const categoryMap: Record<string, string[]> = {
     commercial: ["Commercial"],
     residential: ["Residential High Rise", "Residential Low Rise"],
-    duplex: ["Residential Villas"],
+    duplex: ["Farmhouse"],
     walkthrough: ["Walkthrough"],
     "360-tours": ["Virtual Tour"],
   };
 
   const categories = categoryMap[slug] ?? [];
   const allProjects = getProjects();
-  const filtered = allProjects
-    .filter((p) => categories.includes(p.category))
-    .slice(0, 8);
+  const matched = allProjects.filter((p) => categories.includes(p.category));
+  const filtered =
+    slug === "commercial" ? matched : matched.slice(0, 8);
 
   if (filtered.length === 0) return null;
 
@@ -393,19 +380,32 @@ export default function ServicePage() {
       <Navbar />
 
       {/* ── Hero ─────────────────────────────────────────────────── */}
-      <section className="relative h-[90vh] min-h-[600px] w-full mt-16 overflow-hidden">
+      <section className="relative z-0 h-screen flex items-center justify-center overflow-hidden bg-bg px-4 pt-28 pb-8 sm:px-8 md:px-12 lg:px-16">
+        <div className="relative aspect-16/7 w-full max-w-[1200px] overflow-hidden">
         <motion.div
           style={{ y: heroY }}
           className="absolute inset-0 -top-[10%] h-[120%] w-full"
         >
-          <Image
-            src={service.coverImage}
-            alt={service.title}
-            fill
-            sizes="100vw"
-            className="object-cover"
-            priority
-          />
+          {service.coverVideo ? (
+            <video
+              className="absolute inset-0 h-full w-full object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+              poster={service.coverImage}
+              src={service.coverVideo}
+            />
+          ) : (
+            <Image
+              src={service.coverImage}
+              alt={service.title}
+              fill
+              sizes="100vw"
+              className="object-cover"
+              priority
+            />
+          )}
           <div className="absolute inset-0 bg-black/40" />
         </motion.div>
 
@@ -414,15 +414,16 @@ export default function ServicePage() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-          className="absolute inset-0 flex flex-col justify-end p-8 pb-16 md:p-16 lg:p-24"
+          className="absolute inset-0 flex flex-col justify-end p-8 pb-16 md:p-16 "
         >
           <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.35em] text-white/60">
             Our Services
           </p>
-          <h1 className="font-heading text-5xl font-light leading-[1.05] tracking-tight text-white md:text-7xl lg:text-[7rem] max-w-5xl">
+          <h1 className="font-heading text-5xl font-light leading-[1.05] tracking-tight text-white md:text-7xl lg:text-[3rem] max-w-5xl">
             {service.title}
           </h1>
         </motion.div>
+        </div>
       </section>
 
       {/* ── Process (vertical scroll → horizontal) ───────────────── */}

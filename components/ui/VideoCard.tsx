@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useRef, useState } from "react";
-import type { Project } from "@/data/projects";
+import { getProjectListingImage, type Project } from "@/data/projects";
 import { cn } from "@/lib/utils";
 
 type VideoCardProps = {
@@ -67,7 +67,7 @@ export function VideoCard({
           />
         ) : null}
         <Image
-          src={project.videoThumbnail ?? project.coverImage}
+          src={project.videoThumbnail ?? getProjectListingImage(project)}
           alt={project.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

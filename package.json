@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "generate-thumbs": "node scripts/generate-thumbnails.js"
+    "generate-thumbs": "node scripts/generate-thumbnails.js",
+    "sync-thumbnails": "node scripts/sync-project-thumbnails.mjs",
+    "sync-project-images": "node scripts/sync-project-images-from-disk.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

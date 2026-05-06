@@ -7,6 +7,7 @@ import { ProjectsPortfolioFeed } from "@/components/sections/ProjectsPortfolioFe
 import { FilterBar } from "@/components/ui/FilterBar";
 import { Footer } from "@/components/sections/Footer";
 import { getProjects } from "@/data/projects";
+import { getProjectsPageHeroImage } from "@/data/projectsPageHero";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -22,14 +23,15 @@ function ProjectsContent() {
   }, [categoryParam]);
 
   const projects = getProjects(filter);
+  const heroImage = getProjectsPageHeroImage(filter);
 
   return (
     <main className="min-h-screen bg-bg">
       <Navbar />
 
       {/* Cinematic Hero Banner */}
-      <section className="relative h-[65vh] min-h-[500px] w-full pt-20 overflow-hidden">
-        <div className="mx-auto max-w-[1920px] px-4 h-full sm:px-6 lg:px-12">
+      <section className="relative z-0 h-screen flex items-center justify-center overflow-hidden bg-bg px-4 pt-28 pb-8 sm:px-8 md:px-12 lg:px-16">
+        <div className="relative aspect-16/7 w-full max-w-[1200px] overflow-hidden">
           <motion.div
             initial={{ scale: 1.1, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -37,14 +39,15 @@ function ProjectsContent() {
             className="relative h-full w-full overflow-hidden"
           >
             <Image
-              src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2400&q=80"
+              key={heroImage}
+              src={heroImage}
               alt="Projects archive hero"
               fill
               sizes="100vw"
+              priority
               className="absolute inset-0 h-full w-full object-cover"
             />
-            <div className="absolute inset-0 bg-linear-to-t from-bg via-black/40 to-black/20" />
-
+            <div className="absolute inset-0 bg-black/40" />
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}

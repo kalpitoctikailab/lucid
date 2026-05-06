@@ -1,28 +1,31 @@
 /**
  * Lucid The Artistry — Services Data
  */
+import { HERO_POSTER, HERO_VIDEO } from "./hero";
 
 export type Service = {
   slug: string;
   title: string;
   shortDesc: string;
   fullDescription: string[];
+  /** Static hero / poster (also used as `poster` when `coverVideo` is set) */
   coverImage: string;
+  /** When set, service detail hero uses this video instead of a static image */
+  coverVideo?: string;
   gallery: string[];
   features: string[];
   projectCount: number;
 };
 
-const img = (id: string, w = 1200) =>
-  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=85`;
-
-const IMG = {
-  commercial: img("1486406146926-c627a92ad1ab", 1920),
-  residential: img("1600596542815-ffad4c1539a9", 1920),
-  duplex: img("1613490493576-7fde63acd811", 1920),
-  walkthrough: img("1613977257363-707ba3b793b5", 1920),
-  tour: img("1618221195710-dd6b41faaea6", 1920),
-};
+const COVER = {
+  commercial:
+    "/COMMERCIAL/3. K10 INDEX VADODARA/EXTERIOR/1. K10 Index Left Corner View-c.jpg",
+  residential:
+    "/RESIDENCIALV HIGH RISE APPARTMENTS/1. SATYAM SURYA MANATHAN/EXTERIOR/Satyam Surya Garden Closeup_Cam-a.jpg",
+  duplex:
+    "/RESIDENCIAL VILLAS/3. DARSHNAM KINGSVILLE VADODARA/exterior/Darshanam Type2 Unit Cam-b.jpg",
+  tour: "/360 output/Satyam Surya Homes Kharghar 360_0003.jpg",
+} as const;
 
 export const services: Service[] = [
   {
@@ -33,11 +36,8 @@ export const services: Service[] = [
       "Our commercial rendering service is designed to convey the scale, luxury, and functionality of large-scale developments. We focus heavily on ambient lighting, material reflections, and urban context to ensure your commercial project feels alive.",
       "From multi-story corporate headquarters to boutique retail environments, we provide visuals that assist in securing tenant pre-leases and satisfying municipal planning boards."
     ],
-    coverImage: IMG.commercial,
-    gallery: [
-      img("1497366216548-37526070297c"),
-      img("1486406146926-c627a92ad1ab")
-    ],
+    coverImage: COVER.commercial,
+    gallery: [COVER.commercial, COVER.commercial],
     features: ["Urban Context Modeling", "Nighttime Illumination", "Crowd & Lifestyle Integration", "High-Resolution Output"],
     projectCount: 3,
   },
@@ -49,12 +49,8 @@ export const services: Service[] = [
       "Residential rendering requires a delicate balance of architectural accuracy and emotional warmth. We curate furniture, styling, and lighting to create spaces that potential buyers aspire to live in.",
       "Whether it's a cozy interior living room or a sweeping exterior view of a luxury apartment complex, our residential renders are crafted to evoke a sense of home from the very first glance."
     ],
-    coverImage: IMG.residential,
-    gallery: [
-      img("1600585154340-be6161a56a0c"),
-      img("1600607687644-aac4c3eac7f4"),
-      img("1540518614846-7eded433c457")
-    ],
+    coverImage: COVER.residential,
+    gallery: [COVER.residential, COVER.residential],
     features: ["Bespoke Interior Styling", "Atmospheric Lighting", "Photorealistic Materials", "Lifestyle Props"],
     projectCount: 4,
   },
@@ -66,11 +62,8 @@ export const services: Service[] = [
       "Luxury duplexes and standalone villas require specialized attention to spatial flow and premium materials. Our visualizations highlight double-height ceilings, bespoke staircases, and seamless indoor-outdoor transitions.",
       "We emphasize grand architectural details and elegant landscaping to reflect the prestige of your high-end developments."
     ],
-    coverImage: IMG.duplex,
-    gallery: [
-      img("1613490493576-7fde63acd811"),
-      img("1600566752355-35792bedcfea")
-    ],
+    coverImage: COVER.duplex,
+    gallery: [COVER.duplex, COVER.duplex],
     features: ["Double-Height Volume Emphasis", "Landscaping & Pools", "Complex Section Cutaways", "Premium Material Finishes"],
     projectCount: 2,
   },
@@ -82,11 +75,9 @@ export const services: Service[] = [
       "A static image speaks a thousand words, but a 3D architectural walkthrough tells the complete story. We produce cinematic, 4K animations that guide viewers through the spatial flow of a property.",
       "With bespoke soundtracks and dynamic camera movements, our walkthroughs are the ultimate centerpiece for premium real estate marketing."
     ],
-    coverImage: IMG.walkthrough,
-    gallery: [
-      img("1613977257363-707ba3b793b5"),
-      img("1505144808419-1957a94ca61e")
-    ],
+    coverImage: HERO_POSTER,
+    coverVideo: HERO_VIDEO,
+    gallery: [HERO_POSTER, HERO_POSTER],
     features: ["4K Cinematic Resolution", "Fluid Camera Choreography", "Custom Sound Design", "Day-to-Night Transitions"],
     projectCount: 2,
   },
@@ -98,11 +89,8 @@ export const services: Service[] = [
       "Empower your clients to explore properties at their own pace. Using cutting-edge web technologies, we create immersive 360-degree panoramas that users can navigate seamlessly across any device.",
       "These interactive tours boost engagement, retain website visitors longer, and facilitate remote international sales for premium real estate."
     ],
-    coverImage: IMG.tour,
-    gallery: [
-      img("1618221195710-dd6b41faaea6"),
-      img("1631049307264-da0ec9d70304")
-    ],
+    coverImage: COVER.tour,
+    gallery: [COVER.tour, COVER.tour],
     features: ["Interactive Hotspots", "Cross-Device Compatibility", "VR Headset Ready", "Information Overlays"],
     projectCount: 2,
   },

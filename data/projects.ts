@@ -3,6 +3,8 @@
  * Real project imagery
  */
 
+import { projectThumbnailBySlug } from "./projectThumbnails";
+
 export type Project = {
   id: string;
   slug: string;
@@ -21,8 +23,7 @@ export type Project = {
   tags?: string[];
 };
 
-export const projects: Project[] = [
-  {
+export const projects: Project[] = [{
     "id": "1",
     "slug": "satyam-surya-manathan",
     "title": "SATYAM SURYA MANATHAN",
@@ -63,7 +64,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "2",
     "slug": "palm-iconic-ahemedabad",
     "title": "PALM ICONIC AHEMEDABAD",
@@ -84,8 +85,10 @@ export const projects: Project[] = [
       "/RESIDENCIALV HIGH RISE APPARTMENTS/2. PALM ICONIC AHEMEDABAD/Interiors/Gameroom Cam.jpg",
       "/RESIDENCIALV HIGH RISE APPARTMENTS/2. PALM ICONIC AHEMEDABAD/Interiors/Gym Cam.jpg",
       "/RESIDENCIALV HIGH RISE APPARTMENTS/2. PALM ICONIC AHEMEDABAD/Interiors/Living Cam 3.jpg",
-      "/RESIDENCIALV HIGH RISE APPARTMENTS/2. PALM ICONIC AHEMEDABAD/Interiors/Multi Purpose Hall.jpg"
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/2. PALM ICONIC AHEMEDABAD/Interiors/Multi Purpose Hall.jpg",
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/2. PALM ICONIC AHEMEDABAD/Exterior/1. Palm Icon Corner Night Cam 8K-a.jpg",
     ],
+
     "featured": false,
     "aspectRatio": "landscape",
     "tags": [
@@ -94,7 +97,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "3",
     "slug": "serenity-shivam-ahmedabad",
     "title": "SERENITY SHIVAM AHMEDABAD",
@@ -127,7 +130,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "4",
     "slug": "aishwarayam-garden-rajkot",
     "title": "AISHWARAYAM GARDEN RAJKOT",
@@ -163,7 +166,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "5",
     "slug": "festival-vibes-ahemdabad",
     "title": "FESTIVAL VIBES AHEMDABAD",
@@ -211,7 +214,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "6",
     "slug": "rameshwer-festival-ahemedabad",
     "title": "Rameshwer Festival AHEMEDABAD",
@@ -221,8 +224,16 @@ export const projects: Project[] = [
     "location": "AHEMEDABAD",
     "coverImage": "/RESIDENCIALV HIGH RISE APPARTMENTS/6. Rameshwer Festival AHEMEDABAD/EXTERIOR/Rameshwer Play Area 2nd_Cam01-v01.jpg",
     "images": [
-      "/RESIDENCIALV HIGH RISE APPARTMENTS/6. Rameshwer Festival AHEMEDABAD/EXTERIOR/Rameshwer Play Area 2nd_Cam01-v01.jpg"
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/6. Rameshwer Festival AHEMEDABAD/EXTERIOR/Rameshwer Play Area 2nd_Cam01-v01.jpg",
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/6. Rameshwer Festival AHEMEDABAD/EXTERIOR/1. Rameshwer Left_Cam02-v01.jpg",
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/6. Rameshwer Festival AHEMEDABAD/EXTERIOR/Rameshwer Front_Cam01-a.jpg",
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/6. Rameshwer Festival AHEMEDABAD/EXTERIOR/Rameshwer Garden_Cam02-a.jpg",
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/6. Rameshwer Festival AHEMEDABAD/EXTERIOR/Rameshwer Gate_Cam01-b.jpg",
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/6. Rameshwer Festival AHEMEDABAD/EXTERIOR/Rameshwer Pool_Cam02-a.jpg",
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/6. Rameshwer Festival AHEMEDABAD/EXTERIOR/Rameshwer Right_Cam01-a.jpg",
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/6. Rameshwer Festival AHEMEDABAD/EXTERIOR/Rameshwer Sitting _Cam02-a.jpg",
     ],
+
     "featured": false,
     "aspectRatio": "landscape",
     "tags": [
@@ -231,7 +242,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "7",
     "slug": "aura-bharuch",
     "title": "AURA BHARUCH",
@@ -248,8 +259,24 @@ export const projects: Project[] = [
       "/RESIDENCIALV HIGH RISE APPARTMENTS/7 AURA BHARUCH/INTERIOR/GYM Cam-a.jpg",
       "/RESIDENCIALV HIGH RISE APPARTMENTS/7 AURA BHARUCH/INTERIOR/Kosamadi 612 Besment Parking_Cam01-a.jpg",
       "/RESIDENCIALV HIGH RISE APPARTMENTS/7 AURA BHARUCH/INTERIOR/Library Cam-a.jpg",
-      "/RESIDENCIALV HIGH RISE APPARTMENTS/7 AURA BHARUCH/INTERIOR/Toddler Room Cam-a.jpg"
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/7 AURA BHARUCH/INTERIOR/Toddler Room Cam-a.jpg",
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/7 AURA BHARUCH/EXTERIOR/1. Kosamadi 612  Left Front_Cam01-a.jpg",
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/7 AURA BHARUCH/EXTERIOR/Kosamadi 612 Box Cricket_Cam01-a.jpg",
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/7 AURA BHARUCH/EXTERIOR/Kosamadi 612 Front_Cam01-a.jpg",
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/7 AURA BHARUCH/EXTERIOR/Kosamadi 612 Gallary_Revised Cam01 -a.jpg",
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/7 AURA BHARUCH/EXTERIOR/Kosamadi 612 Garden_Cam01-a.jpg",
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/7 AURA BHARUCH/EXTERIOR/Kosamadi 612 Gate Sculpture_Cam01-a.jpg",
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/7 AURA BHARUCH/EXTERIOR/Kosamadi 612 Gate_Cam01-a.jpg",
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/7 AURA BHARUCH/EXTERIOR/Kosamadi 612 High_Cam01-a.jpg",
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/7 AURA BHARUCH/EXTERIOR/Kosamadi 612 Left_Cam01-a.jpg",
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/7 AURA BHARUCH/EXTERIOR/Kosamadi 612 Pool Top_Cam01-a.jpg",
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/7 AURA BHARUCH/EXTERIOR/Kosamadi 612 Right_Cam01-a.jpg",
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/7 AURA BHARUCH/EXTERIOR/Kosamadi 612 Top 2nd_Cam01-a.jpg",
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/7 AURA BHARUCH/EXTERIOR/Kosamadi 612 Top_Cam01-a.jpg",
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/7 AURA BHARUCH/EXTERIOR/Kosamadi 612 Water Body Up_Cam01-a.jpg",
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/7 AURA BHARUCH/EXTERIOR/Kosamadi 612 Water Body_Cam01-a.jpg",
     ],
+
     "featured": false,
     "aspectRatio": "landscape",
     "tags": [
@@ -258,7 +285,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "8",
     "slug": "raj-empire-nasik",
     "title": "RAJ EMPIRE NASIK",
@@ -293,7 +320,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "9",
     "slug": "arcadia-ahemdabad",
     "title": "ARCADIA AHEMDABAD",
@@ -314,7 +341,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "9",
     "slug": "vraj-shrushti-nasik",
     "title": "VRAJ SHRUSHTI NASIK",
@@ -322,12 +349,19 @@ export const projects: Project[] = [
     "type": "Both",
     "year": "2024",
     "location": "NASIK",
-    "coverImage": "/RESIDENCIALV HIGH RISE APPARTMENTS/9. VRAJ SHRUSHTI NASIK/EXTERIOR/Vraj Shrushti Shops Closeup_Cam-a.jpg",
+    "coverImage": "/RESIDENCIALV HIGH RISE APPARTMENTS/9. VRAJ SHRUSHTI NASIK/EXTERIOR/Vraj Shrushti High_Cam-a.jpg",
     "images": [
       "/RESIDENCIALV HIGH RISE APPARTMENTS/9. VRAJ SHRUSHTI NASIK/EXTERIOR/Vraj Shrushti Shops Closeup_Cam-a.jpg",
       "/RESIDENCIALV HIGH RISE APPARTMENTS/9. VRAJ SHRUSHTI NASIK/EXTERIOR/Vraj Shrushti Shops Terece 2nd_Cam-a.jpg",
-      "/RESIDENCIALV HIGH RISE APPARTMENTS/9. VRAJ SHRUSHTI NASIK/EXTERIOR/Vraj Shrushti Shops Terece_Cam-a.jpg"
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/9. VRAJ SHRUSHTI NASIK/EXTERIOR/Vraj Shrushti Shops Terece_Cam-a.jpg",
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/9. VRAJ SHRUSHTI NASIK/EXTERIOR/1. Vraj Shrushti Right_Cam-a.jpg",
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/9. VRAJ SHRUSHTI NASIK/EXTERIOR/Vraj Shrushti Front_Cam-a.jpg",
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/9. VRAJ SHRUSHTI NASIK/EXTERIOR/Vraj Shrushti Gallary Closeup_Cam-a.jpg",
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/9. VRAJ SHRUSHTI NASIK/EXTERIOR/Vraj Shrushti High_Cam-a.jpg",
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/9. VRAJ SHRUSHTI NASIK/EXTERIOR/Vraj Shrushti Shops Top_Cam-a.jpg",
+      "/RESIDENCIALV HIGH RISE APPARTMENTS/9. VRAJ SHRUSHTI NASIK/EXTERIOR/Vraj Shrushti Top_Cam-a.jpg",
     ],
+
     "featured": false,
     "aspectRatio": "landscape",
     "tags": [
@@ -336,7 +370,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "10",
     "slug": "arcadia-111-ahmedabad",
     "title": "ARCADIA 111 AHMEDABAD",
@@ -378,7 +412,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "11",
     "slug": "sculpture-ahamedabad",
     "title": "SCULPTURE AHAMEDABAD",
@@ -407,7 +441,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "12",
     "slug": "aditya-antilia-ahmedabad",
     "title": "ADITYA ANTILIA AHMEDABAD",
@@ -441,7 +475,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "13",
     "slug": "palladium-highstreet-selvas",
     "title": "PALLADIUM HIGHSTREET SELVAS",
@@ -476,7 +510,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "14",
     "slug": "solitair-plazo-bharuch",
     "title": "SOLITAIR PLAZO BHARUCH",
@@ -509,7 +543,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "15",
     "slug": "sahjanand-nandelav-bharuch",
     "title": "SAHJANAND NANDELAV BHARUCH",
@@ -538,7 +572,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "16",
     "slug": "omkar-skyline-vadodara",
     "title": "OMKAR SKYLINE VADODARA",
@@ -567,7 +601,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "17",
     "slug": "siddheshwaray-parafield-vadodara",
     "title": "Siddheshwaray Parafield VADODARA",
@@ -596,7 +630,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "18",
     "slug": "rudransh-antilia-vadodara",
     "title": "RUDRANSH ANTILIA VADODARA",
@@ -624,7 +658,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "19",
     "slug": "atmiya-sellenite-vadodara",
     "title": "ATMIYA SELLENITE VADODARA",
@@ -654,7 +688,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "20",
     "slug": "ratnam-parkview-vadodara",
     "title": "RATNAM PARKVIEW VADODARA",
@@ -683,7 +717,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "21",
     "slug": "toran-residence-vadodara",
     "title": "TORAN RESIDENCE VADODARA",
@@ -707,7 +741,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "1",
     "slug": "happy-mall",
     "title": "Happy Mall",
@@ -719,10 +753,10 @@ export const projects: Project[] = [
       "/COMMERCIAL/1. Happy Mall/Exterior/1. S Happy Mall Right Corner_Cam03-c.jpg",
       "/COMMERCIAL/1. Happy Mall/Exterior/6K Entry cam 02-c.jpg",
       "/COMMERCIAL/1. Happy Mall/Exterior/Passage Cam 15-b.jpg",
-      "/COMMERCIAL/1. Happy Mall/Exterior/S Happy Mall Front_Cam03_v002.jpg",
       "/COMMERCIAL/1. Happy Mall/Exterior/S Happy Mall Side Front01_v002.jpg",
       "/COMMERCIAL/1. Happy Mall/Exterior/S Happy Mall Top Cam02_v003.jpg",
-      "/COMMERCIAL/1. Happy Mall/Exterior/Theater Lobby-b.jpg"
+      "/COMMERCIAL/1. Happy Mall/Exterior/Theater Lobby-b.jpg",
+      "/COMMERCIAL/1. Happy Mall/Exterior/S Happy Mall Front_Cam03_v002.jpg"
     ],
     "featured": false,
     "aspectRatio": "landscape",
@@ -731,7 +765,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "10",
     "slug": "bliss-empire-vadodara",
     "title": "Bliss Empire Vadodara",
@@ -751,7 +785,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "11",
     "slug": "padam-avenue-vadodara",
     "title": "Padam Avenue Vadodara",
@@ -770,7 +804,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "2",
     "slug": "central-square-bharuch",
     "title": "Central Square Bharuch",
@@ -794,7 +828,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "3",
     "slug": "k10-index-vadodara",
     "title": "K10 Index Vadodara",
@@ -804,8 +838,13 @@ export const projects: Project[] = [
     "coverImage": "/COMMERCIAL/3. K10 INDEX VADODARA/EXTERIOR/6K_K10 Index Remp Entry View-c.jpg",
     "images": [
       "/COMMERCIAL/3. K10 INDEX VADODARA/EXTERIOR/6K_K10 Index Remp Entry View-c.jpg",
-      "/COMMERCIAL/3. K10 INDEX VADODARA/EXTERIOR/6K_K10 Index Side View-d.jpg"
+      "/COMMERCIAL/3. K10 INDEX VADODARA/EXTERIOR/6K_K10 Index Side View-d.jpg",
+      "/COMMERCIAL/3. K10 INDEX VADODARA/EXTERIOR/1. K10 Index Left Corner View-c.jpg",
+      "/COMMERCIAL/3. K10 INDEX VADODARA/EXTERIOR/6K K10 Index Center Atrea-b.jpg",
+      "/COMMERCIAL/3. K10 INDEX VADODARA/EXTERIOR/6K K10 Index Right Side Top View_c.jpg",
+      "/COMMERCIAL/3. K10 INDEX VADODARA/EXTERIOR/6K_K10 Index Front View-b.jpg",
     ],
+
     "featured": false,
     "aspectRatio": "landscape",
     "tags": [
@@ -813,7 +852,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "4",
     "slug": "city-gold-bharuch",
     "title": "City Gold Bharuch",
@@ -824,8 +863,11 @@ export const projects: Project[] = [
     "images": [
       "/COMMERCIAL/4. CITY GOLD BHARUCH/EXTERIOR/Dungari Comercial Left_Cam02-v01.jpg",
       "/COMMERCIAL/4. CITY GOLD BHARUCH/EXTERIOR/Dungari Comercial Right_Cam02-v01.jpg",
-      "/COMMERCIAL/4. CITY GOLD BHARUCH/EXTERIOR/Dungari Iner Comercial_Cam-v01.jpg"
+      "/COMMERCIAL/4. CITY GOLD BHARUCH/EXTERIOR/Dungari Iner Comercial_Cam-v01.jpg",
+      "/COMMERCIAL/4. CITY GOLD BHARUCH/EXTERIOR/1. Dungari Comercial Front_Cam02-v01.jpg",
+      "/COMMERCIAL/4. CITY GOLD BHARUCH/EXTERIOR/Dungari Terece Restaurant_Cam01-v01.jpg",
     ],
+
     "featured": false,
     "aspectRatio": "landscape",
     "tags": [
@@ -833,7 +875,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "5",
     "slug": "vs-monolith-vadodara",
     "title": "Vs Monolith Vadodara",
@@ -858,7 +900,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "6",
     "slug": "krishna-commercial-anand",
     "title": "Krishna Commercial Anand",
@@ -878,7 +920,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "7",
     "slug": "krishna-platina-vadodara",
     "title": "Krishna Platina Vadodara",
@@ -889,7 +931,53 @@ export const projects: Project[] = [
     "images": [
       "/COMMERCIAL/7. KRISHNA PLATINA VADODARA/EXTERIOR/1. 6k_Subhashbhai Commercial Night_Cam-d.jpg",
       "/COMMERCIAL/7. KRISHNA PLATINA VADODARA/EXTERIOR/6K_Subhashbhai Commercial Left Side_Cam-c.jpg",
-      "/COMMERCIAL/7. KRISHNA PLATINA VADODARA/EXTERIOR/6k_Subhashbhai Commercial Right Side Night_Cam-d.jpg"
+      "/COMMERCIAL/7. KRISHNA PLATINA VADODARA/EXTERIOR/6k_Subhashbhai Commercial Right Side Night_Cam-d.jpg",
+      "/COMMERCIAL/7. KRISHNA PLATINA VADODARA/EXTERIOR/6K_Subhashbhai Commercial Inside_Cam01-b.jpg",
+      "/COMMERCIAL/7. KRISHNA PLATINA VADODARA/EXTERIOR/6K_Subhashbhai Commercial Outside_Cam_02.jpg",
+    ],
+
+    "featured": false,
+    "aspectRatio": "landscape",
+    "tags": [
+      "commercial",
+      "architecture"
+    ]
+  },
+  {
+    "id": "12",
+    "slug": "inspirom-vadodara",
+    "title": "Inspirom Vadodara",
+    "category": "Commercial",
+    "type": "Exterior",
+    "year": "2024",
+    "location": "VADODARA",
+    "coverImage": "/COMMERCIAL/8. INSPIROM VADODARA/EXTERIOR/6K_Nimitbhai Commercial Corner Night_Cam-c.jpg",
+    "images": [
+      "/COMMERCIAL/8. INSPIROM VADODARA/EXTERIOR/6K_Nimitbhai Commercial Corner Night_Cam-c.jpg",
+      "/COMMERCIAL/8. INSPIROM VADODARA/EXTERIOR/6K_Nimitbhai Commercial Corner_Cam_c.jpg",
+      "/COMMERCIAL/8. INSPIROM VADODARA/EXTERIOR/6K_Nimitbhai Commercial Front_Cam_c.jpg",
+      "/COMMERCIAL/8. INSPIROM VADODARA/EXTERIOR/6K_Nimitbhai Commercial High_Cam-c.jpg"
+    ],
+    "featured": false,
+    "aspectRatio": "landscape",
+    "tags": [
+      "commercial",
+      "architecture"
+    ]
+  },
+  {
+    "id": "13",
+    "slug": "sarva-signature-vadodara",
+    "title": "Sarva Signature Vadodara",
+    "category": "Commercial",
+    "type": "Exterior",
+    "year": "2024",
+    "location": "VADODARA",
+    "coverImage": "/COMMERCIAL/9. SARVA SIGNATURE VADODARA/EXTERIOR/6K_Ankurbhai Bhayli Front_Cam01-d.jpg",
+    "images": [
+      "/COMMERCIAL/9. SARVA SIGNATURE VADODARA/EXTERIOR/6K_Ankurbhai Bhayli Front_Cam01-d.jpg",
+      "/COMMERCIAL/9. SARVA SIGNATURE VADODARA/EXTERIOR/6K_Ankurbhai Bhayli Left Side Corner Night_Cam01-d.jpg",
+      "/COMMERCIAL/9. SARVA SIGNATURE VADODARA/EXTERIOR/6K_Ankurbhai Bhayli Left Side Corner_Cam01-d.jpg"
     ],
     "featured": false,
     "aspectRatio": "landscape",
@@ -910,8 +998,14 @@ export const projects: Project[] = [
       "/RESIDENCIAL VILLAS/1. GREENLEAF HERITAGE 2/EXTERIOR/1. Vishalbhai TP 24 Unit Front_Cam-v01.jpg",
       "/RESIDENCIAL VILLAS/1. GREENLEAF HERITAGE 2/EXTERIOR/Vishalbhai Gate_Cam-v01.jpg",
       "/RESIDENCIAL VILLAS/1. GREENLEAF HERITAGE 2/EXTERIOR/Vishalbhai Terrce_Cam-v01.jpg",
-      "/RESIDENCIAL VILLAS/1. GREENLEAF HERITAGE 2/EXTERIOR/Vishalbhai Unit Garden_Cam-v01.jpg"
+      "/RESIDENCIAL VILLAS/1. GREENLEAF HERITAGE 2/EXTERIOR/Vishalbhai Unit Garden_Cam-v01.jpg",
+      "/RESIDENCIAL VILLAS/1. GREENLEAF HERITAGE 2/EXTERIOR/Vishalbhai Clubhouse Closeup_Cam01-v02.jpg",
+      "/RESIDENCIAL VILLAS/1. GREENLEAF HERITAGE 2/EXTERIOR/Vishalbhai Gallary_Cam-v01.jpg",
+      "/RESIDENCIAL VILLAS/1. GREENLEAF HERITAGE 2/EXTERIOR/Vishalbhai Only Unit_Cam01-v01.jpg",
+      "/RESIDENCIAL VILLAS/1. GREENLEAF HERITAGE 2/EXTERIOR/Vishalbhai Pool_Cam-v01.jpg",
+      "/RESIDENCIAL VILLAS/1. GREENLEAF HERITAGE 2/EXTERIOR/Vishalbhai Unit Top_Cam02-v01.jpg",
     ],
+
     "featured": false,
     "aspectRatio": "landscape",
     "tags": [
@@ -920,7 +1014,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "10",
     "slug": "city-gold-bharuch-villas",
     "title": "City Gold Bharuch Villas",
@@ -933,8 +1027,11 @@ export const projects: Project[] = [
       "/RESIDENCIAL VILLAS/10.CITY GOLD BHARUCH/EXTERIOR/Dungari Gallary_Cam-a.jpg",
       "/RESIDENCIAL VILLAS/10.CITY GOLD BHARUCH/EXTERIOR/Dungari Garden_Cam-v01.jpg",
       "/RESIDENCIAL VILLAS/10.CITY GOLD BHARUCH/EXTERIOR/Dungari Gate_Cam01-v01.jpg",
-      "/RESIDENCIAL VILLAS/10.CITY GOLD BHARUCH/EXTERIOR/Dungari Units Corner_Cam-v01.jpg"
+      "/RESIDENCIAL VILLAS/10.CITY GOLD BHARUCH/EXTERIOR/Dungari Units Corner_Cam-v01.jpg",
+      "/RESIDENCIAL VILLAS/10.CITY GOLD BHARUCH/EXTERIOR/Dungari Top_Cam02-v01.jpg",
+      "/RESIDENCIAL VILLAS/10.CITY GOLD BHARUCH/EXTERIOR/Dungari Units Sitting_Cam-v01.jpg",
     ],
+
     "featured": false,
     "aspectRatio": "landscape",
     "tags": [
@@ -943,7 +1040,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "11",
     "slug": "akshar-vihar-2-vadodara",
     "title": "Akshar Vihar 2 Vadodara",
@@ -954,8 +1051,11 @@ export const projects: Project[] = [
     "images": [
       "/RESIDENCIAL VILLAS/11. AKSHAR VIHAR 2 VADODARA/EXTERIOR/1. Vipulbhai Tarsali Front_Cam-c.jpg",
       "/RESIDENCIAL VILLAS/11. AKSHAR VIHAR 2 VADODARA/EXTERIOR/Vipulbhai Tarsali Gate_Cam-c.jpg",
-      "/RESIDENCIAL VILLAS/11. AKSHAR VIHAR 2 VADODARA/EXTERIOR/Vipulbhai Tarsali Street_Cam_c.jpg"
+      "/RESIDENCIAL VILLAS/11. AKSHAR VIHAR 2 VADODARA/EXTERIOR/Vipulbhai Tarsali Street_Cam_c.jpg",
+      "/RESIDENCIAL VILLAS/11. AKSHAR VIHAR 2 VADODARA/EXTERIOR/Vipulbhai Tarsali Sitting_Cam_c.jpg",
+      "/RESIDENCIAL VILLAS/11. AKSHAR VIHAR 2 VADODARA/EXTERIOR/Vipulbhai Tarsali Top_Cam_c.jpg",
     ],
+
     "featured": false,
     "aspectRatio": "landscape",
     "tags": [
@@ -964,7 +1064,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "12",
     "slug": "pushpak-vadodara",
     "title": "Pushpak Vadodara",
@@ -989,7 +1089,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "2",
     "slug": "g-solitair-vadodara",
     "title": "G Solitair Vadodara",
@@ -999,8 +1099,13 @@ export const projects: Project[] = [
     "coverImage": "/RESIDENCIAL VILLAS/2. G SOLITAIR VADODARA/EXTERIOR/Kiranbhai Bhayali Unit Corner Cam-a.jpg",
     "images": [
       "/RESIDENCIAL VILLAS/2. G SOLITAIR VADODARA/EXTERIOR/Kiranbhai Bhayali Unit Corner Cam-a.jpg",
-      "/RESIDENCIAL VILLAS/2. G SOLITAIR VADODARA/EXTERIOR/Kiranbhai Bhayali Unit Front Cam-a.jpg"
+      "/RESIDENCIAL VILLAS/2. G SOLITAIR VADODARA/EXTERIOR/Kiranbhai Bhayali Unit Front Cam-a.jpg",
+      "/RESIDENCIAL VILLAS/2. G SOLITAIR VADODARA/EXTERIOR/Kiranbhai Bhayali Club Cam-a.jpg",
+      "/RESIDENCIAL VILLAS/2. G SOLITAIR VADODARA/EXTERIOR/Kiranbhai Bhayali Single Unit Front Cam-a.jpg",
+      "/RESIDENCIAL VILLAS/2. G SOLITAIR VADODARA/EXTERIOR/Kiranbhai Bhayali Street Cam-a.jpg",
+      "/RESIDENCIAL VILLAS/2. G SOLITAIR VADODARA/EXTERIOR/Kiranbhai Bhayali Tarrace Sitting Cam-a.jpg",
     ],
+
     "featured": false,
     "aspectRatio": "landscape",
     "tags": [
@@ -1009,7 +1114,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "3",
     "slug": "darshnam-kingsville-vadodara",
     "title": "Darshnam Kingsville Vadodara",
@@ -1018,8 +1123,29 @@ export const projects: Project[] = [
     "year": "2024",
     "coverImage": "/RESIDENCIAL VILLAS/3. DARSHNAM KINGSVILLE VADODARA/exterior/Darshanam Unit Front View-b.jpg",
     "images": [
-      "/RESIDENCIAL VILLAS/3. DARSHNAM KINGSVILLE VADODARA/exterior/Darshanam Unit Front View-b.jpg"
+      "/RESIDENCIAL VILLAS/3. DARSHNAM KINGSVILLE VADODARA/exterior/Darshanam Unit Front View-b.jpg",
+      "/RESIDENCIAL VILLAS/3. DARSHNAM KINGSVILLE VADODARA/exterior/Darshanam Balcony Cam-v01.jpg",
+      "/RESIDENCIAL VILLAS/3. DARSHNAM KINGSVILLE VADODARA/exterior/Darshanam Box Cricket_Cam-a.jpg",
+      "/RESIDENCIAL VILLAS/3. DARSHNAM KINGSVILLE VADODARA/exterior/Darshanam Club House Seating Cam-v01.jpg",
+      "/RESIDENCIAL VILLAS/3. DARSHNAM KINGSVILLE VADODARA/exterior/Darshanam Club House Seating Top Cam-b.jpg",
+      "/RESIDENCIAL VILLAS/3. DARSHNAM KINGSVILLE VADODARA/exterior/Darshanam Dack Sitting_Cam-a.jpg",
+      "/RESIDENCIAL VILLAS/3. DARSHNAM KINGSVILLE VADODARA/exterior/Darshanam Dack_Cam-v01.jpg",
+      "/RESIDENCIAL VILLAS/3. DARSHNAM KINGSVILLE VADODARA/exterior/Darshanam Kings Front Type1-v02.jpg",
+      "/RESIDENCIAL VILLAS/3. DARSHNAM KINGSVILLE VADODARA/exterior/Darshanam Kings Gate Cam-v02.jpg",
+      "/RESIDENCIAL VILLAS/3. DARSHNAM KINGSVILLE VADODARA/exterior/Darshanam Outer Left_Cam-v01.jpg",
+      "/RESIDENCIAL VILLAS/3. DARSHNAM KINGSVILLE VADODARA/exterior/Darshanam Outer Right Long_Cam-a.jpg",
+      "/RESIDENCIAL VILLAS/3. DARSHNAM KINGSVILLE VADODARA/exterior/Darshanam Play Area_Cam-a.jpg",
+      "/RESIDENCIAL VILLAS/3. DARSHNAM KINGSVILLE VADODARA/exterior/Darshanam Pool Cam Phase2-v01.jpg",
+      "/RESIDENCIAL VILLAS/3. DARSHNAM KINGSVILLE VADODARA/exterior/Darshanam Single Street Cam-a.jpg",
+      "/RESIDENCIAL VILLAS/3. DARSHNAM KINGSVILLE VADODARA/exterior/Darshanam Single Unit 1st Cam-v02.jpg",
+      "/RESIDENCIAL VILLAS/3. DARSHNAM KINGSVILLE VADODARA/exterior/Darshanam Single Unit Closeup-a.jpg",
+      "/RESIDENCIAL VILLAS/3. DARSHNAM KINGSVILLE VADODARA/exterior/Darshanam Sketing_Cam-v01.jpg",
+      "/RESIDENCIAL VILLAS/3. DARSHNAM KINGSVILLE VADODARA/exterior/Darshanam Tennis Court_Cam-a.jpg",
+      "/RESIDENCIAL VILLAS/3. DARSHNAM KINGSVILLE VADODARA/exterior/Darshanam Type2 Unit Cam-b.jpg",
+      "/RESIDENCIAL VILLAS/3. DARSHNAM KINGSVILLE VADODARA/exterior/Darshanam Unit Front Parking Cam-v01.jpg",
+      "/RESIDENCIAL VILLAS/3. DARSHNAM KINGSVILLE VADODARA/exterior/Darshanam Unit Garden Closeup-v02.jpg",
     ],
+
     "featured": false,
     "aspectRatio": "landscape",
     "tags": [
@@ -1028,7 +1154,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "4",
     "slug": "keystone-mention-vadodara",
     "title": "Keystone Mention Vadodara",
@@ -1049,8 +1175,13 @@ export const projects: Project[] = [
       "/RESIDENCIAL VILLAS/4. KEYSTONE MENTION VADODARA/INTERIOR/Gym-v01.jpg",
       "/RESIDENCIAL VILLAS/4. KEYSTONE MENTION VADODARA/INTERIOR/Kitchain Cam-v01.jpg",
       "/RESIDENCIAL VILLAS/4. KEYSTONE MENTION VADODARA/INTERIOR/Living Cam 1-v01.jpg",
-      "/RESIDENCIAL VILLAS/4. KEYSTONE MENTION VADODARA/INTERIOR/Living Cam 2-v01.jpg"
+      "/RESIDENCIAL VILLAS/4. KEYSTONE MENTION VADODARA/INTERIOR/Living Cam 2-v01.jpg",
+      "/RESIDENCIAL VILLAS/4. KEYSTONE MENTION VADODARA/EXTERIOR/1. Keystone Mension Cam 10-v02.jpg",
+      "/RESIDENCIAL VILLAS/4. KEYSTONE MENTION VADODARA/EXTERIOR/Keystone Mension Cam 14-b.jpg",
+      "/RESIDENCIAL VILLAS/4. KEYSTONE MENTION VADODARA/EXTERIOR/Keystone Mension Cam 15-b.jpg",
+      "/RESIDENCIAL VILLAS/4. KEYSTONE MENTION VADODARA/EXTERIOR/Keystone Mension Cam 20-b.jpg",
     ],
+
     "featured": false,
     "aspectRatio": "landscape",
     "tags": [
@@ -1059,7 +1190,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "5",
     "slug": "vihav-51-vadodara",
     "title": "Vihav 51 Vadodara",
@@ -1082,7 +1213,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "6",
     "slug": "selenite-villa-vadodara",
     "title": "Selenite Villa Vadodara",
@@ -1092,8 +1223,12 @@ export const projects: Project[] = [
     "coverImage": "/RESIDENCIAL VILLAS/6. SELENITE VILLA VADODARA/EXTERIOR/1. Selenite Villa Front View_c.jpg",
     "images": [
       "/RESIDENCIAL VILLAS/6. SELENITE VILLA VADODARA/EXTERIOR/1. Selenite Villa Front View_c.jpg",
-      "/RESIDENCIAL VILLAS/6. SELENITE VILLA VADODARA/EXTERIOR/Sellenite Villa Gate View_c.jpg"
+      "/RESIDENCIAL VILLAS/6. SELENITE VILLA VADODARA/EXTERIOR/Sellenite Villa Gate View_c.jpg",
+      "/RESIDENCIAL VILLAS/6. SELENITE VILLA VADODARA/EXTERIOR/Selenite Villa Sitting Villa_c.jpg",
+      "/RESIDENCIAL VILLAS/6. SELENITE VILLA VADODARA/EXTERIOR/Sellenite Villa Corner View_c.jpg",
+      "/RESIDENCIAL VILLAS/6. SELENITE VILLA VADODARA/EXTERIOR/Sellenite Villa Street View_c.jpg",
     ],
+
     "featured": false,
     "aspectRatio": "landscape",
     "tags": [
@@ -1102,7 +1237,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "7",
     "slug": "akshat-luxuria-bharuch",
     "title": "Akshat Luxuria Bharuch",
@@ -1111,8 +1246,17 @@ export const projects: Project[] = [
     "year": "2024",
     "coverImage": "/RESIDENCIAL VILLAS/7. AKSHAT LUXURIA BHARUCH/EXTERIOR/Nandlav Bharuch Gate_Cam-a.jpg",
     "images": [
-      "/RESIDENCIAL VILLAS/7. AKSHAT LUXURIA BHARUCH/EXTERIOR/Nandlav Bharuch Gate_Cam-a.jpg"
+      "/RESIDENCIAL VILLAS/7. AKSHAT LUXURIA BHARUCH/EXTERIOR/Nandlav Bharuch Gate_Cam-a.jpg",
+      "/RESIDENCIAL VILLAS/7. AKSHAT LUXURIA BHARUCH/EXTERIOR/1. Nandlav Bharuch Units Front_Cam-a.jpg",
+      "/RESIDENCIAL VILLAS/7. AKSHAT LUXURIA BHARUCH/EXTERIOR/Nandlav Bharuch  Garden Top cam-a.jpg",
+      "/RESIDENCIAL VILLAS/7. AKSHAT LUXURIA BHARUCH/EXTERIOR/Nandlav Bharuch Buddha_Cam-a.jpg",
+      "/RESIDENCIAL VILLAS/7. AKSHAT LUXURIA BHARUCH/EXTERIOR/Nandlav Bharuch Gallary_Cam-a.jpg",
+      "/RESIDENCIAL VILLAS/7. AKSHAT LUXURIA BHARUCH/EXTERIOR/Nandlav Bharuch Garden Top_3rd Cam-a.jpg",
+      "/RESIDENCIAL VILLAS/7. AKSHAT LUXURIA BHARUCH/EXTERIOR/Nandlav Bharuch Play Area_Cam-a.jpg",
+      "/RESIDENCIAL VILLAS/7. AKSHAT LUXURIA BHARUCH/EXTERIOR/Nandlav Bharuch Units Corner_Cam-a.jpg",
+      "/RESIDENCIAL VILLAS/7. AKSHAT LUXURIA BHARUCH/EXTERIOR/Nandlav Bharuch Units Gate Side_Cam-a.jpg",
     ],
+
     "featured": false,
     "aspectRatio": "landscape",
     "tags": [
@@ -1121,7 +1265,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "8",
     "slug": "atlantis-bharuch",
     "title": "Atlantis Bharuch",
@@ -1131,8 +1275,15 @@ export const projects: Project[] = [
     "coverImage": "/RESIDENCIAL VILLAS/8. ATLANTIS BHARUCH/EXTERIOR/Atlantis Type-B Gallary_Cam01-v01.jpg",
     "images": [
       "/RESIDENCIAL VILLAS/8. ATLANTIS BHARUCH/EXTERIOR/Atlantis Type-B Gallary_Cam01-v01.jpg",
-      "/RESIDENCIAL VILLAS/8. ATLANTIS BHARUCH/EXTERIOR/Atlantis Type-B Street_Cam01-v01.jpg"
+      "/RESIDENCIAL VILLAS/8. ATLANTIS BHARUCH/EXTERIOR/Atlantis Type-B Street_Cam01-v01.jpg",
+      "/RESIDENCIAL VILLAS/8. ATLANTIS BHARUCH/EXTERIOR/1. Atlantis Type-A Corner_Cam01-v01.jpg",
+      "/RESIDENCIAL VILLAS/8. ATLANTIS BHARUCH/EXTERIOR/Atlantis Garden_Cam01-v01.jpg",
+      "/RESIDENCIAL VILLAS/8. ATLANTIS BHARUCH/EXTERIOR/Atlantis Gate Cam02-v02.jpg",
+      "/RESIDENCIAL VILLAS/8. ATLANTIS BHARUCH/EXTERIOR/Atlantis Top_Cam01-v01.jpg",
+      "/RESIDENCIAL VILLAS/8. ATLANTIS BHARUCH/EXTERIOR/Atlantis Type-A Front_Cam01-a.jpg",
+      "/RESIDENCIAL VILLAS/8. ATLANTIS BHARUCH/EXTERIOR/Atlantis Type-A Night_Cam01-a.jpg",
     ],
+
     "featured": false,
     "aspectRatio": "landscape",
     "tags": [
@@ -1141,7 +1292,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "9",
     "slug": "al-safa-bharuch",
     "title": "Al-Safa Bharuch",
@@ -1153,8 +1304,11 @@ export const projects: Project[] = [
       "/RESIDENCIAL VILLAS/9. AL-SAFA BHARUCH/EXTERIOR/Duplex Furkanbhai Gate_Cam-v01.jpg",
       "/RESIDENCIAL VILLAS/9. AL-SAFA BHARUCH/EXTERIOR/Duplex Furkanbhai Units Corner_Cam-a.jpg",
       "/RESIDENCIAL VILLAS/9. AL-SAFA BHARUCH/EXTERIOR/Duplex Furkanbhai Units Front_Cam-a.jpg",
-      "/RESIDENCIAL VILLAS/9. AL-SAFA BHARUCH/EXTERIOR/Duplex Furkanbhai Units Sitting_Cam-v01.jpg"
+      "/RESIDENCIAL VILLAS/9. AL-SAFA BHARUCH/EXTERIOR/Duplex Furkanbhai Units Sitting_Cam-v01.jpg",
+      "/RESIDENCIAL VILLAS/9. AL-SAFA BHARUCH/EXTERIOR/1. Duplex Furkanbhai Road Left_Cam-a.jpg",
+      "/RESIDENCIAL VILLAS/9. AL-SAFA BHARUCH/EXTERIOR/Duplex Furkanbhai Top_Cam-v01.jpg",
     ],
+
     "featured": false,
     "aspectRatio": "landscape",
     "tags": [
@@ -1163,7 +1317,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "1",
     "slug": "lush-meadow-ekta-nagar",
     "title": "Lush Meadow Ekta Nagar",
@@ -1196,6 +1350,31 @@ export const projects: Project[] = [
     ]
   },
   {
+    "id": "2",
+    "slug": "abhlod-farm-halol",
+    "title": "Abhlod Farm Halol",
+    "category": "Farmhouse",
+    "type": "Exterior",
+    "year": "2024",
+    "location": "HALOL",
+    "coverImage": "/FARMHOUSE/2. ABHLOD FARM HALOL/EXTERIOR/1. 6K_Abhilod Farmhouse Club Pool_Cam-c copy.jpg",
+    "images": [
+      "/FARMHOUSE/2. ABHLOD FARM HALOL/EXTERIOR/1. 6K_Abhilod Farmhouse Club Pool_Cam-c copy.jpg",
+      "/FARMHOUSE/2. ABHLOD FARM HALOL/EXTERIOR/6K_ABHLOD Farm Street Night View-c.jpg",
+      "/FARMHOUSE/2. ABHLOD FARM HALOL/EXTERIOR/6K_ABHLOD Farm Unit Front View-c.jpg",
+      "/FARMHOUSE/2. ABHLOD FARM HALOL/EXTERIOR/6K_ABHLOD Farm Unit Top View-b copy.jpg",
+      "/FARMHOUSE/2. ABHLOD FARM HALOL/EXTERIOR/6K_ABHLOD Farm Unit1-c .jpg",
+      "/FARMHOUSE/2. ABHLOD FARM HALOL/EXTERIOR/6K_Abhilod Farmhouse Club 2nd_Cam-c.jpg",
+      "/FARMHOUSE/2. ABHLOD FARM HALOL/EXTERIOR/6K_Abhilod Farmhouse Club_Cam-c.jpg"
+    ],
+    "featured": false,
+    "aspectRatio": "landscape",
+    "tags": [
+      "farmhouse",
+      "architecture"
+    ]
+  },
+  {
     "id": "3",
     "slug": "vedanta-greens-halol",
     "title": "Vedanta Greens Halol",
@@ -1206,8 +1385,17 @@ export const projects: Project[] = [
     "images": [
       "/FARMHOUSE/3. VEDANTA GREENS HALOL/EXTERIOR/6K_Vedanta Greens 2nd Club House01-c.jpg",
       "/FARMHOUSE/3. VEDANTA GREENS HALOL/EXTERIOR/6K_Vedanta Greens Club House-b.jpg",
-      "/FARMHOUSE/3. VEDANTA GREENS HALOL/EXTERIOR/Vedanta Greens Garden View-b.jpg"
+      "/FARMHOUSE/3. VEDANTA GREENS HALOL/EXTERIOR/Vedanta Greens Garden View-b.jpg",
+      "/FARMHOUSE/3. VEDANTA GREENS HALOL/EXTERIOR/1. Vedanta Greens Unit Cam A_Cam01-c.jpg",
+      "/FARMHOUSE/3. VEDANTA GREENS HALOL/EXTERIOR/6K_Vedanta Greens Entry Gate_Cam01-c.jpg",
+      "/FARMHOUSE/3. VEDANTA GREENS HALOL/EXTERIOR/6K_Vedanta Greens Garden View-c.jpg",
+      "/FARMHOUSE/3. VEDANTA GREENS HALOL/EXTERIOR/6K_Vedanta Greens Top_Cam-b.jpg",
+      "/FARMHOUSE/3. VEDANTA GREENS HALOL/EXTERIOR/6K_Vedanta Greens Unit Cam B_Cam01-c.jpg",
+      "/FARMHOUSE/3. VEDANTA GREENS HALOL/EXTERIOR/6K_Vedanta Greens Unit Cam C_Cam01-c.jpg",
+      "/FARMHOUSE/3. VEDANTA GREENS HALOL/EXTERIOR/6K_Vedanta Greens Unit Cam F_Cam01-c.jpg",
+      "/FARMHOUSE/3. VEDANTA GREENS HALOL/EXTERIOR/Vedanta Greens Emphy Theater View-c copy.jpg",
     ],
+
     "featured": false,
     "aspectRatio": "landscape",
     "tags": [
@@ -1215,17 +1403,16 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "361",
     "slug": "satyam-surya",
-    "title": "Satyam Surya",
+    "title": "Satyam Surya Homes",
     "category": "Virtual Tour",
     "type": "Animation",
     "year": "2024",
     "coverImage": "/360 output/Satyam Surya Homes Kharghar 360_0001.jpg",
     "images": [
       "/360 output/Satyam Surya Homes Kharghar 360_0001.jpg",
-      "/360 output/Satyam Surya Homes Kharghar 360_00011.jpg",
       "/360 output/Satyam Surya Homes Kharghar 360_0002.jpg",
       "/360 output/Satyam Surya Homes Kharghar 360_0003.jpg",
       "/360 output/Satyam Surya Homes Kharghar 360_0004.jpg",
@@ -1235,6 +1422,7 @@ export const projects: Project[] = [
       "/360 output/Satyam Surya Homes Kharghar 360_0008.jpg",
       "/360 output/Satyam Surya Homes Kharghar 360_0009.jpg",
       "/360 output/Satyam Surya Homes Kharghar 360_0010.jpg",
+      "/360 output/Satyam Surya Homes Kharghar 360_00011.jpg",
       "/360 output/Satyam Surya Homes Kharghar 360_0012.jpg",
       "/360 output/Satyam Surya Homes Kharghar 360_0013.jpg",
       "/360 output/Satyam Surya Homes Kharghar 360_0014.jpg",
@@ -1255,7 +1443,7 @@ export const projects: Project[] = [
       "hq"
     ]
   },
-  {
+{
     "id": "22",
     "slug": "royal-luxuria-bharuch",
     "title": "ROYAL LUXURIA BHARUCH",
@@ -1282,7 +1470,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "23",
     "slug": "shyama-icon-vadodara",
     "title": "SHYAMA ICON VADODARA",
@@ -1308,7 +1496,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "24",
     "slug": "the-vista-vadodara",
     "title": "THE VISTA VADODARA",
@@ -1336,7 +1524,7 @@ export const projects: Project[] = [
       "architecture"
     ]
   },
-  {
+{
     "id": "25",
     "slug": "vrundavan-bliss-vadodara",
     "title": "VRUNDAVAN BLISS VADODARA",
@@ -1363,8 +1551,7 @@ export const projects: Project[] = [
       "low-rise",
       "architecture"
     ]
-  }
-];
+  }];
 
 /** Get first project slug for a given category (or first overall if omitted). */
 export function getFirstProjectSlug(category?: string): string | null {
@@ -1388,6 +1575,13 @@ export function getProjectBySlug(slug: string): Project | undefined {
   return projects.find((p) => p.slug === slug);
 }
 
+/** Listing thumbnails from `Thumbnail Source Ready` when mapped; else cover image. */
+export function getProjectListingImage(project: Project): string {
+  const thumb = projectThumbnailBySlug[project.slug];
+  if (thumb) return thumb;
+  return project.coverImage || project.images[0] || "";
+}
+
 /** All unique categories for filter */
 export const categories = [
   "All",
@@ -1395,7 +1589,6 @@ export const categories = [
   "Residential Low Rise",
   "Commercial",
   "Residential Villas",
-  "Walkthrough",
   "Virtual Tour",
   "Farmhouse"
 ] as const;

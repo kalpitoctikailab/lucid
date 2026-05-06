@@ -18,7 +18,7 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 flex h-20 w-full items-center transition-all duration-500",
+        "fixed inset-x-0 top-0 z-50 flex h-24 w-full items-center transition-all duration-500",
         scrolled ? "bg-bg/95 backdrop-blur-md" : "bg-transparent",
       )}
     >
@@ -26,11 +26,11 @@ export function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center">
           <Image
-            src="/Lucid-logo-White.svg"
+            src="/lucid-logo.svg"
             alt="Lucid The Artistry"
             width={180}
-            height={48}
-            className="h-12 w-auto brightness-0 invert"
+            height={64}
+            className="h-16 w-auto brightness-0 invert"
           />
         </Link>
 

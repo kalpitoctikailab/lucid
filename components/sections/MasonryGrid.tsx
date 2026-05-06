@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import type { Project } from "@/data/projects";
+import { getProjectListingImage, type Project } from "@/data/projects";
 
 type MasonryGridProps = {
   projects: Project[];
@@ -35,7 +35,7 @@ function MasonryCard({ project, index }: { project: Project; index: number }) {
         {/* ── FRONT ── */}
         <div className="absolute inset-0 overflow-hidden backface-hidden">
           <Image
-            src={project.coverImage}
+            src={getProjectListingImage(project)}
             alt={project.title}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"

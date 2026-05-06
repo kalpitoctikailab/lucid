@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import type { Project } from "@/data/projects";
+import { getProjectListingImage, type Project } from "@/data/projects";
 import { cn } from "@/lib/utils";
 
 type ProjectCardProps = {
@@ -49,7 +49,7 @@ export function ProjectCard({
         )}
       >
         <Image
-          src={project.coverImage}
+          src={getProjectListingImage(project)}
           alt={project.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

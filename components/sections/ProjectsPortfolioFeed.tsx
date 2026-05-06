@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import type { Project } from "@/data/projects";
+import { getProjectListingImage, type Project } from "@/data/projects";
 
 type ProjectsPortfolioFeedProps = {
   projects: Project[];
@@ -13,7 +13,7 @@ function ProjectCard({ project }: { project: Project }) {
     <Link href={`/projects/${project.slug}`} className="group block w-full" data-cursor="view">
       <div className="relative h-[770px] w-full min-w-0 overflow-hidden">
         <Image
-          src={project.coverImage}
+          src={getProjectListingImage(project)}
           alt={project.title}
           fill
           sizes="(max-width: 768px) 100vw, 580px"

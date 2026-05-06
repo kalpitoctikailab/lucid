@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
-import { featuredProjects } from "@/data/projects";
+import { featuredProjects, getProjectListingImage } from "@/data/projects";
 import { cn } from "@/lib/utils";
 
 export function HeroGrid() {
@@ -123,7 +123,7 @@ export function HeroGrid() {
           >
             <Link href={`/projects/${project.slug}`} className="block h-full w-full">
               <Image
-                src={project.coverImage}
+                src={getProjectListingImage(project)}
                 alt={project.title}
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"

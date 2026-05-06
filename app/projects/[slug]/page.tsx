@@ -708,7 +708,7 @@ export default function ProjectPage() {
       />
 
       {/* ── 2. Main Image + Text Split ── */}
-      <section className="mx-auto max-w-300 px-4 sm:px-6 lg:px-12 py-16 md:py-24">
+      <section className="mx-auto max-w-300 px-4 sm:px-6 lg:px-0 py-16 md:py-24">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16 items-center">
 
           {/* Left — main cover image */}
@@ -786,7 +786,7 @@ export default function ProjectPage() {
       </section>
 
       {/* ── 3. Gallery ── */}
-      <section className="mx-auto max-w-300 px-4 sm:px-6 lg:px-12 pb-16 md:pb-24">
+      <section className="mx-auto max-w-300 px-4 sm:px-6 lg:px-0 pb-16 md:pb-24">
         <SmartMasonryGallery images={project.images} title={project.title} />
       </section>
 

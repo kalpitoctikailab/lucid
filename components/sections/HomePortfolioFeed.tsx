@@ -67,7 +67,7 @@ function InlineVideoCard({
 
   return (
     <div className="w-full cursor-pointer" onClick={toggle}>
-      <div className="relative h-[770px] w-full overflow-hidden">
+      <div className="relative w-full overflow-hidden" style={{ aspectRatio: "16/9" }}>
         {src ? (
           <video
             ref={videoRef}
@@ -124,7 +124,7 @@ function PortfolioGroup({
 }) {
   return (
     <div className="flex flex-col gap-6 sm:gap-8">
-      <div className="grid grid-cols-2 gap-4 sm:gap-6">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
         <CategoryImageCard card={left} />
         <CategoryImageCard card={right} />
       </div>
@@ -281,7 +281,7 @@ export function HomePortfolioFeed({ cinematicProject }: Props) {
       {/* ── Cinematic Section — full-width so sticky works, video constrained inside ── */}
       <CinematicSection project={cinematicProject} />
 
-      <div className="mx-auto max-w-[1200px] px-4 sm:px-8 md:px-12 lg:px-0 flex flex-col gap-16 sm:gap-20">
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-8 md:px-12 lg:px-0 flex flex-col gap-16 pt-20 sm:gap-20 sm:pt-28">
 
         <PortfolioGroup left={c4} right={c5} video={v2} />
 

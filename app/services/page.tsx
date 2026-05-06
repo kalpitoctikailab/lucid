@@ -210,19 +210,19 @@ export default function ServicesPage() {
       <Navbar />
 
       {/* ── Slider Section ───────────────────────────────────────── */}
-      <section className="overflow-hidden pt-32 pb-20 md:pt-48 md:pb-28">
+      <section className="overflow-hidden pt-20 pb-14 sm:pt-28 sm:pb-20 md:pt-36 md:pb-24 lg:pt-48 lg:pb-28">
         <div className="mx-auto max-w-[1200px] px-4 sm:px-8 md:px-12 lg:px-0">
 
-          {/* Heading — mirrors home page h1 scale and weight */}
-          <div className="mb-12 md:mb-16">
+          {/* Heading */}
+          <div className="mb-10 md:mb-16">
             <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.35em] text-white/50">
               What We Do
             </p>
-            <h1 className="font-heading text-5xl font-light leading-[1.05] tracking-tight text-white md:text-7xl lg:text-8xl">
+            <h1 className="font-heading text-3xl font-light leading-[1.05] tracking-tight text-white sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl">
               Services &amp; solutions{" "}
               <span className="italic text-white/50">we offer.</span>
             </h1>
-            <p className="mt-6 max-w-lg text-sm font-light leading-relaxed tracking-wide text-white/60 md:text-base">
+            <p className="mt-4 max-w-lg text-sm font-light leading-relaxed tracking-wide text-white/60 sm:mt-6 md:text-base">
               We work with creative teams and ambitious founders to turn vision
               into product — with intuitive UX, standout visuals, and seamless
               digital experiences that users remember.

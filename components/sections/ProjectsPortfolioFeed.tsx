@@ -29,15 +29,15 @@ function ProjectCard({ project }: { project: Project }) {
 
 export function ProjectsPortfolioFeed({ projects }: ProjectsPortfolioFeedProps) {
   return (
-    <section className="bg-bg pt-10 pb-20">
-      <div className="mx-auto max-w-[1200px] px-4 sm:px-8 md:px-12 lg:px-0 flex flex-col gap-6 sm:gap-8">
+    <section className="bg-bg">
+      <div className="mx-auto max-w-[1200px] xl:px-0 flex flex-col gap-6 sm:gap-8">
         {projects.length === 0 ? (
           <p className="py-16 text-center text-sm uppercase tracking-[0.2em] text-white/50">
             No projects found in this category.
           </p>
         ) : (
           <>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-6">
               {projects.map((project) => (
                 <ProjectCard key={project.slug} project={project} />
               ))}

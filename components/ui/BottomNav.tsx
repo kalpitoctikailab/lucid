@@ -71,7 +71,7 @@ export function BottomNav() {
         {open && (
           <motion.div
             key="panel"
-            className="w-[340px] sm:w-[380px] rounded-2xl bg-[#1a1a1a] overflow-hidden flex flex-col"
+            className="w-[90vw] max-w-[340px] sm:max-w-[380px] rounded-2xl bg-[#1a1a1a] overflow-hidden flex flex-col"
             initial={{ opacity: 0, y: 24, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.96 }}

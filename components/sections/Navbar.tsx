@@ -18,11 +18,11 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 flex h-24 w-full items-center transition-all duration-500",
+        "fixed inset-x-0 top-0 z-50 flex h-16 w-full items-center transition-all duration-500 sm:h-20 md:h-24",
         scrolled ? "bg-bg/95 backdrop-blur-md" : "bg-transparent",
       )}
     >
-      <div className="mx-auto flex w-full max-w-[1200px] items-center justify-between px-4 sm:px-0">
+      <div className="mx-auto flex w-full max-w-[1200px] items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
         <Link href="/" className="flex items-center">
           <Image
@@ -30,14 +30,14 @@ export function Navbar() {
             alt="Lucid The Artistry"
             width={180}
             height={64}
-            className="h-16 w-auto brightness-0 invert"
+            className="h-10 w-auto brightness-0 invert sm:h-12 md:h-16"
           />
         </Link>
 
         {/* Get a Quote */}
         <Link
           href="/contact#quote"
-          className="rounded-full border border-white/70 px-5 py-2.5 text-xs font-medium uppercase tracking-widest text-white transition-all duration-300 hover:bg-white hover:text-bg"
+          className="rounded-full border border-white/70 px-4 py-2 text-[10px] font-medium uppercase tracking-widest text-white transition-all duration-300 hover:bg-white hover:text-bg sm:px-5 sm:py-2.5 sm:text-xs"
         >
           Get a Quote →
         </Link>

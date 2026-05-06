@@ -174,3 +174,12 @@ body {
   display: block;
   margin-bottom: 1rem;
 }
+
+/* Hide scrollbar for horizontal snap scroll (process section mobile) */
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}

@@ -30,8 +30,8 @@ function ProjectsContent() {
       <Navbar />
 
       {/* Cinematic Hero Banner */}
-      <section className="relative z-0 h-screen flex items-center justify-center overflow-hidden bg-bg px-4 pt-28 pb-8 sm:px-8 md:px-12 lg:px-16">
-        <div className="relative aspect-16/7 w-full max-w-[1200px] overflow-hidden">
+      <section className="relative z-0 flex items-center justify-center overflow-hidden bg-bg px-4 pt-20 pb-6 sm:px-6 sm:pt-24 md:pt-28 lg:px-8" style={{ minHeight: "60vh" }}>
+        <div className="relative w-full max-w-[1200px] overflow-hidden" style={{ aspectRatio: "16/7" }}>
           <motion.div
             initial={{ scale: 1.1, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -52,16 +52,16 @@ function ProjectsContent() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.5 }}
-              className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center"
+              className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center sm:p-8"
             >
-              <div className="flex items-center gap-6 mb-6">
-                <div className="h-px w-8 md:w-16 bg-accent" />
-                <span className="text-[10px] md:text-xs font-medium uppercase tracking-[0.4em] text-accent">
+              <div className="flex items-center gap-4 mb-4 sm:gap-6 sm:mb-6">
+                <div className="h-px w-6 bg-accent sm:w-16" />
+                <span className="text-[9px] sm:text-[10px] md:text-xs font-medium uppercase tracking-[0.4em] text-accent">
                   Portfolio
                 </span>
-                <div className="h-px w-8 md:w-16 bg-accent" />
+                <div className="h-px w-6 bg-accent sm:w-16" />
               </div>
-              <h1 className="font-heading text-6xl font-light text-white md:text-8xl lg:text-[8rem] tracking-tight">
+              <h1 className="font-heading text-3xl font-light text-white sm:text-5xl md:text-6xl lg:text-[8rem] tracking-tight">
                 {filter !== "All" ? filter : "Selected Works"}
               </h1>
             </motion.div>
@@ -69,7 +69,7 @@ function ProjectsContent() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-[1920px] px-4 sm:px-6 lg:px-12 pb-32">
+      <div className="mx-auto max-w-[1920px] px-4 sm:px-6 lg:px-8 pb-32">
         <div className="mb-4 flex justify-center">
           <FilterBar active={filter} onFilter={setFilter} />
         </div>

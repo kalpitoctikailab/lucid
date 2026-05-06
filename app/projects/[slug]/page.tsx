@@ -571,17 +571,19 @@ function SmartMasonryGallery({ images, title }: { images: string[]; title: strin
         {rows.map((row, rowIdx) => {
           // Determine grid columns based on total colSpan
           const totalSpan = row.reduce((sum, r) => sum + r.colSpan, 0);
+          // On mobile: always 1 column. On sm+: use the actual multi-column layout
           const gridCols =
-            totalSpan === 3 ? "grid-cols-3" :
-            totalSpan === 2 ? "grid-cols-2" :
+            totalSpan === 3 ? "grid-cols-1 sm:grid-cols-3" :
+            totalSpan === 2 ? "grid-cols-1 sm:grid-cols-2" :
             "grid-cols-1";
 
           return (
             <div key={rowIdx} className={`grid ${gridCols} gap-3 md:gap-4`}>
               {row.map(({ item, colSpan }, itemIdx) => {
+                // On mobile all items are full width; on sm+ use actual colSpan
                 const spanClass =
-                  colSpan === 3 ? "col-span-3" :
-                  colSpan === 2 ? "col-span-2" :
+                  colSpan === 3 ? "col-span-1 sm:col-span-3" :
+                  colSpan === 2 ? "col-span-1 sm:col-span-2" :
                   "col-span-1";
 
                 return (

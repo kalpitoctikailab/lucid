@@ -38,26 +38,26 @@ export default function BrochuresPage() {
     <main className="min-h-screen bg-bg">
       <Navbar />
 
-      <section className="pt-40 pb-32 md:pt-56 md:pb-48">
+      <section className="pb-16 pt-24 sm:pt-32 md:pt-40 md:pb-24 lg:pt-56 lg:pb-32">
         <div className="mx-auto max-w-[1920px] px-4 sm:px-6 lg:px-12">
           
-          <div className="mb-24 md:mb-40">
-            <h1 className="font-heading text-6xl font-light leading-[1.05] tracking-tight text-text-primary md:text-8xl xl:text-[9rem]">
+          <div className="mb-12 md:mb-24 lg:mb-40">
+            <h1 className="font-heading text-4xl font-light leading-[1.05] tracking-tight text-text-primary sm:text-5xl md:text-6xl lg:text-8xl xl:text-[9rem]">
               Digital <br />
               <span className="italic text-accent">Editions.</span>
             </h1>
           </div>
 
-          <div className="flex flex-col space-y-24 md:space-y-32">
+          <div className="flex flex-col space-y-16 md:space-y-24 lg:space-y-32">
             {brochures.map((item, idx) => (
-              <div key={item.id} className="group flex flex-col items-center gap-12 lg:flex-row lg:gap-24">
+              <div key={item.id} className="group flex flex-col items-center gap-8 sm:gap-12 lg:flex-row lg:gap-24">
                 
                 {/* Number / Metadata */}
                 <div className="w-full lg:w-1/4">
                   <span className="text-xs font-medium tabular-nums text-accent tracking-widest block mb-4">
                     NO. 0{idx + 1}
                   </span>
-                  <div className="h-px w-full bg-border/20 mb-8" />
+                  <div className="h-px w-full bg-border/20 mb-6 sm:mb-8" />
                   <span className="text-xs font-light text-text-muted">PDF / {item.size}</span>
                 </div>
 
@@ -74,7 +74,7 @@ export default function BrochuresPage() {
                   
                   {/* Download Action */}
                   <a href="#" className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-700 group-hover:opacity-100">
-                    <span className="flex h-24 w-24 items-center justify-center rounded-full border border-white/30 bg-black/30 backdrop-blur-md text-white">
+                    <span className="flex h-20 w-20 items-center justify-center rounded-full border border-white/30 bg-black/30 backdrop-blur-md text-white sm:h-24 sm:w-24">
                       <span className="text-xs font-medium uppercase tracking-[0.2em]">DL</span>
                     </span>
                   </a>
@@ -82,10 +82,10 @@ export default function BrochuresPage() {
 
                 {/* Title */}
                 <div className="w-full lg:w-1/4">
-                  <h2 className="font-heading text-4xl font-light text-text-primary md:text-5xl group-hover:text-accent transition-colors">
+                  <h2 className="font-heading text-3xl font-light text-text-primary transition-colors group-hover:text-accent sm:text-4xl md:text-5xl">
                     {item.title}
                   </h2>
-                  <p className="mt-6 text-lg font-light text-text-muted leading-relaxed">
+                  <p className="mt-4 text-base font-light text-text-muted leading-relaxed sm:mt-6 sm:text-lg">
                     {item.description}
                   </p>
                 </div>

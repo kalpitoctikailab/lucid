@@ -52,7 +52,7 @@ export function HeroBanner() {
   return (
     <section
       ref={sectionRef}
-      className="relative z-0 h-screen flex items-center justify-center overflow-hidden bg-bg px-4 pt-28 pb-8 sm:px-8 md:px-12 lg:px-16"
+      className="relative z-0 h-screen flex items-center justify-center overflow-hidden bg-bg px-4 pt-16 pb-6 sm:px-8 sm:pt-20 md:px-12 md:pt-24 lg:px-16"
     >
       <div className="relative aspect-16/7 w-full max-w-[1200px] overflow-hidden">
         <motion.div

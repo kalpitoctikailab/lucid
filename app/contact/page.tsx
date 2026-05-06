@@ -9,9 +9,9 @@ export default function ContactPage() {
     <main className="min-h-screen bg-bg">
       <Navbar />
 
-      <section className="min-h-screen flex flex-col lg:flex-row">
-        {/* Left Side: Massive Image dominating the layout */}
-        <div className="lg:w-3/5 relative h-[50vh] lg:h-screen w-full">
+      <section className="flex min-h-screen flex-col lg:flex-row">
+        {/* Left Side: Image */}
+        <div className="relative h-[40vh] w-full lg:h-screen lg:w-3/5">
             <Image
               src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2400&q=80"
               alt="Studio aesthetics"
@@ -19,9 +19,8 @@ export default function ContactPage() {
               sizes="(max-width: 1024px) 100vw, 60vw"
               className="absolute inset-0 h-full w-full object-cover"
             />
-            {/* Embedded huge text over the image */}
-            <div className="absolute inset-0 bg-black/30 flex items-center justify-center p-8">
-               <h1 className="font-heading text-6xl font-light leading-[1.05] tracking-tight text-white md:text-8xl xl:text-[9rem] text-center">
+            <div className="absolute inset-0 bg-black/30 flex items-center justify-center p-6 sm:p-8">
+               <h1 className="font-heading text-4xl font-light leading-[1.05] tracking-tight text-white text-center sm:text-5xl md:text-6xl lg:text-7xl xl:text-[9rem]">
                 Let's <br />
                 <span className="italic">Connect.</span>
               </h1>
@@ -29,24 +28,24 @@ export default function ContactPage() {
         </div>
 
         {/* Right Side: Contact Form and Info */}
-        <div className="lg:w-2/5 flex flex-col justify-center px-8 py-24 md:px-16 lg:px-24 xl:px-32 bg-bg">
+        <div className="flex flex-col justify-center bg-bg px-6 py-12 sm:px-10 sm:py-16 md:px-16 lg:w-2/5 lg:px-24 xl:px-32">
            
-           <div className="mb-16 space-y-8">
+           <div className="mb-10 space-y-6 sm:mb-16 sm:space-y-8">
               <div>
                 <h3 className="text-[10px] font-medium uppercase tracking-[0.25em] text-text-muted mb-2">Email</h3>
-                <a href="mailto:lucidtheartistry@gmail.com" className="text-xl font-light text-text-primary hover:text-accent transition-colors">
+                <a href="mailto:lucidtheartistry@gmail.com" className="text-lg font-light text-text-primary hover:text-accent transition-colors sm:text-xl">
                   lucidtheartistry@gmail.com
                 </a>
               </div>
               <div>
                 <h3 className="text-[10px] font-medium uppercase tracking-[0.25em] text-text-muted mb-2">Phone</h3>
-                <a href="tel:+919925004245" className="text-xl font-light text-text-primary hover:text-accent transition-colors">
+                <a href="tel:+919925004245" className="text-lg font-light text-text-primary hover:text-accent transition-colors sm:text-xl">
                   +91 99250 04245
                 </a>
               </div>
            </div>
 
-           <form className="space-y-12" onSubmit={(e) => e.preventDefault()}>
+           <form className="space-y-10 sm:space-y-12" onSubmit={(e) => e.preventDefault()}>
             <div className="relative">
               <input
                 type="text"

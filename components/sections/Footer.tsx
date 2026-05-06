@@ -17,7 +17,7 @@ const pageLinks = [
 
 export function Footer() {
   return (
-    <footer className="relative h-[420px] sm:h-[480px] overflow-hidden bg-bg">
+    <footer className="relative min-h-[320px] sm:h-[420px] md:h-[480px] overflow-hidden bg-bg">
 
       {/* Background image */}
       <div
@@ -32,7 +32,7 @@ export function Footer() {
       <div className="absolute inset-0 bg-black/60" />
 
       {/* Giant watermark text */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
         <span
           className="text-[13vw] sm:text-[10vw] font-bold uppercase tracking-tight text-white/15 whitespace-nowrap leading-none"
           aria-hidden
@@ -42,11 +42,11 @@ export function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="absolute bottom-0 left-0 right-0 ">
-        <div className="flex items-center justify-between px-6 sm:px-10 py-10 gap-4">
+      <div className="absolute bottom-0 left-0 right-0">
+        <div className="flex flex-col gap-4 px-4 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-10">
 
-          {/* Social links — left */}
-          <div className="flex items-center gap-4 sm:gap-6">
+          {/* Social links */}
+          <div className="flex flex-wrap items-center gap-3 sm:gap-6">
             {socials.map((s) => (
               <a
                 key={s.label}
@@ -60,8 +60,8 @@ export function Footer() {
             ))}
           </div>
 
-          {/* Page links — right */}
-          <div className="flex items-center gap-4 sm:gap-6">
+          {/* Page links */}
+          <div className="flex flex-wrap items-center gap-3 sm:gap-6">
             {pageLinks.map((p) => (
               <Link
                 key={p.href}

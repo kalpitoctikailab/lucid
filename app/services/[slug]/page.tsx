@@ -206,13 +206,12 @@ function ProcessSection({ slug }: { slug: string }) {
   // Total slides: 1 intro + (1 asset + 1 step) × steps.length
   const totalSlides = 1 + steps.length * 2;
 
-  // Horizontal scroll driven by vertical scroll
+  // Horizontal scroll driven by vertical scroll (desktop only)
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
   });
 
-  // Progress bar width
   const progressWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   const x = useTransform(
@@ -221,116 +220,171 @@ function ProcessSection({ slug }: { slug: string }) {
     ["0vw", `-${(totalSlides - 1) * 100}vw`]
   );
 
-  return (
-    // Outer wrapper: tall enough to drive the scroll
-    <div
-      ref={sectionRef}
-      style={{ height: `${totalSlides * 100}svh` }}
-      className="relative"
-    >
-      {/* Sticky container */}
-      <div className="sticky top-0 h-svh overflow-hidden bg-bg">
+  // ── Shared slide content ──────────────────────────────────────
+  const introSlide = (
+    <div className="flex h-full w-screen shrink-0 flex-col justify-center bg-bg px-6 py-16 sm:px-10 lg:px-16">
+      <div className="max-w-3xl">
+        <h2 className="font-heading text-2xl font-light leading-[1.05] tracking-tight text-white sm:text-3xl md:text-4xl whitespace-pre-line mb-4 sm:mb-6">
+          Built with vision{"\n"}Finished with care
+        </h2>
+        <p className="text-xs font-light leading-relaxed text-white/60 sm:text-sm md:text-base max-w-md">
+          At Lucid The Artistry, every project follows a clear and refined process. Ensuring precision, transparency, and peace of mind from start to finish.
+        </p>
+      </div>
+    </div>
+  );
 
-        {/* Progress bar */}
-        <div className="absolute top-0 left-0 right-0 h-px bg-white/10 z-10">
-          <motion.div
-            className="absolute inset-y-0 left-0 bg-white/60"
-            style={{ width: progressWidth }}
-          />
+  const stepSlides = steps.flatMap((step, i) => [
+    // Asset slide
+    <div key={`asset-${i}`} className="relative flex h-full w-screen shrink-0 items-center justify-center overflow-hidden">
+      <Image
+        src={step.assetImage}
+        alt={`Process step ${i + 1} asset`}
+        fill
+        sizes="100vw"
+        className="object-cover"
+      />
+      <div className="absolute inset-0 bg-black/20" />
+    </div>,
+
+    // Step slide
+    <div key={`step-${i}`} className="relative flex h-full w-screen shrink-0 items-center">
+      <div className="relative w-1/2 h-full flex items-center justify-center px-6 sm:px-10 lg:px-16">
+        <div className="relative w-full max-w-md">
+          <div className="relative w-[280px] h-[350px] overflow-hidden">
+            <Image src={step.img1} alt={`${step.step} image 1`} fill sizes="280px" className="object-cover" />
+          </div>
+          <div className="absolute bottom-0 right-0 w-[200px] h-[250px] overflow-hidden translate-x-8 translate-y-4">
+            <Image src={step.img2} alt={`${step.step} image 2`} fill sizes="200px" className="object-cover" />
+          </div>
         </div>
+      </div>
+      <div className="relative z-10 flex h-full w-1/2 flex-col justify-center px-6 sm:px-10 lg:px-16">
+        <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.35em] text-white/40">{step.step}</p>
+        <h3 className="font-heading text-3xl font-light leading-[1.05] tracking-tight text-white sm:text-4xl md:text-5xl whitespace-pre-line mb-6">{step.heading}</h3>
+        <p className="text-sm font-light leading-relaxed text-white/60 max-w-md sm:text-base">{step.text}</p>
+      </div>
+      <div className="absolute bottom-10 right-10 text-[11px] font-medium tabular-nums tracking-[0.2em] text-white/25">
+        {String(i + 1).padStart(2, "0")} / {String(steps.length).padStart(2, "0")}
+      </div>
+    </div>,
+  ]);
 
-        {/* Section label — top-left */}
-        <div className="absolute top-10 left-6 sm:left-10 z-10">
-          <p className="text-[10px] font-medium uppercase tracking-[0.35em] text-white/40">
-            Our Process
+  return (
+    <>
+      {/* ── Mobile / Tablet: normal vertical stack ── */}
+      <div className="lg:hidden bg-bg px-4 py-12 sm:px-6">
+        <p className="mb-10 text-[10px] font-medium uppercase tracking-[0.35em] text-white/40">Our Process</p>
+
+        {/* Intro */}
+        <div className="mb-12">
+          <h2 className="font-heading text-2xl font-light leading-[1.05] tracking-tight text-white sm:text-3xl whitespace-pre-line mb-4">
+            Built with vision{"\n"}Finished with care
+          </h2>
+          <p className="text-sm font-light leading-relaxed text-white/60 max-w-md">
+            At Lucid The Artistry, every project follows a clear and refined process. Ensuring precision, transparency, and peace of mind from start to finish.
           </p>
         </div>
 
-        {/* Horizontal strip */}
-        <motion.div
-          className="flex h-full"
-          style={{ x, width: `${totalSlides * 100}vw` }}
-        >
-          {/* Intro — 6% of total strip (original); responsive padding + type scale only */}
-          <div className="relative flex h-full w-[6%] shrink-0 min-w-0 flex-col justify-center bg-bg px-2 py-10 sm:px-3 sm:py-12 md:px-4 md:py-0 lg:px-5 xl:px-6">
-            <div className="max-w-3xl">
-              <h2 className="font-heading text-2xl font-light leading-[1.05] tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl whitespace-pre-line mb-4 sm:mb-6">
-                Built with vision{"\n"}Finished with care
-              </h2>
-              <p className="text-xs font-light leading-relaxed text-white/60 sm:text-sm md:text-base max-w-md">
-                At Lucid The Artistry, every project follows a clear and refined process. Ensuring precision, transparency, and peace of mind from start to finish.
-              </p>
-            </div>
-          </div>
-
-          {/* For each step: asset slide + step slide */}
+        {/* Steps */}
+        <div className="flex flex-col gap-16">
           {steps.map((step, i) => (
-            <div key={i} className="contents">
-              {/* Asset slide (full-width image) */}
-              <div className="relative flex h-full w-screen shrink-0 items-center justify-center overflow-hidden">
+            <div key={i} className="flex flex-col gap-6">
+              {/* Asset image — full width */}
+              <div className="relative w-full overflow-hidden" style={{ aspectRatio: "16/9" }}>
                 <Image
                   src={step.assetImage}
-                  alt={`Process step ${i + 1} asset`}
+                  alt={`Process step ${i + 1}`}
                   fill
                   sizes="100vw"
                   className="object-cover"
                 />
-                {/* Dark overlay for readability */}
                 <div className="absolute inset-0 bg-black/20" />
               </div>
 
-              {/* Step slide */}
-              <div className="relative flex h-full w-screen shrink-0 items-center">
-                {/* Left: two overlapping portrait images */}
-                <div className="relative w-1/2 h-full flex items-center justify-center px-6 sm:px-10 lg:px-16">
-                  <div className="relative w-full max-w-md">
-                    {/* Large image (top-left) */}
-                    <div className="relative w-[280px] h-[350px] overflow-hidden">
-                      <Image
-                        src={step.img1}
-                        alt={`${step.step} image 1`}
-                        fill
-                        sizes="280px"
-                        className="object-cover"
-                      />
-                    </div>
-                    
-                    {/* Small image (overlapping bottom-right) */}
-                    <div className="absolute bottom-0 right-0 w-[200px] h-[250px] overflow-hidden translate-x-8 translate-y-4">
-                      <Image
-                        src={step.img2}
-                        alt={`${step.step} image 2`}
-                        fill
-                        sizes="200px"
-                        className="object-cover"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Right: step text */}
-                <div className="relative z-10 flex h-full w-1/2 flex-col justify-center px-6 sm:px-10 lg:px-16">
-                  <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.35em] text-white/40">
-                    {step.step}
-                  </p>
-                  <h3 className="font-heading text-4xl font-light leading-[1.05] tracking-tight text-white md:text-5xl lg:text-6xl whitespace-pre-line mb-6">
-                    {step.heading}
-                  </h3>
-                  <p className="text-base font-light leading-relaxed text-white/60 max-w-md">
-                    {step.text}
-                  </p>
-                </div>
-
-                {/* Step counter — bottom right */}
-                <div className="absolute bottom-10 right-10 text-[11px] font-medium tabular-nums tracking-[0.2em] text-white/25">
+              {/* Step text */}
+              <div>
+                <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.35em] text-white/40">{step.step}</p>
+                <h3 className="font-heading text-2xl font-light leading-[1.05] tracking-tight text-white sm:text-3xl whitespace-pre-line mb-4">{step.heading}</h3>
+                <p className="text-sm font-light leading-relaxed text-white/60">{step.text}</p>
+                <p className="mt-4 text-[11px] font-medium tabular-nums tracking-[0.2em] text-white/25">
                   {String(i + 1).padStart(2, "0")} / {String(steps.length).padStart(2, "0")}
-                </div>
+                </p>
               </div>
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
-    </div>
+
+      {/* ── Desktop: sticky vertical-scroll-driven horizontal animation ── */}
+      <div
+        ref={sectionRef}
+        style={{ height: `${totalSlides * 100}svh` }}
+        className="relative hidden lg:block"
+      >
+        <div className="sticky top-0 h-svh overflow-hidden bg-bg">
+          {/* Progress bar */}
+          <div className="absolute top-0 left-0 right-0 h-px bg-white/10 z-10">
+            <motion.div className="absolute inset-y-0 left-0 bg-white/60" style={{ width: progressWidth }} />
+          </div>
+
+          {/* Section label */}
+          <div className="absolute top-10 left-10 z-10">
+            <p className="text-[10px] font-medium uppercase tracking-[0.35em] text-white/40">Our Process</p>
+          </div>
+
+          {/* Horizontal strip */}
+          <motion.div
+            className="flex h-full"
+            style={{ x, width: `${totalSlides * 100}vw` }}
+          >
+            {/* Intro */}
+            <div className="relative flex h-full w-[6%] shrink-0 min-w-0 flex-col justify-center bg-bg px-5 xl:px-6">
+              <div className="max-w-3xl">
+                <h2 className="font-heading text-5xl font-light leading-[1.05] tracking-tight text-white xl:text-6xl 2xl:text-7xl whitespace-pre-line mb-6">
+                  Built with vision{"\n"}Finished with care
+                </h2>
+                <p className="text-sm font-light leading-relaxed text-white/60 max-w-md md:text-base">
+                  At Lucid The Artistry, every project follows a clear and refined process. Ensuring precision, transparency, and peace of mind from start to finish.
+                </p>
+              </div>
+            </div>
+
+            {steps.map((step, i) => (
+              <div key={i} className="contents">
+                {/* Asset slide */}
+                <div className="relative flex h-full w-screen shrink-0 items-center justify-center overflow-hidden">
+                  <Image src={step.assetImage} alt={`Process step ${i + 1} asset`} fill sizes="100vw" className="object-cover" />
+                  <div className="absolute inset-0 bg-black/20" />
+                </div>
+
+                {/* Step slide */}
+                <div className="relative flex h-full w-screen shrink-0 items-center">
+                  <div className="relative w-1/2 h-full flex items-center justify-center px-16">
+                    <div className="relative w-full max-w-md">
+                      <div className="relative w-[280px] h-[350px] overflow-hidden">
+                        <Image src={step.img1} alt={`${step.step} image 1`} fill sizes="280px" className="object-cover" />
+                      </div>
+                      <div className="absolute bottom-0 right-0 w-[200px] h-[250px] overflow-hidden translate-x-8 translate-y-4">
+                        <Image src={step.img2} alt={`${step.step} image 2`} fill sizes="200px" className="object-cover" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="relative z-10 flex h-full w-1/2 flex-col justify-center px-16">
+                    <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.35em] text-white/40">{step.step}</p>
+                    <h3 className="font-heading text-4xl font-light leading-[1.05] tracking-tight text-white lg:text-5xl xl:text-6xl whitespace-pre-line mb-6">{step.heading}</h3>
+                    <p className="text-base font-light leading-relaxed text-white/60 max-w-md">{step.text}</p>
+                  </div>
+                  <div className="absolute bottom-10 right-10 text-[11px] font-medium tabular-nums tracking-[0.2em] text-white/25">
+                    {String(i + 1).padStart(2, "0")} / {String(steps.length).padStart(2, "0")}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </div>
+    </>
   );
 }
 
@@ -354,7 +408,9 @@ function ProjectGrid({ slug }: { slug: string }) {
   if (filtered.length === 0) return null;
 
   return (
-    <ProjectsPortfolioFeed projects={filtered} />
+    <div className="px-4 sm:px-6 lg:px-8 pb-20">
+      <ProjectsPortfolioFeed projects={filtered} />
+    </div>
   );
 }
 
@@ -414,7 +470,7 @@ export default function ServicePage() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-          className="absolute inset-0 flex flex-col justify-end p-8 pb-16 md:p-16 "
+          className="absolute inset-0 flex flex-col justify-end p-4 pb-4 md:p-16 "
         >
           <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.35em] text-white/60">
             Our Services
